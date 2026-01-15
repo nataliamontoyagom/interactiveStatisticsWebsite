@@ -1,0 +1,6 @@
+---
+title: "Práctica 2"
+subtitle: "Estadística descriptiva con una variable"
+format: html
+---
+

@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+
+website: 
+  title: "Estadística con R y RStudio"
+  navbar:
+    left: 
+      - text: Inicio
+        href: index.qmd
+        
+      - text: Prácticas con R y RStudio
+        menu: 
+          - text: Práctica 1
+            href: practica1.qmd
+          - text: Práctica 2
+            href: practica2.qmd
+          - text: Práctica 3
+            href: practica3.qmd
+          - text: Práctica 4
+            href: practica4.qmd
+          - text: Práctica 5
+            href: practica5.qmd
+          - text: Práctica 6
+            href: practica6.qmd
+        
+      - text: Sobre mí
+        href: about.qmd
+        
+    tools:
+      - icon: github
+        href: https://github.com/nataliamontoyagom/interactiveStatisticsWebsite
+
+format:
+  html:
+    theme: default
+    respect-user-color-scheme: true

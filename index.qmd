@@ -1,0 +1,8 @@
+---
+title: "Estadística"
+format: 
+  html: default
+editor: visual
+---
+
+This is a simple website.

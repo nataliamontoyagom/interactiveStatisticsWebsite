@@ -1,0 +1,6 @@
+---
+title: "Práctica 1"
+subtitle: "Introducción a R y RStudio"
+format: html
+---
+

@@ -1,0 +1,6 @@
+---
+title: "Práctica 4"
+subtitle: "Informe de estadística descriptiva"
+format: html
+---
+

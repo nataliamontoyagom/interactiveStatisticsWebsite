@@ -1,0 +1,6 @@
+---
+title: "Práctica 6"
+subtitle: "Variables aleatorias y distribuciones continuas"
+format: html
+---
+
