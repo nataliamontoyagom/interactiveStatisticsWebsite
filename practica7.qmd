@@ -1,0 +1,6 @@
+---
+title: "Práctica 7"
+subtitle: "Intervalos de confianza para parámetros"
+format: html
+---
+

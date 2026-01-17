@@ -1,8 +1,8 @@
 ---
 title: "Estadística"
-format: 
-  html: default
-editor: visual
+format: html
 ---
 
-This is a simple website.
+En esta página se recopilan los recursos didácticos elaborados por José Ramón Hilera González, recursos prácticos sobre la materia de Estadística, que incluye las prácticas que se van desarrollando a lo largo del curso de la materia.
+
+Se desarrollan prácticas con R y RStudio para aprender a realizar cálculos estadísticos.

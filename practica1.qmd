@@ -1,6 +1,375 @@
 ---
 title: "Práctica 1"
 subtitle: "Introducción a R y RStudio"
-format: html
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Índice"
 ---
+
+## Introducción
+
+Con esta práctica se pretende aprender a usar la herramienta [RStudio](https://es.wikipedia.org/wiki/RStudio), que permite crear proyectos para ejecutar comandos en [lenguaje R](https://es.wikipedia.org/wiki/R_(lenguaje_de_programaci%C3%B3n)) para realizar cálculos y generar diagramas.
+
+R es un lenguaje de programación con el que se pueden escribir comandos, también llamados "órdenes", instrucciones o sentencias, que el ordenador ejecuta; para lo cual es necesario tener instalado un software denominado "R", disponible para Windows, macOS o Linux.
+
+Para que sea más cómodo crear y ejecutar grupos de comandos R, es recomendable usar una herramienta como RStudio. Se trata de un entorno de desarrollo integrado, que incluye un editor de comandos de R, pero también otras utilidades como una consola de ejecución de comandos, un gestor de archivos del proyecto, una sección para visualizar gráficos, etcétera.
+
+## Instalación de R y RStudio
+
+### Instalación de R
+
+Para que RStudio funcione, primero hay que instalar el software R, que se descarga desde [cran.rediris.es](https://cran.rediris.es/).
+
+![](img/image001.png){fig-align="center"}
+
+En el caso de Windows, se selecciona “install R for the first time”.
+
+![](img/image002.png){fig-align="center" width="686"}
+
+Y se descarga la última versión disponible.
+
+![](img/image003.png){fig-align="center" width="394"}
+
+Es un archivo .exe, que una vez descargado hay que ejecutar para que se instale.
+
+![](img/image004.png){fig-align="center" width="420"}
+
+En todas las pantallas que aparezcan se selecciona el botón “Siguiente”.
+
+![](img/image005.png){fig-align="center" width="420"}
+
+### Instalación de RStudio
+
+Una vez instalado R, se puede instalar RStudio Desktop desde [posit.co](https://posit.co/download/rstudio-desktop/#download).
+
+![](img/image006.png){fig-align="center" width="586"}
+
+En el caso de Windows, descargamos el archivo .exe de la última versión y lo ejecutamos.
+
+![](img/image007.png){fig-align="center" width="420"}
+
+Seleccionamos el botón “Siguiente” en todas las ventanas.
+
+![](img/image008.png){fig-align="center" width="420"}
+
+Existe la opción de utilizar RStudio de forma online sin instalarlo en nuestro ordenador, usando un navegador web. Se trata de [Posit Cloud](https://posit.cloud/), que ofrece una suscripción gratuita con algunas limitaciones.
+
+### Referencias sobre R y RStudio
+
+-   Sobre R existen recomendaciones de manuales y documentos de consulta en el propio sitio web del proyecto R:
+
+    -   [An Introduction to R (R Core Team)](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
+
+    -   [A Spanish translation of “An Introduction to R” (A. González, S. González)](https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf)
+
+    -   [Otras referencias en varios idiomas](https://cran.r-project.org/other-docs.html)
+
+    -   [Tutorial online interactivo (Para practicar con R sin usar RStudio)](https://www.w3schools.com/r/)
+
+-   Sobre RStudio se recomiendan las siguientes referencias:
+
+    -   [Uso básico de RStudio (G. Boccardo, F. Ruiz)](https://bookdown.org/gboccardo/manual-ED-UCH/uso-basico-de-rstudio.html)
+
+    -   [Primeros pasos con R y RStudio (V. Coll)](https://www.uv.es/vcoll/primeros-pasos.html#instalar-r-y-rstudio)
+
+    -   [Descripción de RStudio (M. Hidalgo, A. Lara)](https://wpd.ugr.es/~bioestad/guia-r-studio/practica-1-r-studio/)
+
+## Descripción de RStudio
+
+Para ejecutar RStudio, localizamos su icono en el escritorio de nuestro ordenador. No confundir con el icono de R.
+
+![](img/image009.png){fig-align="center"}
+
+Al abrir RStudio aparece una ventana con diferentes secciones.
+
+![](img/image010.png){fig-align="center" width="587"}
+
+Debemos crear un nuevo proyecto desde el menú principal de la parte superior de la ventana:
+
+`File > New Project`
+
+Y aparece una ventana en la que elegiremos:
+
+`New Directory > New Project`
+
+![](img/image011.png){fig-align="center" width="617"}
+
+Al elegir esta opción, se nos pide el nombre del directorio (carpeta) del ordenador en el que queremos que se guarde el proyecto. Con el botón “Browse” podemos navegar por el explorador de archivos del ordenador hasta la carpeta que queramos usar para que se cree una subcarpeta para el proyecto.
+
+Por ejemplo, podríamos crear el proyecto en una carpeta P1 para esta práctica, dentro de la carpeta Estadística:
+
+-   Directory name: P1
+-   Create Project as subdirectory of: C:/Estadistica
+
+![](img/image013.png){fig-align="center" width="420"}
+
+Si la carpeta Estadística no existe en el disco, se crea en el momento de seleccionar el botón “Create Project”. Y aparece en entorno de trabajo de RStudio.
+
+![](img/image014.png){fig-align="center" width="539"}
+
+Pueden verse tres secciones:
+
+1.  Environment: Con las variables y otros recursos usados en el proyecto. De momento no hay nada.
+2.  Files: Donde se ve el contenido de la carpeta (directorio) del proyecto. De momento sol hay un archivo llamado “R1.Rproj”.
+3.  Console: En esta sección se pueden escribir directamente los comandos en lenguaje R. Podemos probar a escribir una operación matemática como: `34+62` y vemos que nos responde con el resultado de la suma.
+
+```{r}
+36 + 62
+```
+
+Si queremos limpiar la consola, podemos seleccionar el icono con forma de brocha o cepillo.
+
+![](img/image016.png){fig-align="center" width="553"}
+
+### Crear un archivo de texto para comandos en lenguaje R
+
+En las prácticas no escribiremos comando u órdenes en lenguaje R directamente en la consola, sino que crearemos previamente un archivo de texto en el que escribiremos las órdenes, una en cada línea, así podemos guardar el trabajo en dicho archivo y recuperarlo en siguientes sesiones.
+
+Para crear un archivo hay que seleccionar:
+
+`File > New File > R Script`
+
+Al hacerlo, lo que ocurre es que se crea una nueva sección encima de la consola, que es un editor de texto, en el que se abre el archivo recién creado, cuyo nombre inicial es “Untitled1”.
+
+![](img/image017.png){fig-align="center"}
+
+Para guardar este archivo de texto en la carpeta (directorio) del proyecto hay que seleccionar:
+
+`File > Save`
+
+Y se nos pide el nombre para el archivo, y escribimos por ejemplo `P1.R`. Los archivos de comandos en lenguaje R, deben tener como extensión `.R` al final del nombre.
+
+![](img/image018.png){fig-align="center"}
+
+Al hacer esto, en el editor ahora aparece el nombre del archivo. Y el propio archivo podemos verlo en la ventana `File` del proyecto.
+
+![](img/image019.png){fig-align="center" width="420"}
+
+Ya estamos en condiciones de empezar a escribir comandos R en el archivo de texto, uno por cada línea, por ejemplo, podemos escribir estas dos líneas:
+
+```{r}
+34 + 62
+5^2
+```
+
+En la primera línea hemos escrito un comando, orden o instrucción para sumar dos números y en la segunda para elevar el número `5` al cuadrado.
+
+Para ejecutar cada línea hay que posicionar el cursor en esa línea y pulsar `Ctrl+Intro` en el teclado, o bien el botón `Run` que aparece en la parte superior derecha del editor. Y el resultado de la ejecución de esa línea debe aparecer en la consola. Si queremos ejecutar de una sola vez varias líneas del archivo de texto, debemos seleccionar todas, y pulsar `Ctrl+Intro` o bien el botón `Run`.
+
+![](img/image021.png){fig-align="center" width="420"}
+
+Como se puede observar, delante de cada resultado aparece un número `[1]`, que de momento podemos ignorar, pues será útil cuando los resultados de un mismo comando ocupen más de una línea, para poder identificar cada una de ellas.
+
+## Variables, operadores, comandos y funciones
+
+Como en cualquier otro lenguaje de programación como Python, Java, C, JavaScript, etc., en R también se pueden crear variables, y usar operadores y funciones.
+
+### Variables
+
+Las variables son contenedores de valores. A una variable le podemos asignar un valor, y en aquellos comandos en los que se use la variable, cuando se ejecute será sustituida por su valor.
+
+Para asignar un valor a una variable podemos hacerlo de dos formas, con el operador `<-` o con el operador `=`. En esta práctica y en las siguientes usaremos siempre el operador `=`.
+
+Por ejemplo, podemos crear una variable edad y asignarle un valor `12`.
+
+```{r}
+edad = 12
+```
+
+O bien:
+
+```{r}
+edad <- 12
+```
+
+Y después usarla en una expresión como:
+
+```{r}
+edad + 100
+```
+
+Para ejecutar estas órdenes desde el archivo de texto "P1.R", se recuerda que hay que pulsar `Ctrl+Intro` en cada línea, y el resultado aparece en la consola.
+
+![](img/image022.png){fig-align="center" width="420"}
+
+Cuando creamos variables en un proyecto, aparecen en la sección `Environment`.
+
+Puede observarse que al asignar un valor a una variable con `edad=12`, no aparece el resultado en la consola. Si queremos ver el resultado de la asignación en la consola, hay que encerrar la expresión entre paréntesis `()`:
+
+```{r}
+(edad=12)
+```
+
+![](img/image023-024.png){fig-align="center" width="420"}
+
+Puede apreciarse que en un caso en la consola no se indica el valor 12 y en el otro sí, aunque en ambos casos el resultado ha sido el mismo, es decir se ha creado la variable en el proyecto, aparece en Environment y se puede usar a partir de ahora en el proyecto.
+
+-   Si se utilizan números con decimales, hay que utilizar el punto “.” Para separar la parte entera de la decimal:
+
+```{r}
+precio = 34.99
+```
+
+-   También se pueden asignar textos a las variables, en este caso deben encerrarse entre comillas dobles o simples:
+
+```{r}
+nombre = "juan perez"
+```
+
+-   O bien:
+
+```{r}
+nombre = 'juan perez'
+```
+
+![](img/image025.png){fig-align="center"}
+
+También se pueden variables que almacenen valores lógicos o booleanos, que pueden ser `TRUE` o `FALSE`:
+
+```{r}
+respuesta = FALSE
+```
+
+![](img/image026.png){fig-align="center"}
+
+Normalmente usamos nombres largos para las funciones, en ese caso se pueden usar símbolos como `_` o `.` en el nombre de la función, o una notación “*camelcase*”, es decir poner en mayúscula la primera letra de cada palabra. Lo habitual en R es usar el separador `.`. Por ejemplo, algunos nombres válidos podrían ser:
+
+```{r}
+totaldelafactura = 25.99
+TotalDeLaFactura = 25.99
+total_de_la_factura = 25.99
+total.de.la.factura = 25.99
+```
+
+### Operadores
+
+Se pueden utilizar operadores de diferente tipo, como aritméticos y de comparación, entre otros.
+
++----------------+----------------------+----------------+
+| Operador       | Nombre               | Ejemplo        |
++:==============:+:====================:+:==============:+
+| \+             | Suma                 | ``` r          |
+|                |                      | 30 + 10        |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+| \-             | Resta                | ``` r          |
+|                |                      | 456.78 - 0.50  |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+| \*             | Multiplicación       | ``` r          |
+|                |                      | 100 * 3        |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+| /              | División             | ``` r          |
+|                |                      | 56 / 5         |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+| %/%            | División entera      | ``` r          |
+|                |                      | 56 %/% 5       |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+| %%             | Resto de un división | ``` r          |
+|                |                      | 56 %% 5        |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+| \^             | Potencia             | ``` r          |
+|                |                      | 5 ^ 3          |
+|                |                      | ```            |
++----------------+----------------------+----------------+
+
+: Principales operadores aritméticos en R
+
+Con los operadores de comparación se obtiene un resultado `TRUE` o `FALSE`.
+
++--------------+---------------+-------------------------+
+| Operador     | Nombre        | Ejemplo                 |
++:============:+:=============:+:=======================:+
+| ==           | Igual         | ``` {.r results="hold"} |
+|              |               | 6 == 5                  |
+|              |               | ```                     |
++--------------+---------------+-------------------------+
+| !=           | Desigual      | ``` r                   |
+|              |               | 6 != 5                  |
+|              |               | ```                     |
++--------------+---------------+-------------------------+
+| \>           | Mayor         | ``` r                   |
+|              |               | 6 > 5                   |
+|              |               | ```                     |
++--------------+---------------+-------------------------+
+| \>=          | Mayor o igual | ``` r                   |
+|              |               | 6 >= 5                  |
+|              |               | ```                     |
++--------------+---------------+-------------------------+
+| \<           | Menor         | ``` r                   |
+|              |               | 6 < 5                   |
+|              |               | ```                     |
++--------------+---------------+-------------------------+
+| \<=          | Menor o igual | ``` r                   |
+|              |               | 6 <= 5                  |
+|              |               | ```                     |
++--------------+---------------+-------------------------+
+
+: Principales operadores de comparación en R
+
+### Comandos y comentarios
+
+Los comandos de R son similares a las órdenes, instrucciones o sentencias de otros lenguajes de programación.
+
+Un grupo de comandos en un archivo `.R` se puede considerar un programa.
+
+Los comandos se pueden separar con un salto de línea como ya hemos visto, pero también con punto y coma `;`:
+
+```{r}
+34+64; 5^2
+```
+
+Los comandos se pueden agrupar encerrándolos entre llaves `{}`:
+
+```{r}
+{x=34+62; y=5^2}; {x+y}
+```
+
+En un archivo `.R` se pueden incluir comentarios usando el símbolo `#`. Todo lo que haya a la derecha del símbolo se considera un comentario y no se ejecuta.
+
+```{r}
+# Ejemplo de suma
+34+62
+
+100-20  #Ejemplo de resta
+```
+
+### Funciones
+
+En los comandos se pueden usar funciones predefinidas (built-in) en el propio lenguaje o creadas por desarrolladores y disponibles en librerías que se pueden descargar de Internet.
+
+Cuando se usa una función, el intérprete de R ejecuta las líneas de código que estableció el autor de la función. No necesitamos conocer dicho código, únicamente cuál es el objetivo de la función, los parámetros o argumentos que tenemos que pasar a la función y el tipo de resultado que debe devolver.
+
+Por ejemplo, la función `sqrt()` calcula la raíz cuadrada de un número.
+
+|  |  |
+|----|----|
+| **Función** | sqrt(x) |
+| **Objetivo de la función** | Calcular la raíz cuadrada de un número |
+| **Parámetros o argumentos** | x: número real del que se quiere calcular la raíz cuadrada |
+| **Resultado** | La raíz cuadrada de x |
+
+: Ejemplo de una función
+
+```{r}
+sqrt(25)
+raiz.de.cincuenta = sqrt(50)
+raiz.de.cincuenta
+```
+
+#### Funciones predefinidas
+
+Algunas funciones predefinidas para cálculos aritméticos son las siguientes.
+
+
+
+
+
+
 

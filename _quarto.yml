@@ -2,9 +2,10 @@ project:
   type: website
   output-dir: docs
 
-website: 
-  title: "Estadística con R y RStudio"
+website:
+  title: ""
   navbar:
+    logo: ./img/logo.jpeg
     left: 
       - text: Inicio
         href: index.qmd
@@ -31,7 +32,9 @@ website:
       - icon: github
         href: https://github.com/nataliamontoyagom/interactiveStatisticsWebsite
 
+    back-to-top-navigation: true
+
 format:
   html:
-    theme: default
+    theme: litera
     respect-user-color-scheme: true
