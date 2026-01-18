@@ -247,37 +247,37 @@ total.de.la.factura = 25.99
 
 Se pueden utilizar operadores de diferente tipo, como aritméticos y de comparación, entre otros.
 
-+----------------+----------------------+----------------+
-| Operador       | Nombre               | Ejemplo        |
-+:==============:+:====================:+:==============:+
-| \+             | Suma                 | ``` r          |
-|                |                      | 30 + 10        |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
-| \-             | Resta                | ``` r          |
-|                |                      | 456.78 - 0.50  |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
-| \*             | Multiplicación       | ``` r          |
-|                |                      | 100 * 3        |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
-| /              | División             | ``` r          |
-|                |                      | 56 / 5         |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
-| %/%            | División entera      | ``` r          |
-|                |                      | 56 %/% 5       |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
-| %%             | Resto de un división | ``` r          |
-|                |                      | 56 %% 5        |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
-| \^             | Potencia             | ``` r          |
-|                |                      | 5 ^ 3          |
-|                |                      | ```            |
-+----------------+----------------------+----------------+
++--------------+----------------------+---------------+
+| Operador     | Nombre               | Ejemplo       |
++:============:+:====================:+:=============:+
+| \+           | Suma                 | ``` r         |
+|              |                      | 30 + 10       |
+|              |                      | ```           |
++--------------+----------------------+---------------+
+| \-           | Resta                | ``` r         |
+|              |                      | 456.78 - 0.50 |
+|              |                      | ```           |
++--------------+----------------------+---------------+
+| \*           | Multiplicación       | ``` r         |
+|              |                      | 100 * 3       |
+|              |                      | ```           |
++--------------+----------------------+---------------+
+| /            | División             | ``` r         |
+|              |                      | 56 / 5        |
+|              |                      | ```           |
++--------------+----------------------+---------------+
+| %/%          | División entera      | ``` r         |
+|              |                      | 56 %/% 5      |
+|              |                      | ```           |
++--------------+----------------------+---------------+
+| %%           | Resto de un división | ``` r         |
+|              |                      | 56 %% 5       |
+|              |                      | ```           |
++--------------+----------------------+---------------+
+| \^           | Potencia             | ``` r         |
+|              |                      | 5 ^ 3         |
+|              |                      | ```           |
++--------------+----------------------+---------------+
 
 : Principales operadores aritméticos en R
 
@@ -346,14 +346,17 @@ En los comandos se pueden usar funciones predefinidas (built-in) en el propio le
 
 Cuando se usa una función, el intérprete de R ejecuta las líneas de código que estableció el autor de la función. No necesitamos conocer dicho código, únicamente cuál es el objetivo de la función, los parámetros o argumentos que tenemos que pasar a la función y el tipo de resultado que debe devolver.
 
-Por ejemplo, la función `sqrt()` calcula la raíz cuadrada de un número.
+Por ejemplo, la función `sqrt()`:
 
-|  |  |
-|----|----|
-| **Función** | sqrt(x) |
-| **Objetivo de la función** | Calcular la raíz cuadrada de un número |
++-----------------------------+------------------------------------------------------------+
+| **Función**                 | `sqrt(x)`                                                  |
++-----------------------------+------------------------------------------------------------+
+| **Objetivo de la función**  | Calcular la raíz cuadrada de un número                     |
++-----------------------------+------------------------------------------------------------+
 | **Parámetros o argumentos** | x: número real del que se quiere calcular la raíz cuadrada |
-| **Resultado** | La raíz cuadrada de x |
++-----------------------------+------------------------------------------------------------+
+| **Resultado**               | La raíz cuadrada de x                                      |
++-----------------------------+------------------------------------------------------------+
 
 : Ejemplo de una función
 
@@ -365,11 +368,783 @@ raiz.de.cincuenta
 
 #### Funciones predefinidas
 
-Algunas funciones predefinidas para cálculos aritméticos son las siguientes.
+Algunas funciones predefinidas para cálculos aritméticos son las siguientes:
+
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| Función                      | Operación realizada                                                                                    | Ejemplo               |
++:============================:+:======================================================================================================:+=======================+
+| `abs(x)`                     | Valor absoluto de x                                                                                    | ``` r                 |
+|                              |                                                                                                        | abs(-34)              |
+|                              | $$                                                                                                     | ```                   |
+|                              | |x|                                                                                                    |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `exp(x)`                     | Exponencial con base e                                                                                 | ``` r                 |
+|                              |                                                                                                        | exp(2)                |
+|                              | $$                                                                                                     | ```                   |
+|                              | e^x                                                                                                    |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `log(x)`                     | Logaritmo neperiano (base e) de x                                                                      | ``` r                 |
+|                              |                                                                                                        | log(20)               |
+|                              | $$                                                                                                     | ```                   |
+|                              | ln(x)                                                                                                  |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `log10(x)`                   | Logaritmo natural (base 10) de x                                                                       | ``` r                 |
+|                              |                                                                                                        | log10(20)             |
+|                              | $$                                                                                                     | ```                   |
+|                              | log(x)                                                                                                 |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `sqrt(x)`                    | Raíz cuadrada de x                                                                                     | ``` r                 |
+|                              |                                                                                                        | sqrt(36)              |
+|                              | $$                                                                                                     | ```                   |
+|                              | \sqrt(x)                                                                                               |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `factorial(x)`               | Factorial de x                                                                                         | ``` r                 |
+|                              |                                                                                                        | factorial(4)          |
+|                              | $$                                                                                                     | ```                   |
+|                              | x! = 1·2·3·...·x                                                                                       |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `choose(x,y)`                | Número combinatorio                                                                                    | ``` r                 |
+|                              |                                                                                                        | choose(6,2)           |
+|                              | $$                                                                                                     | ```                   |
+|                              | \binom{x}{y} = \frac{x!}{y!(x-y)!}                                                                     |                       |
+|                              | $$                                                                                                     |                       |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `ceiling(x)`                 | Primer número entero mayor o igual que x                                                               | ``` r                 |
+|                              |                                                                                                        | ceiling(45)           |
+|                              |                                                                                                        | ceiling(45.3)         |
+|                              |                                                                                                        | ```                   |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `floor(x)`                   | Primer número entero menor o igual que x                                                               | ``` r                 |
+|                              |                                                                                                        | floor(45.3)           |
+|                              |                                                                                                        | ```                   |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `trunc(x)`                   | Parte entera de x                                                                                      | ``` r                 |
+|                              |                                                                                                        | trunc(3.5)            |
+|                              |                                                                                                        | ```                   |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `round(x, digits=n)`         | Redondea x con n dígitos decimales                                                                     | ``` r                 |
+|                              |                                                                                                        | 43/7                  |
+|                              |                                                                                                        | round(43/7, digits=3) |
+|                              |                                                                                                        | ```                   |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+| `sin(x)`, `cos(x)`, `tan(x)` | Seno, coseno, tangente de x, con x expresado en radianes. Se puede usar la variable predefinida $\pi$. | ``` r                 |
+|                              |                                                                                                        | sin(pi/2)             |
+|                              |                                                                                                        | ```                   |
++------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
+
+: Ejemplos de funciones aritméticas predefinidas en R
+
+También existen funciones predefinidas para manejar texto (cadenas de caracteres o strings).
+
++--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
+| Función                        | Operación realizada                                                                               | Ejemplo                                |
++:==============================:+:=================================================================================================:+:=======================================+
+| `toupper(x)`                   | Convierte a mayúsculas todas las letras del texto contenido en x                                  | ``` r                                  |
+|                                |                                                                                                   | toupper("Informática")                 |
+|                                |                                                                                                   | ```                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
+| `tolower(x)`                   | Convierte a minúsculas todas las letras del texto contenido en x                                  | ``` r                                  |
+|                                |                                                                                                   | tolower("SisTEMas")                    |
+|                                |                                                                                                   | ```                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
+| `paste(x, y, sep=..)`          | Concatena el texto de x e y, dejando como texto entre ambos lo que se indique en el parámetro sep | ``` r                                  |
+|                                |                                                                                                   | paste("Buenos","días",sep="")          |
+|                                |                                                                                                   | paste("Buenos","días",sep=" ")         |
+|                                |                                                                                                   | ```                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
+| `substr(x, start=.., stop=..)` | Extrae los caracteres de x desde la posición start hasta la posición stop                         | ``` r                                  |
+|                                |                                                                                                   | substr("Informática", start=3, stop=7) |
+|                                |                                                                                                   | ```                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
+
+: Ejemplos de funciones de texto predefinidas en R
+
+Existen algunas otras funciones predefinidas básicas que pueden ser útiles, como las siguientes:
+
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| Función                       | Operación realizada                                                                                                                                                                                                                   | Ejemplo                      |
++:=============================:+:=====================================================================================================================================================================================================================================:+==============================+
+| `help(“funcion”)`             | Muestra la ayuda sobre la función indicada                                                                                                                                                                                            | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | help("log")                  |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `rm(x)`                       | Borra la variable x del proyecto                                                                                                                                                                                                      | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | x = 5                        |
+|                               |                                                                                                                                                                                                                                       | rm(x)                        |
+|                               |                                                                                                                                                                                                                                       | x                            |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `print(expresión)`            | Imprime en la consola el resultado de la expresión. En general no es necesario usarla. El efecto es el mismo si se escribe sólo la expresión.                                                                                         | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | x = 5                        |
+|                               |                                                                                                                                                                                                                                       | 4 + x                        |
+|                               |                                                                                                                                                                                                                                       | print(4 + x)                 |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `install.packages("paquete")` | Instala en nuestro ordenador el paquete de funciones llamado “paquete”                                                                                                                                                                | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | install.packages("gtools")   |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `library(libreria)`           | Activa, para poder usarse en el proyecto actual, el paquete indicado                                                                                                                                                                  | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | library(gtools)              |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `detach(“package:paquete”)`   | Desactiva el paquete en el proyecto actual y ya no se puede usar                                                                                                                                                                      | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | detach("package:gtools")     |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `remove.packages(“paquete”)`  | Elimina de nuestro ordenador el paquete de funciones llamado “paquete”                                                                                                                                                                | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | remove.packages("gtools")    |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `getwd()`                     | Obtiene el directorio (carpeta) de trabajo del proyecto actual                                                                                                                                                                        | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | getwd()                      |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `setwd("directorio")`         | Establece como directorio (carpeta) de trabajo el indicado como parámetro                                                                                                                                                             | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | setwd("C:/Estadistica/P1b")  |
+|                               |                                                                                                                                                                                                                                       | getwd()                      |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `source ("archivo.R")`        | Ejecuta en el proyecto actual el código contenido en “archivo.R”. Si no se indica la ruta del archivo, se supone que está en el directorio de trabajo actual                                                                          | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | source("c:\curso\ejemplo.R") |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+| `options(scipen = dígitos)`   | Establece que aquellos resultados que tengan un número de dígitos inferior al indicado, se representen con notación fija, y no con notación científica que utiliza un formato de un valor multiplicado por 10 elevado a un exponente. | ``` r                        |
+|                               |                                                                                                                                                                                                                                       | options(scipen = 100)        |
+|                               |                                                                                                                                                                                                                                       | ```                          |
++-------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+
+
+: Ejemplos de otras funciones predefinidas en R
+
+#### Funciones importadas de librerías
+
+Con las funciones `install.package` y luego `library` podemos importar librerías de funciones contenidas en paquetes públicos.
+
+Existen miles de paquetes en [r-project.org](https://cran.r-project.org/web/packages/). Por ejemplo, se puede descargar el paquete [toOrdinal](https://cran.r-project.org/web/packages/toOrdinal/index.html).
+
+Según su documentación, este paquete ofrece una función para hacer conversiones de números cardinales a ordinales.
+
+``` r
+install.packages("toOrdinal")
+```
+
+A continuación, se ejecuta el comando `library`:
+
+``` r
+library(toOrdinal)
+```
+
+Y ya se puede usar:
+
+``` r
+toOrdinal(55, language="English")
+toOrdinal(55, language="Spanish")
+toOrdinal(55, language="French")
+```
+
+Si hemos instalado varios paquetes que tienen funciones con el mismo nombre, para diferenciarlas, se puede poner delante de la función el nombre del paquete librería seguido de `::`. Por ejemplo:
+
+``` r
+toOrdinal::toOrdinal(55, language="English")
+```
+
+El comando contrario a library, que sirve para eliminar un paquete del proyecto actual es `detach`:
+
+``` r
+detach("package:toOrdinal")
+```
+
+Y el contrario a `install.packages`, para eliminar un paquete del ordenador es `remove.packages`:
+
+``` r
+remove.packages("toOrdinal")
+```
+
+### Creación de funciones propias
+
+Podemos crear nuestras propias funciones, para después usarlas en el proyecto en el que estemos trabajando, o en otros proyectos.
+
+```
+nombre = function(parámetros) {
+  Contenido de la función
+}
+```
+
+Por ejemplo, podemos crear una función para sumar dos números.
+
+```{r}
+sumar = function(x,y) {   
+    return(x+y) 
+}
+```
+
+Las funciones que hemos creado en el proyecto aparecen en la sección `Environment > Functions`.
+
+![](img/image030.png){fig-align="center"}
+
+A partir de ahora podemos usar nuestra función de la forma habitual. Algunos ejemplos de uso pueden ser:
+
+```{r}
+sumar(4,5)
+
+a=10
+sumar(30,a)
+
+z=4*sumar(5,5)
+z
+```
+
+Si queremos compartir nuestra función con otros desarrolladores, podemos guardar su código en un archivo `.R` y enviarlo a los posibles interesados, para que lo incorporen a su proyecto usando la función `source(“archivo.R”)`.
+
+## Vectores
+
+Los vectores son colecciones ordenadas de números, caracteres o valores lógicos. Se crean mediante la función predefinida `c()`.
+
+Por ejemplo, podemos crear las siguientes variables de tipo vector:
+
+```{r}
+ejemplo = c(34.6, 100, 67.2, 55, -8.4, 0, 0.5)
+personas = c("Ana", "Juan", "Elena")
+respuestas = c(TRUE, FALSE, FALSE)
+```
+
+Para ver su valor escribimos el nombre de la variable en la consola:
+
+```{r}
+ejemplo
+personas
+respuestas
+```
+
+Algunos operadores y funciones para usar con vectores son los siguientes:
+
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Operador o función                       | Operación realizada                                                                                                                                                                     | Ejemplos                            |
++:========================================:+:=======================================================================================================================================================================================:+=====================================+
+| `v = c(n1,n2,n3)`                        | Crea un vector con los elementos `n1`, `n2`, `n3`                                                                                                                                       | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | valores                             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `inicio:fin`                             | Crea un vector como secuencia de número comenzando por `inicio` hasta `fin` y sumando una unidad para obtener el siguiente elemento del vector. Se puede comenzar con un número decimal | ``` r                               |
+|                                          |                                                                                                                                                                                         | numeros = 4:10                      |
+|                                          |                                                                                                                                                                                         | numeros                             |
+|                                          |                                                                                                                                                                                         | num = 4.3:10                        |
+|                                          |                                                                                                                                                                                         | num                                 |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `sample(inicio:fin, n)`                  | Crea un vector de n números elegidos aleatoriamente entre los valores `inicio` y `fin`. Se puede añadir el parámetro `replace=TRUE` para indicar que se admiten números repetidos       | ``` r                               |
+|                                          |                                                                                                                                                                                         | num = sample(1:10, 5)               |
+|                                          |                                                                                                                                                                                         | num                                 |
+|                                          |                                                                                                                                                                                         | num = sample(1:10, 5, replace=TRUE) |
+|                                          |                                                                                                                                                                                         | num                                 |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `v[i]`                                   | Obtiene el valor del elemento que ocupa la posición `i` en el vector `v`                                                                                                                | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | segundo=valores[2]                  |
+|                                          |                                                                                                                                                                                         | segundo                             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `v[c(i,j,k)]`                            | Obtiene un vector con los elementos del vector `v` que están en las posiciones `i`, `j` y `k`                                                                                           | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | otro=valores[c(2,4)]                |
+|                                          |                                                                                                                                                                                         | otro                                |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `v[c(-i,-j,-k)]`                         | Obtiene un vector con todos los elementos del vector `v` menos los que están en las posiciones `i`, `j` y `k`                                                                           | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | sin=valores[c(-2,-4)]               |
+|                                          |                                                                                                                                                                                         | sin                                 |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `v[i]=valor`                             | Modifica el elemento de la posición `i` del vector `v` por el valor indicado                                                                                                            | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | valores[2]=100                      |
+|                                          |                                                                                                                                                                                         | valores                             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `v[condición]`                           | Obtiene un vector con los datos del vector `v` que cumplen la condición                                                                                                                 | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | valores[valores<=1]                 |
+|                                          |                                                                                                                                                                                         | valores                             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `length(v)`                              | Obtiene la longitud o número de elementos del vector `v`                                                                                                                                | ``` r                               |
+|                                          |                                                                                                                                                                                         | personas = c("Ana", "Juan")         |
+|                                          |                                                                                                                                                                                         | length(personas)                    |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `min(v)`                                 | Obtiene el elemento del vector `v` con el menor valor                                                                                                                                   | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | min(valores)                        |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `max(v)`                                 | Obtiene el elemento del vector `v` con el mayor valor                                                                                                                                   | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | max(valores)                        |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `sort(v)`                                | Obtiene un vector que es el vector `v` ordenado de menos a mayor. No modifica el contenido del vector `v`                                                                               | ``` r                               |
+|                                          |                                                                                                                                                                                         | valores=c(45,32,1,-5,0)             |
+|                                          |                                                                                                                                                                                         | ordenado = sort(valores)            |
+|                                          |                                                                                                                                                                                         | ordenado                            |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `sum(v)`                                 | Obtiene la suma de todos los elementos del vector `v`                                                                                                                                   | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,4)                        |
+|                                          |                                                                                                                                                                                         | sum(v)                              |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `prod(v)`                                | Obtiene el producto de todos los elementos del vector `v`                                                                                                                               | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,4)                        |
+|                                          |                                                                                                                                                                                         | prod(v)                             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `cumsum(v)`                              | Obtiene un vector en el que cada elemento es la suma acumulada hasta ese elemento en el vector `v`                                                                                      | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,4)                        |
+|                                          |                                                                                                                                                                                         | cumsum(v)                           |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `cumprod(v)`                             | Obtiene un vector en el que cada elemento es el producto acumulado hasta ese elemento en el vector `v`                                                                                  | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,4)                        |
+|                                          |                                                                                                                                                                                         | cumprod(v)                          |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `cummin(v)`                              | Obtiene un vector en el que cada elemento es el mínimo de los elementos hasta ese elemento en el vector `v`                                                                             | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,4)                        |
+|                                          |                                                                                                                                                                                         | cummin(v)                           |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `cummax(v)`                              | Obtiene un vector en el que cada elemento es el máximo de los elementos hasta ese elemento en el vector `v`                                                                             | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,4)                        |
+|                                          |                                                                                                                                                                                         | cummax(v)                           |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `diff(v)`                                | Obtiene un vector en el que cada elemento es la diferencia entre un elemento del vector `v` y el elemento anterior a aquel                                                              | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(15, 20, 35, 100)                |
+|                                          |                                                                                                                                                                                         | diff(v)                             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `rep(v, each=n)`                         | Obtiene un vector que es como el vector `v` pero repitiendo `n` veces casa uno de sus elementos                                                                                         | ``` r                               |
+|                                          |                                                                                                                                                                                         | repetido=rep(c(1,2,3),each=3)       |
+|                                          |                                                                                                                                                                                         | repetido                            |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `rep(v, times=n)`                        | Obtiene un vector que es como el vector `v` pero repitiendo su contenido `n`                                                                                                            | ``` r                               |
+|                                          |                                                                                                                                                                                         | repe=rep(c(1,2,3),times=3)          |
+|                                          |                                                                                                                                                                                         | repe                                |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `rep(v, times=c(i,j,k))`                 | Obtiene un vector que es como el vector `v` pero repitiendo su primer elemento `i` veces, el segundo `j` veces y el tercero `k` veces                                                   | ``` r                               |
+|                                          |                                                                                                                                                                                         | repe2=rep(c(1,2,3),times=c(4,2,2))  |
+|                                          |                                                                                                                                                                                         | repe2                               |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `seq(from=n, to=m, by=s)`                | Obtiene un vector con un elemento inicial `n` hasta un elemento final `m` incrementando cada uno un valor `s`                                                                           | ``` r                               |
+|                                          |                                                                                                                                                                                         | seq(from=4,to=11,by=2)              |
+|                                          |                                                                                                                                                                                         | seq(from=4,to=7,by=0.7)             |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `unique(v)`                              | Obtiene un vector como `v` pero dejando sólo una vez los elementos repetidos                                                                                                            | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(8,1,9,9,7,7,7)                  |
+|                                          |                                                                                                                                                                                         | unique(v)                           |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `match(v1,v2)`                           | Obtiene un vector con las posiciones que los valores del vector `v1` ocupan en el vector `v2`                                                                                           | ``` r                               |
+|                                          |                                                                                                                                                                                         | v1=c(8,1,9,9,7,7,7)                 |
+|                                          |                                                                                                                                                                                         | v2=c(8,1,9,7)                       |
+|                                          |                                                                                                                                                                                         | match(v1,v2)                        |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `tabulate(v)`                            | Obtiene un vector en el que cada valor indica el número de veces que aparece cada elemento diferente del vector `v`                                                                     | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,3,4,4,4)                  |
+|                                          |                                                                                                                                                                                         | tabulate(v)                         |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| `sample(v, n, replace=FALSE, prob=NULL)` | Obtiene un vector con una muestra aleatoria con n valores del vector `v`, con o sin reemplazamiento                                                                                     | ``` r                               |
+|                                          |                                                                                                                                                                                         | v=c(1,2,3,3,4,4,4)                  |
+|                                          |                                                                                                                                                                                         | sample(v,3)                         |
+|                                          |                                                                                                                                                                                         | ```                                 |
++------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+
+: Operadores y funciones con vectores en R
+
+Cuando se realizan operaciones aritméticas con vectores, estas operaciones se realizan elemento a elemento, como puede comprobarse en los siguientes ejemplos:
+
+```{r}
+x=c(10,20,30,40)
+y=c(1,2,3,4)
+2*x
+x-10
+x^2
+x+y
+x-y
+x*y
+x/y
+```
+
+En el caso de vectores de caracteres se puede usar la función `paste()` para combinar los elementos:
+
+```{r}
+nombres=c("Juan", "Ana")
+apellidos=c("Perez", "Garcia")
+paste(nombres,apellidos)
+paste(nombres,apellidos,sep=",")
+```
+
+También se pueden usar números, que se transforman a caracteres:
+
+```{r}
+paste(nombres, c(100,200))
+```
+
+## Tablas *(data.frame)*
+
+Las tablas son estructuras de datos con filas y columnas, en las que cada columna tiene un título o cabecera, y todos los elementos de una misma columna son del mismo tipo. Cada columna se trata como un vector.
+
+Una tabla puede crearse con la función predefinida `data.frame`. Para crear un `data.frame` en R se utiliza la siguiente sintaxis:
+
+```         
+tabla = data.frame (
+  columna1 = vector1,
+  columna2 = vector2,
+  columna3 = vector3
+)
+```
+
+Un ejemplo podría ser:
+
+```{r}
+personas = data.frame (
+  nombre = c("Juan", "Ana", "Elena", "Jose"),
+  apellido = c("Perez", "Garcia", "Lopez", "Garcia"),
+  edad = c(25,33,30,25)
+)
+```
+
+Si visualizamos en la consola el valor de la variable personas:
+
+```{r}
+personas
+```
+
+Se puede mostrar la tabla en RStudio con un formato más amigable usando la función `View`:
+
+``` r
+View(personas)
+```
+
+![](img/image031.png){fig-align="center" width="330"}
+
+Las columnas son realmente vectores, y se pueden obtener todos los datos de una columna de tres formas:
+
+1.  Usando el nombre de la tabla, el símbolo `$` y el nombre de la columna.
+
+```{r}
+años=personas$edad
+años
+```
+
+2.  Usando el nombre de la tabla y el nombre de la columna entre `[[ ]]`.
+
+```{r}
+años=personas[["edad"]]
+años
+```
+
+3.  Usando el nombre de la tabla y el número de la columna entre `[ ]`.
+
+```{r}
+años=personas[3]
+años
+```
+
+En este tercer caso en la consola se muestra de otra forma, pero es un vector como en los casos anteriores.
+
+NOTA: Es posible crear tablas usando la función `data.table()`, pero para ello hay que instalar el paquete `data.table`. Ambas funciones son similares, aunque `data.table` tiene algunas ventajas como la velocidad al procesar grandes volúmenes de datos. Para comenzar a trabajar con R, se suele recomendar primero usar `data.frame`.
+
+Se puede acceder a una fila de una tabla con `tabla[fila,]`:
+
+```{r}
+personas[2,]
+```
+
+O a una celda, indicando fila y columna con `tabla[fila,columna]`:
+
+```{r}
+personas[2,3]
+```
+
+A partir de una tabla se puede obtener otra sólo con las filas que cumplan una condición con `tabla[condición]`. Por ejemplo, con las personas que se apelliden “Garcia”:
+
+```{r}
+personas.garcia = personas[personas$apellido=="Garcia",]
+personas.garcia
+```
+
+O por ejemplo con las personas que tengan más de 26 años:
+
+```{r}
+mayores = personas[personas$edad>26,]
+mayores
+```
+
+La condición se puede utilizar para obtener una muestra aleatoria de filas de la tabla, usando la función `sample`:
+
+```{r}
+muestra=personas[sample(nrow(personas), size=2),]
+muestra
+```
+
+Se puede modificar el valor de un dato en una tabla identificando su fila y columna con `tabla[fila,columna]`:
+
+```{r}
+personas
+personas[2,3]=34
+personas
+```
+
+Se puede modificar una fila completa, mediante la notación `tabla[fila,]=list(valores)`:
+
+```{r}
+personas[1,]=list("Pedro","Herrero",20)
+personas
+```
+
+Se puede eliminar una fila mediante la notación `tabla[-fila,]`:
+
+```{r}
+personas=personas[-2,]
+personas
+```
+
+Se puede añadir una nueva fila al final de un tabla usando la función `rbind()`:
+
+```{r}
+personas=rbind(personas,list("María","Gutierrez", 40))
+personas
+```
+
+Se puede eliminar una columna de una tabla usando la notación `tabla[,-columna]`:
+
+```{r}
+personas = personas[,-3]
+personas
+```
+
+Se puede añadir una nueva columna a la derecha de la tabla usando la función cbind():
+
+```{r}
+nota=c(6,10,5,9)
+personas=cbind(personas,nota)
+personas
+```
+
+## Archivos de datos
+
+Cuando se utiliza R para realizar cálculos estadísticos, se suelen leer los datos desde el archivo en el que estén almacenados. Uno de los formatos que más se utiliza es CSV (Comma Separated Values). Un archivo `csv` puede generarse desde un programa de edición de hojas de cálculo, como Excel, LibreOffice, o Google Sheets.
+
+En los siguientes sitios web podemos encontrar miles de archivos `csv` con datos reales:
+
+-   [datos.gob.es](https://datos.gob.es/es/): Datos abiertos sobre servicios públicos en España
+-   [data.europa.eu](https://data.europa.eu/es): Datos abiertos sobre la Unión Europea
+
+En estas prácticas se usarán sólo archivos `.csv`.
+
+Para leer el contenido de un archivo `.csv` y almacenarlo en una tabla de tipo `data.frame` se utiliza la función `read.csv2()`.
 
 
+```
+tabla = read.csv2(“archivo.csv”)
+```
 
+Esta función considera que, en el archivo, las columnas se separan con `;` y los números con parte decimal usan el carácter `,` como separador. Si usáramos un archivo de datos generado en un ordenador configurado para idioma inglés, habría que utilizar la función `read.csv()`, que considera que las columnas están separadas por `,` y el separado de decimales usado en el archivo es `.`.
 
+NOTA: Aunque en el archivo de datos el separador decimal sea `,`, una vez leídos los datos y cargados en la variable del proyecto de R, hay que usar en los comandos R el separador `.`, como se ha hecho en los apartados anteriores.
 
+Para probar con un archivo de ejemplo, vamos a descargar el archivo [futbol.csv](https://hilera.web.uah.es/estadistica/r/datos/futbol.csv) que contiene datos sobre equipos de fútbol.
 
+El archivo descargado hay que guardarlo en la carpeta del nuestro proyecto P1 de RStudio. Para recordar cuál es nuestra carpeta o directorio de trabajo (working directory) se puede usar la función `getwd()` de R.
 
+```{r}
+getwd()
+```
+
+Cada uno habrá obtenido la ubicación de su proyecto, y es en esa carpeta donde hay que guardar el archivo descargado, que debe aparecer en la sección `Files` de RStudio, donde una vez que lo tenemos en el espacio de trabajo, podemos cargar los datos en una variable usando la función `data.frame`.
+
+```{r}
+datos=read.csv2("futbol.csv")
+datos
+```
+
+Podemos comprobar que hay dos valores NA, porque esas celdas en el archivo estaban vacías, por no disponer de esos datos.
+
+Para evitar problemas de procesamiento, podemos eliminar las filas de esos equipos, con la función `na.omit`.
+
+```{r}
+datos=na.omit(datos)
+datos
+```
+
+Si queremos cargar en un vector el número de goles marcados por cada equipo, podemos hacerlo con:
+
+```{r}
+goles=datos$GOLES
+goles
+```
+
+Ahora podemos usar cualquiera de las funciones vistas en los apartados anteriores. Por ejemplo, podemos consultar el máximo número de goles marcados por un equipo, el mínimo, o sumar el total de goles marcados por todos los equipos.
+
+```{r}
+max(goles)
+min(goles)
+sum(goles)
+```
+
+En las prácticas no vamos a generar archivos de datos, sólo procesar archivos ya existentes. No obstante, es algo sencillo que puede hacerse usando la función `write.csv2`.
+
+Por ejemplo: supongamos que ha habido un error en los goles del equipo 10 y en lugar de 47 goles ha marcado 48.
+
+Podemos modificar el `data.frame` así:
+
+```{r}
+datos[10,3]=48
+datos
+```
+
+Y volver a guardar en el archivo con:
+
+```{r}
+write.csv2(datos,"futbolcambiado.csv")
+```
+
+Podemos comprobar en la sección `Files` de RStudio que aparece el nuevo archivo de datos en la carpeta de trabajo.
+
+![](img/image032.png){fig-align="center"}
+
+Si alguna vez queremos cambiar el directorio o carpeta de trabajo, podemos hacerlo con la función `setwd`:
+
+```{r}
+setwd(".")
+```
+
+Para ello, antes debemos crear la carpeta indicada en el ordenador, pues en otro caso avisará de que no existe.
+
+También se puede cambiar el directorio de trabajo desde la sección `Session > Set Working Directory` de RStudio.
+
+## Gráficos
+
+Con R se pueden generar gráficos, que aparecen en la sección `Plots` de RStudio.
+
+### Función *plot*
+
+La función `plot(c(x1,x2,x3,..),c(y1,y,2,y3,..))` dibuja puntos en las coordenadas `(x1,y1), (x2,y2), (x3,y3), ..` 
+
+```{r}
+plot(c(2,-5,6,0), c(5,7,-3,0))
+```
+
+Se pueden usar variables para las coordenadas y un parámetro `type` para indicar el aspecto del gráfico.
+
+-   Puntos (por defecto, si no se indica nada): `type=”p”`
+-   Puntos unidos por líneas: `type=”b”`
+-   Sólo líneas: `type=”l”`
+
+```{r}
+v1=c(2,-5,6,0)
+v2=c(5,7,-3,0)
+plot(v1,v2,type="b")
+plot (v1, v2, type="l")
+```
+
+Se pueden manejar otros aspectos del gráfico, con los siguientes parámetros, ver ayuda en RStudio con `help(”plot”)`:
+
+-   Título del diagrama: `main=”título”`
+-   Subtítulo del diagrama: `sub=”subtítulo”`
+-   Etiqueta para el eje x: `xlab=”etiqueta”`
+-   Etiqueta para el eje y: `ylab=”etiqueta”`
+-   Grosor de la línea: `lwd=”número”`
+-   Color de la línea: `col=”color”` (ej. “red”, “blue”, “green”, etc., lista completa en [enlace](https://r-charts.com/es/colores/))
+-   Límites del eje x: `xlim=c(mínimo,máximo)`
+-   Límites del eje y: `xlim=c(mínimo,máximo)`
+-   Tipo de línea: `lty=0,1,2,3,4,5,6`
+    -   0=invisible
+    -   1=sólida
+    -   2=rayas
+    -   3=puntos
+    -   4=puntos y rayas
+    -   5= rayas largas
+    -   6=rayas cortas y largas
+
+```{r}
+plot(v1,v2,type="b", main="Título del diagrama", sub="Subtítulo del diagrama", xlab="Etiqueta eje x", ylab="etiqueta eje y", col="red", lwd="3")
+plot(v1, v2, type="l", xlim = c(-10,10), ylim=c(-5,15), lty=2)
+```
+
+Se pueden dibujar funciones, si como segundo vector se pasa una función aplicada a los elementos del primer vector:
+
+```{r}
+x=-10:10
+plot(x, 3*x+2,type="l", main="Recta y=3x+2")
+x=-10:10
+plot(x, x^2, type="l", main="Parábola")
+x=-10:10
+plot(x,exp(x),type="l", main="Función exponencial")
+```
+
+### Función *curve*
+
+Se puede dibujar cualquier curva con la función `curve(función(x), from=valor mínimo de x, to=valor máximo de x)`.
+
+Ejemplo:
+
+```{r}
+curve(x^2, from=-10, to=10)
+```
+
+Se puede crear previamente la función usando `function`:
+
+```{r}
+mi.funcion = function(x){x^2}
+curve(mi.funcion,from=-10, to=10)
+```
+
+### Múltiples gráficos *(función par)*
+
+La función `par(mfrow=c(filas,columnas)` divide la ventana `Plots` en filas y columnas, y los gráficos se dibujan según esa división.
+
+Para volver a tener una ventana para un solo gráfico hay que ejecutar: `par(mfrow=c(1,1))`.
+
+Ejemplo:
+
+```{r}
+par(mfrow=c(2,3))
+x=-10:10
+plot(x,3*x+2,type="l", main="Recta")
+plot(x,x^2,type="l", main="Parábola")
+plot(x,exp(x),type="l", main="Exponencial")
+plot(x,log(x),type="l", main="Logaritmo neperiano")
+plot(x,abs(x),type="l", main="Absoluto")
+plot(x,x^3,type="l", main="Función x^3")
+par(mfrow=c(1,1)) 
+```
+
+## Ejercicios propuestos
+
+1.  Resolver la ecuación de segundo grado $3x^2+5x+1=0$, usando la fórmula: $x = \frac{-5\pm\sqrt(5^2-4·3·1)}{2·3}$.
+2.  Crear la función triple(x) para obtener el valor del parámetro o argumento x multiplicado por 3. Usar esa función para calcular el triple de 100.
+3.  Crear un vector v1 con los datos 20, 21, 22, .., 30 y otro vector v2 con los datos 1, 2, 3, .., 11. Con estos vectores realizar las siguientes operaciones: 
+    -   a) Obtener un vector v3 que sea la suma de v1 y v2.
+    -   b) Obtener un vector v4 que en el que los elementos sean las raíces cuadradas de los elementos de v1.
+    -   c) Obtener un vector v5 con en el que los elementos tengan un valor doble que el valor de los elementos de v1.
+4.  Leer el archivo futbol.csv, omitir los valores NA, y obtener en euros la suma de los presupuestos de todos los equipos. NOTA: El presupuesto en millones de euros de cada equipo está en la columna PRESUPUESTO del archivo.
+5.  Dividir la ventana `Plots` de RStudio en dos partes y dibujar los siguientes diagramas, uno junto a otro:
+    -   La recta y=-3x+50, en color azul, con el eje x desde 0 a 100, usando la función `plot()`.
+    -   La recta y=-3x+50, en color azul, con el eje x desde 0 a 100, usando la función `curve()`.
