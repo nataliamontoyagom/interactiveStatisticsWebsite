@@ -1,6 +1,6 @@
 ---
 title: "Práctica 7"
-subtitle: "Intervalos de confianza para parámetros"
+subtitle: "Intervalos de confianza para la diferencia de parámetros"
 format: html
 ---
 

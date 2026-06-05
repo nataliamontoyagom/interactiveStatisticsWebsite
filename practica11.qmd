@@ -1,6 +1,0 @@
----
-title: "Práctica 11"
-subtitle: "Informe de estadística inferencial"
-format: html
----
-

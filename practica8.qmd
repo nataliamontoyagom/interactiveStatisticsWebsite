@@ -1,6 +1,6 @@
 ---
 title: "Práctica 8"
-subtitle: "Intervalos de confianza para la diferencia de parámetros"
+subtitle: "Contrastes de hipótesis paramétricos"
 format: html
 ---
 

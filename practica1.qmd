@@ -1,11 +1,14 @@
 ---
 title: "Práctica 1"
 subtitle: "Introducción a R y RStudio"
-format:
-  html:
+format: 
+  html: 
     toc: true
     toc-location: left
     toc-title: "Índice"
+engine: knitr
+filters:
+  - webr
 ---
 
 ## Introducción
@@ -58,23 +61,23 @@ Existe la opción de utilizar RStudio de forma online sin instalarlo en nuestro 
 
 ### Referencias sobre R y RStudio
 
--   Sobre R existen recomendaciones de manuales y documentos de consulta en el propio sitio web del proyecto R:
+- Sobre R existen recomendaciones de manuales y documentos de consulta en el propio sitio web del proyecto R:
 
-    -   [An Introduction to R (R Core Team)](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
+  - [An Introduction to R (R Core Team)](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
 
-    -   [A Spanish translation of “An Introduction to R” (A. González, S. González)](https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf)
+  - [A Spanish translation of “An Introduction to R” (A. González, S. González)](https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf)
 
-    -   [Otras referencias en varios idiomas](https://cran.r-project.org/other-docs.html)
+  - [Otras referencias en varios idiomas](https://cran.r-project.org/other-docs.html)
 
-    -   [Tutorial online interactivo (Para practicar con R sin usar RStudio)](https://www.w3schools.com/r/)
+  - [Tutorial online interactivo (Para practicar con R sin usar RStudio)](https://www.w3schools.com/r/)
 
--   Sobre RStudio se recomiendan las siguientes referencias:
+- Sobre RStudio se recomiendan las siguientes referencias:
 
-    -   [Uso básico de RStudio (G. Boccardo, F. Ruiz)](https://bookdown.org/gboccardo/manual-ED-UCH/uso-basico-de-rstudio.html)
+  - [Uso básico de RStudio (G. Boccardo, F. Ruiz)](https://bookdown.org/gboccardo/manual-ED-UCH/uso-basico-de-rstudio.html)
 
-    -   [Primeros pasos con R y RStudio (V. Coll)](https://www.uv.es/vcoll/primeros-pasos.html#instalar-r-y-rstudio)
+  - [Primeros pasos con R y RStudio (V. Coll)](https://www.uv.es/vcoll/primeros-pasos.html#instalar-r-y-rstudio)
 
-    -   [Descripción de RStudio (M. Hidalgo, A. Lara)](https://wpd.ugr.es/~bioestad/guia-r-studio/practica-1-r-studio/)
+  - [Descripción de RStudio (M. Hidalgo, A. Lara)](https://wpd.ugr.es/~bioestad/guia-r-studio/practica-1-r-studio/)
 
 ## Descripción de RStudio
 
@@ -100,8 +103,8 @@ Al elegir esta opción, se nos pide el nombre del directorio (carpeta) del orden
 
 Por ejemplo, podríamos crear el proyecto en una carpeta P1 para esta práctica, dentro de la carpeta Estadística:
 
--   Directory name: P1
--   Create Project as subdirectory of: C:/Estadistica
+- Directory name: P1
+- Create Project as subdirectory of: C:/Estadistica
 
 ![](img/image013.png){fig-align="center" width="420"}
 
@@ -115,8 +118,8 @@ Pueden verse tres secciones:
 2.  Files: Donde se ve el contenido de la carpeta (directorio) del proyecto. De momento sol hay un archivo llamado “R1.Rproj”.
 3.  Console: En esta sección se pueden escribir directamente los comandos en lenguaje R. Podemos probar a escribir una operación matemática como: `34+62` y vemos que nos responde con el resultado de la suma.
 
-```{r}
-36 + 62
+```{webr-r}
+36+62
 ```
 
 Si queremos limpiar la consola, podemos seleccionar el icono con forma de brocha o cepillo.
@@ -149,7 +152,7 @@ Al hacer esto, en el editor ahora aparece el nombre del archivo. Y el propio arc
 
 Ya estamos en condiciones de empezar a escribir comandos R en el archivo de texto, uno por cada línea, por ejemplo, podemos escribir estas dos líneas:
 
-```{r}
+```{webr-r}
 34 + 62
 5^2
 ```
@@ -174,19 +177,19 @@ Para asignar un valor a una variable podemos hacerlo de dos formas, con el opera
 
 Por ejemplo, podemos crear una variable edad y asignarle un valor `12`.
 
-```{r}
+```{webr-r}
 edad = 12
 ```
 
 O bien:
 
-```{r}
+```{webr-r}
 edad <- 12
 ```
 
 Y después usarla en una expresión como:
 
-```{r}
+```{webr-r}
 edad + 100
 ```
 
@@ -198,7 +201,7 @@ Cuando creamos variables en un proyecto, aparecen en la sección `Environment`.
 
 Puede observarse que al asignar un valor a una variable con `edad=12`, no aparece el resultado en la consola. Si queremos ver el resultado de la asignación en la consola, hay que encerrar la expresión entre paréntesis `()`:
 
-```{r}
+```{webr-r}
 (edad=12)
 ```
 
@@ -206,21 +209,21 @@ Puede observarse que al asignar un valor a una variable con `edad=12`, no aparec
 
 Puede apreciarse que en un caso en la consola no se indica el valor 12 y en el otro sí, aunque en ambos casos el resultado ha sido el mismo, es decir se ha creado la variable en el proyecto, aparece en Environment y se puede usar a partir de ahora en el proyecto.
 
--   Si se utilizan números con decimales, hay que utilizar el punto “.” Para separar la parte entera de la decimal:
+- Si se utilizan números con decimales, hay que utilizar el punto “.” Para separar la parte entera de la decimal:
 
-```{r}
+```{webr-r}
 precio = 34.99
 ```
 
--   También se pueden asignar textos a las variables, en este caso deben encerrarse entre comillas dobles o simples:
+- También se pueden asignar textos a las variables, en este caso deben encerrarse entre comillas dobles o simples:
 
-```{r}
+```{webr-r}
 nombre = "juan perez"
 ```
 
--   O bien:
+- O bien:
 
-```{r}
+```{webr-r}
 nombre = 'juan perez'
 ```
 
@@ -228,7 +231,7 @@ nombre = 'juan perez'
 
 También se pueden variables que almacenen valores lógicos o booleanos, que pueden ser `TRUE` o `FALSE`:
 
-```{r}
+```{webr-r}
 respuesta = FALSE
 ```
 
@@ -236,7 +239,7 @@ respuesta = FALSE
 
 Normalmente usamos nombres largos para las funciones, en ese caso se pueden usar símbolos como `_` o `.` en el nombre de la función, o una notación “*camelcase*”, es decir poner en mayúscula la primera letra de cada palabra. Lo habitual en R es usar el separador `.`. Por ejemplo, algunos nombres válidos podrían ser:
 
-```{r}
+```{webr-r}
 totaldelafactura = 25.99
 TotalDeLaFactura = 25.99
 total_de_la_factura = 25.99
@@ -247,71 +250,157 @@ total.de.la.factura = 25.99
 
 Se pueden utilizar operadores de diferente tipo, como aritméticos y de comparación, entre otros.
 
-+--------------+----------------------+---------------+
-| Operador     | Nombre               | Ejemplo       |
-+:============:+:====================:+:=============:+
-| \+           | Suma                 | ``` r         |
-|              |                      | 30 + 10       |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
-| \-           | Resta                | ``` r         |
-|              |                      | 456.78 - 0.50 |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
-| \*           | Multiplicación       | ``` r         |
-|              |                      | 100 * 3       |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
-| /            | División             | ``` r         |
-|              |                      | 56 / 5        |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
-| %/%          | División entera      | ``` r         |
-|              |                      | 56 %/% 5      |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
-| %%           | Resto de un división | ``` r         |
-|              |                      | 56 %% 5       |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
-| \^           | Potencia             | ``` r         |
-|              |                      | 5 ^ 3         |
-|              |                      | ```           |
-+--------------+----------------------+---------------+
++---------------+-----------------------+---------------+
+| Operador      | Nombre                | Ejemplo       |
++:=============:+:=====================:+:=============:+
+| \+            | Suma                  | ``` r         |
+|               |                       | 30 + 10       |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
+| \-            | Resta                 | ``` r         |
+|               |                       | 456.78 - 0.50 |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
+| \*            | Multiplicación        | ``` r         |
+|               |                       | 100 * 3       |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
+| /             | División              | ``` r         |
+|               |                       | 56 / 5        |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
+| %/%           | División entera       | ``` r         |
+|               |                       | 56 %/% 5      |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
+| %%            | Resto de una división | ``` r         |
+|               |                       | 56 %% 5       |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
+| \^            | Potencia              | ``` r         |
+|               |                       | 5 ^ 3         |
+|               |                       | ```           |
++---------------+-----------------------+---------------+
 
 : Principales operadores aritméticos en R
 
+::: {.callout-tip collapse="true"}
+## Probar operadores
+
+#### Suma
+
+```{webr-r}
+30 + 10
+```
+
+#### Resta
+
+```{webr-r}
+456.78 - 0.50
+```
+
+#### Multiplicación
+
+```{webr-r}
+100 * 3
+```
+
+#### División
+
+```{webr-r}
+56 / 5
+```
+
+#### División entera
+
+```{webr-r}
+56 %/% 5
+```
+
+#### Resto de una división
+
+```{webr-r}
+56 %% 5
+```
+
+#### Potencia
+
+```{webr-r}
+5 ^ 3
+```
+:::
+
 Con los operadores de comparación se obtiene un resultado `TRUE` o `FALSE`.
 
-+--------------+---------------+-------------------------+
-| Operador     | Nombre        | Ejemplo                 |
-+:============:+:=============:+:=======================:+
-| ==           | Igual         | ``` {.r results="hold"} |
-|              |               | 6 == 5                  |
-|              |               | ```                     |
-+--------------+---------------+-------------------------+
-| !=           | Desigual      | ``` r                   |
-|              |               | 6 != 5                  |
-|              |               | ```                     |
-+--------------+---------------+-------------------------+
-| \>           | Mayor         | ``` r                   |
-|              |               | 6 > 5                   |
-|              |               | ```                     |
-+--------------+---------------+-------------------------+
-| \>=          | Mayor o igual | ``` r                   |
-|              |               | 6 >= 5                  |
-|              |               | ```                     |
-+--------------+---------------+-------------------------+
-| \<           | Menor         | ``` r                   |
-|              |               | 6 < 5                   |
-|              |               | ```                     |
-+--------------+---------------+-------------------------+
-| \<=          | Menor o igual | ``` r                   |
-|              |               | 6 <= 5                  |
-|              |               | ```                     |
-+--------------+---------------+-------------------------+
++---------------+---------------+-------------------+
+| Operador      | Nombre        | Ejemplo           |
++:=============:+:=============:+:=================:+
+| ==            | Igual         | ``` r             |
+|               |               | 6 == 5            |
+|               |               | ```               |
++---------------+---------------+-------------------+
+| !=            | Desigual      | ``` r             |
+|               |               | 6 != 5            |
+|               |               | ```               |
++---------------+---------------+-------------------+
+| \>            | Mayor         | ``` r             |
+|               |               | 6 > 5             |
+|               |               | ```               |
++---------------+---------------+-------------------+
+| \>=           | Mayor o igual | ``` r             |
+|               |               | 6 >= 5            |
+|               |               | ```               |
++---------------+---------------+-------------------+
+| \<            | Menor         | ``` r             |
+|               |               | 6 < 5             |
+|               |               | ```               |
++---------------+---------------+-------------------+
+| \<=           | Menor o igual | ``` r             |
+|               |               | 6 <= 5            |
+|               |               | ```               |
++---------------+---------------+-------------------+
 
 : Principales operadores de comparación en R
+
+::: {.callout-tip collapse="true"}
+## Probar operadores
+
+#### Igual
+
+```{webr-r}
+6 == 5
+```
+
+#### Desigual
+
+```{webr-r}
+6 != 5
+```
+
+#### Mayor
+
+```{webr-r}
+6 > 5
+```
+
+#### Mayor o igual
+
+```{webr-r}
+6 >= 5
+```
+
+#### Menor
+
+```{webr-r}
+6 < 5
+```
+
+#### Menor o igual
+
+```{webr-r}
+6 <= 5
+```
+:::
 
 ### Comandos y comentarios
 
@@ -321,19 +410,19 @@ Un grupo de comandos en un archivo `.R` se puede considerar un programa.
 
 Los comandos se pueden separar con un salto de línea como ya hemos visto, pero también con punto y coma `;`:
 
-```{r}
+```{webr-r}
 34+64; 5^2
 ```
 
 Los comandos se pueden agrupar encerrándolos entre llaves `{}`:
 
-```{r}
+```{webr-r}
 {x=34+62; y=5^2}; {x+y}
 ```
 
 En un archivo `.R` se pueden incluir comentarios usando el símbolo `#`. Todo lo que haya a la derecha del símbolo se considera un comentario y no se ejecuta.
 
-```{r}
+```{webr-r}
 # Ejemplo de suma
 34+62
 
@@ -349,6 +438,8 @@ Cuando se usa una función, el intérprete de R ejecuta las líneas de código q
 Por ejemplo, la función `sqrt()`:
 
 +-----------------------------+------------------------------------------------------------+
+|                             |                                                            |
++=============================+============================================================+
 | **Función**                 | `sqrt(x)`                                                  |
 +-----------------------------+------------------------------------------------------------+
 | **Objetivo de la función**  | Calcular la raíz cuadrada de un número                     |
@@ -360,7 +451,7 @@ Por ejemplo, la función `sqrt()`:
 
 : Ejemplo de una función
 
-```{r}
+```{webr-r}
 sqrt(25)
 raiz.de.cincuenta = sqrt(50)
 raiz.de.cincuenta
@@ -375,45 +466,31 @@ Algunas funciones predefinidas para cálculos aritméticos son las siguientes:
 +:============================:+:======================================================================================================:+=======================+
 | `abs(x)`                     | Valor absoluto de x                                                                                    | ``` r                 |
 |                              |                                                                                                        | abs(-34)              |
-|                              | $$                                                                                                     | ```                   |
-|                              | |x|                                                                                                    |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$|x|$$                                                                                                | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `exp(x)`                     | Exponencial con base e                                                                                 | ``` r                 |
 |                              |                                                                                                        | exp(2)                |
-|                              | $$                                                                                                     | ```                   |
-|                              | e^x                                                                                                    |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$e^x$$                                                                                                | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `log(x)`                     | Logaritmo neperiano (base e) de x                                                                      | ``` r                 |
 |                              |                                                                                                        | log(20)               |
-|                              | $$                                                                                                     | ```                   |
-|                              | ln(x)                                                                                                  |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$ln(x)$$                                                                                              | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `log10(x)`                   | Logaritmo natural (base 10) de x                                                                       | ``` r                 |
 |                              |                                                                                                        | log10(20)             |
-|                              | $$                                                                                                     | ```                   |
-|                              | log(x)                                                                                                 |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$log(x)$$                                                                                             | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `sqrt(x)`                    | Raíz cuadrada de x                                                                                     | ``` r                 |
 |                              |                                                                                                        | sqrt(36)              |
-|                              | $$                                                                                                     | ```                   |
-|                              | \sqrt(x)                                                                                               |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$\sqrt(x)$$                                                                                           | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `factorial(x)`               | Factorial de x                                                                                         | ``` r                 |
 |                              |                                                                                                        | factorial(4)          |
-|                              | $$                                                                                                     | ```                   |
-|                              | x! = 1·2·3·...·x                                                                                       |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$x! = 1·2·3·...·x$$                                                                                   | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `choose(x,y)`                | Número combinatorio                                                                                    | ``` r                 |
 |                              |                                                                                                        | choose(6,2)           |
-|                              | $$                                                                                                     | ```                   |
-|                              | \binom{x}{y} = \frac{x!}{y!(x-y)!}                                                                     |                       |
-|                              | $$                                                                                                     |                       |
+|                              | $$\binom{x}{y} = \frac{x!}{y!(x-y)!}$$                                                                 | ```                   |
 +------------------------------+--------------------------------------------------------------------------------------------------------+-----------------------+
 | `ceiling(x)`                 | Primer número entero mayor o igual que x                                                               | ``` r                 |
 |                              |                                                                                                        | ceiling(45)           |
@@ -440,6 +517,69 @@ Algunas funciones predefinidas para cálculos aritméticos son las siguientes:
 
 : Ejemplos de funciones aritméticas predefinidas en R
 
+::: {.callout-tip collapse="true"}
+## Probar funciones predefinidas
+
+#### Valor absoluto
+```{webr-r}
+abs(-34)
+```
+#### Exponencial con base e
+```{webr-r}
+exp(2)
+```
+#### Logaritmo neperiano con base e
+```{webr-r}
+log(20)
+```
+#### Logaritmo natural con base 10
+```{webr-r}
+log10(20)
+```
+#### Raíz cuadrada
+```{webr-r}
+sqrt(36)
+```
+#### Factorial
+```{webr-r}
+factorial(4)
+```
+#### Número combiniatorio
+```{webr-r}
+choose(6,2)
+```
+#### Primer número entero mayor o igual que
+```{webr-r}
+ceiling(45)
+ceiling(45.3)
+```
+#### Primer número entero menor o igual que
+```{webr-r}
+floor(45.3)
+```
+#### Parte entera
+```{webr-r}
+trunc(3.5)
+```
+#### Redondeo con n dígitos decimales
+```{webr-r}
+43/7
+round(43/7, digits=3)
+```
+#### Seno
+```{webr-r}
+sin(pi/2)
+```
+#### Coseno
+```{webr-r}
+cos(pi/2)
+```
+#### Tangente
+```{webr-r}
+tan(pi/2)
+```
+:::
+
 También existen funciones predefinidas para manejar texto (cadenas de caracteres o strings).
 
 +--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
@@ -464,6 +604,27 @@ También existen funciones predefinidas para manejar texto (cadenas de caractere
 +--------------------------------+---------------------------------------------------------------------------------------------------+----------------------------------------+
 
 : Ejemplos de funciones de texto predefinidas en R
+
+::: {.callout-tip collapse="true"}
+## Probar funciones predefinidas para el manejo de texto
+#### Conversor a mayúsculas
+```{webr-r}
+toupper("Informática")
+```
+#### Conversor a minúsculas
+```{webr-r}
+tolower("SisTEMas")
+```
+#### Concatenador con separación indicado
+```{webr-r}
+paste("Buenos","días",sep="")
+paste("Buenos","días",sep=" ")
+```
+#### Extractor de caracteres desde 'start' hasta 'stop'
+```{webr-r}
+substr("Informática", start=3, stop=7)
+```
+:::
 
 Existen algunas otras funciones predefinidas básicas que pueden ser útiles, como las siguientes:
 
@@ -522,6 +683,14 @@ Existen algunas otras funciones predefinidas básicas que pueden ser útiles, co
 
 : Ejemplos de otras funciones predefinidas en R
 
+::: {.callout-tip collapse="true"}
+## Ahora prueba tú
+
+```{webr-r}
+
+```
+:::
+
 #### Funciones importadas de librerías
 
 Con las funciones `install.package` y luego `library` podemos importar librerías de funciones contenidas en paquetes públicos.
@@ -530,19 +699,19 @@ Existen miles de paquetes en [r-project.org](https://cran.r-project.org/web/pack
 
 Según su documentación, este paquete ofrece una función para hacer conversiones de números cardinales a ordinales.
 
-``` r
+```{webr-r}
 install.packages("toOrdinal")
 ```
 
 A continuación, se ejecuta el comando `library`:
 
-``` r
+```{webr-r}
 library(toOrdinal)
 ```
 
 Y ya se puede usar:
 
-``` r
+```{webr-r}
 toOrdinal(55, language="English")
 toOrdinal(55, language="Spanish")
 toOrdinal(55, language="French")
@@ -550,19 +719,19 @@ toOrdinal(55, language="French")
 
 Si hemos instalado varios paquetes que tienen funciones con el mismo nombre, para diferenciarlas, se puede poner delante de la función el nombre del paquete librería seguido de `::`. Por ejemplo:
 
-``` r
+```{webr-r}
 toOrdinal::toOrdinal(55, language="English")
 ```
 
 El comando contrario a library, que sirve para eliminar un paquete del proyecto actual es `detach`:
 
-``` r
-detach("package:toOrdinal")
+```{webr-r}
+detach(package:toOrdinal)
 ```
 
 Y el contrario a `install.packages`, para eliminar un paquete del ordenador es `remove.packages`:
 
-``` r
+```{webr-r}
 remove.packages("toOrdinal")
 ```
 
@@ -570,7 +739,7 @@ remove.packages("toOrdinal")
 
 Podemos crear nuestras propias funciones, para después usarlas en el proyecto en el que estemos trabajando, o en otros proyectos.
 
-```
+```         
 nombre = function(parámetros) {
   Contenido de la función
 }
@@ -578,7 +747,7 @@ nombre = function(parámetros) {
 
 Por ejemplo, podemos crear una función para sumar dos números.
 
-```{r}
+```{webr-r}
 sumar = function(x,y) {   
     return(x+y) 
 }
@@ -590,7 +759,7 @@ Las funciones que hemos creado en el proyecto aparecen en la sección `Environme
 
 A partir de ahora podemos usar nuestra función de la forma habitual. Algunos ejemplos de uso pueden ser:
 
-```{r}
+```{webr-r}
 sumar(4,5)
 
 a=10
@@ -608,7 +777,7 @@ Los vectores son colecciones ordenadas de números, caracteres o valores lógico
 
 Por ejemplo, podemos crear las siguientes variables de tipo vector:
 
-```{r}
+```{webr-r}
 ejemplo = c(34.6, 100, 67.2, 55, -8.4, 0, 0.5)
 personas = c("Ana", "Juan", "Elena")
 respuestas = c(TRUE, FALSE, FALSE)
@@ -616,7 +785,7 @@ respuestas = c(TRUE, FALSE, FALSE)
 
 Para ver su valor escribimos el nombre de la variable en la consola:
 
-```{r}
+```{webr-r}
 ejemplo
 personas
 respuestas
@@ -776,9 +945,17 @@ Algunos operadores y funciones para usar con vectores son los siguientes:
 
 : Operadores y funciones con vectores en R
 
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos que más te gusten de la tabla y pruébalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
 Cuando se realizan operaciones aritméticas con vectores, estas operaciones se realizan elemento a elemento, como puede comprobarse en los siguientes ejemplos:
 
-```{r}
+```{webr-r}
 x=c(10,20,30,40)
 y=c(1,2,3,4)
 2*x
@@ -792,7 +969,7 @@ x/y
 
 En el caso de vectores de caracteres se puede usar la función `paste()` para combinar los elementos:
 
-```{r}
+```{webr-r}
 nombres=c("Juan", "Ana")
 apellidos=c("Perez", "Garcia")
 paste(nombres,apellidos)
@@ -801,7 +978,7 @@ paste(nombres,apellidos,sep=",")
 
 También se pueden usar números, que se transforman a caracteres:
 
-```{r}
+```{webr-r}
 paste(nombres, c(100,200))
 ```
 
@@ -821,7 +998,7 @@ tabla = data.frame (
 
 Un ejemplo podría ser:
 
-```{r}
+```{webr-r}
 personas = data.frame (
   nombre = c("Juan", "Ana", "Elena", "Jose"),
   apellido = c("Perez", "Garcia", "Lopez", "Garcia"),
@@ -831,7 +1008,7 @@ personas = data.frame (
 
 Si visualizamos en la consola el valor de la variable personas:
 
-```{r}
+```{webr-r}
 personas
 ```
 
@@ -847,21 +1024,21 @@ Las columnas son realmente vectores, y se pueden obtener todos los datos de una 
 
 1.  Usando el nombre de la tabla, el símbolo `$` y el nombre de la columna.
 
-```{r}
+```{webr-r}
 años=personas$edad
 años
 ```
 
 2.  Usando el nombre de la tabla y el nombre de la columna entre `[[ ]]`.
 
-```{r}
+```{webr-r}
 años=personas[["edad"]]
 años
 ```
 
 3.  Usando el nombre de la tabla y el número de la columna entre `[ ]`.
 
-```{r}
+```{webr-r}
 años=personas[3]
 años
 ```
@@ -872,40 +1049,40 @@ NOTA: Es posible crear tablas usando la función `data.table()`, pero para ello 
 
 Se puede acceder a una fila de una tabla con `tabla[fila,]`:
 
-```{r}
+```{webr-r}
 personas[2,]
 ```
 
 O a una celda, indicando fila y columna con `tabla[fila,columna]`:
 
-```{r}
+```{webr-r}
 personas[2,3]
 ```
 
 A partir de una tabla se puede obtener otra sólo con las filas que cumplan una condición con `tabla[condición]`. Por ejemplo, con las personas que se apelliden “Garcia”:
 
-```{r}
+```{webr-r}
 personas.garcia = personas[personas$apellido=="Garcia",]
 personas.garcia
 ```
 
 O por ejemplo con las personas que tengan más de 26 años:
 
-```{r}
+```{webr-r}
 mayores = personas[personas$edad>26,]
 mayores
 ```
 
 La condición se puede utilizar para obtener una muestra aleatoria de filas de la tabla, usando la función `sample`:
 
-```{r}
+```{webr-r}
 muestra=personas[sample(nrow(personas), size=2),]
 muestra
 ```
 
 Se puede modificar el valor de un dato en una tabla identificando su fila y columna con `tabla[fila,columna]`:
 
-```{r}
+```{webr-r}
 personas
 personas[2,3]=34
 personas
@@ -913,35 +1090,35 @@ personas
 
 Se puede modificar una fila completa, mediante la notación `tabla[fila,]=list(valores)`:
 
-```{r}
+```{webr-r}
 personas[1,]=list("Pedro","Herrero",20)
 personas
 ```
 
 Se puede eliminar una fila mediante la notación `tabla[-fila,]`:
 
-```{r}
+```{webr-r}
 personas=personas[-2,]
 personas
 ```
 
 Se puede añadir una nueva fila al final de un tabla usando la función `rbind()`:
 
-```{r}
+```{webr-r}
 personas=rbind(personas,list("María","Gutierrez", 40))
 personas
 ```
 
 Se puede eliminar una columna de una tabla usando la notación `tabla[,-columna]`:
 
-```{r}
+```{webr-r}
 personas = personas[,-3]
 personas
 ```
 
 Se puede añadir una nueva columna a la derecha de la tabla usando la función cbind():
 
-```{r}
+```{webr-r}
 nota=c(6,10,5,9)
 personas=cbind(personas,nota)
 personas
@@ -953,15 +1130,14 @@ Cuando se utiliza R para realizar cálculos estadísticos, se suelen leer los da
 
 En los siguientes sitios web podemos encontrar miles de archivos `csv` con datos reales:
 
--   [datos.gob.es](https://datos.gob.es/es/): Datos abiertos sobre servicios públicos en España
--   [data.europa.eu](https://data.europa.eu/es): Datos abiertos sobre la Unión Europea
+- [datos.gob.es](https://datos.gob.es/es/): Datos abiertos sobre servicios públicos en España
+- [data.europa.eu](https://data.europa.eu/es): Datos abiertos sobre la Unión Europea
 
 En estas prácticas se usarán sólo archivos `.csv`.
 
 Para leer el contenido de un archivo `.csv` y almacenarlo en una tabla de tipo `data.frame` se utiliza la función `read.csv2()`.
 
-
-```
+```         
 tabla = read.csv2(“archivo.csv”)
 ```
 
@@ -971,38 +1147,43 @@ NOTA: Aunque en el archivo de datos el separador decimal sea `,`, una vez leído
 
 Para probar con un archivo de ejemplo, vamos a descargar el archivo [futbol.csv](https://hilera.web.uah.es/estadistica/r/datos/futbol.csv) que contiene datos sobre equipos de fútbol.
 
-El archivo descargado hay que guardarlo en la carpeta del nuestro proyecto P1 de RStudio. Para recordar cuál es nuestra carpeta o directorio de trabajo (working directory) se puede usar la función `getwd()` de R.
+El archivo descargado hay que guardarlo en la carpeta de nuestro proyecto P1 de RStudio. Para recordar cuál es nuestra carpeta o directorio de trabajo (working directory) se puede usar la función `getwd()` de R.
 
-```{r}
+```{webr-r}
 getwd()
 ```
 
 Cada uno habrá obtenido la ubicación de su proyecto, y es en esa carpeta donde hay que guardar el archivo descargado, que debe aparecer en la sección `Files` de RStudio, donde una vez que lo tenemos en el espacio de trabajo, podemos cargar los datos en una variable usando la función `data.frame`.
 
-```{r}
+``` r
 datos=read.csv2("futbol.csv")
 datos
+```
+```{webr-r}
+datos <- read.csv2(
+  "URL DE GITHUB PAGES"
+)
 ```
 
 Podemos comprobar que hay dos valores NA, porque esas celdas en el archivo estaban vacías, por no disponer de esos datos.
 
 Para evitar problemas de procesamiento, podemos eliminar las filas de esos equipos, con la función `na.omit`.
 
-```{r}
+```{webr-r}
 datos=na.omit(datos)
 datos
 ```
 
 Si queremos cargar en un vector el número de goles marcados por cada equipo, podemos hacerlo con:
 
-```{r}
+```{webr-r}
 goles=datos$GOLES
 goles
 ```
 
 Ahora podemos usar cualquiera de las funciones vistas en los apartados anteriores. Por ejemplo, podemos consultar el máximo número de goles marcados por un equipo, el mínimo, o sumar el total de goles marcados por todos los equipos.
 
-```{r}
+```{webr-r}
 max(goles)
 min(goles)
 sum(goles)
@@ -1014,14 +1195,14 @@ Por ejemplo: supongamos que ha habido un error en los goles del equipo 10 y en l
 
 Podemos modificar el `data.frame` así:
 
-```{r}
+```{webr-r}
 datos[10,3]=48
 datos
 ```
 
 Y volver a guardar en el archivo con:
 
-```{r}
+```{webr-r}
 write.csv2(datos,"futbolcambiado.csv")
 ```
 
@@ -1031,7 +1212,7 @@ Podemos comprobar en la sección `Files` de RStudio que aparece el nuevo archivo
 
 Si alguna vez queremos cambiar el directorio o carpeta de trabajo, podemos hacerlo con la función `setwd`:
 
-```{r}
+```{webr-r}
 setwd(".")
 ```
 
@@ -1045,19 +1226,19 @@ Con R se pueden generar gráficos, que aparecen en la sección `Plots` de RStudi
 
 ### Función *plot*
 
-La función `plot(c(x1,x2,x3,..),c(y1,y,2,y3,..))` dibuja puntos en las coordenadas `(x1,y1), (x2,y2), (x3,y3), ..` 
+La función `plot(c(x1,x2,x3,..),c(y1,y,2,y3,..))` dibuja puntos en las coordenadas `(x1,y1), (x2,y2), (x3,y3), ..`
 
-```{r}
+```{webr-r}
 plot(c(2,-5,6,0), c(5,7,-3,0))
 ```
 
 Se pueden usar variables para las coordenadas y un parámetro `type` para indicar el aspecto del gráfico.
 
--   Puntos (por defecto, si no se indica nada): `type=”p”`
--   Puntos unidos por líneas: `type=”b”`
--   Sólo líneas: `type=”l”`
+- Puntos (por defecto, si no se indica nada): `type=”p”`
+- Puntos unidos por líneas: `type=”b”`
+- Sólo líneas: `type=”l”`
 
-```{r}
+```{webr-r}
 v1=c(2,-5,6,0)
 v2=c(5,7,-3,0)
 plot(v1,v2,type="b")
@@ -1066,31 +1247,31 @@ plot (v1, v2, type="l")
 
 Se pueden manejar otros aspectos del gráfico, con los siguientes parámetros, ver ayuda en RStudio con `help(”plot”)`:
 
--   Título del diagrama: `main=”título”`
--   Subtítulo del diagrama: `sub=”subtítulo”`
--   Etiqueta para el eje x: `xlab=”etiqueta”`
--   Etiqueta para el eje y: `ylab=”etiqueta”`
--   Grosor de la línea: `lwd=”número”`
--   Color de la línea: `col=”color”` (ej. “red”, “blue”, “green”, etc., lista completa en [enlace](https://r-charts.com/es/colores/))
--   Límites del eje x: `xlim=c(mínimo,máximo)`
--   Límites del eje y: `xlim=c(mínimo,máximo)`
--   Tipo de línea: `lty=0,1,2,3,4,5,6`
-    -   0=invisible
-    -   1=sólida
-    -   2=rayas
-    -   3=puntos
-    -   4=puntos y rayas
-    -   5= rayas largas
-    -   6=rayas cortas y largas
+- Título del diagrama: `main=”título”`
+- Subtítulo del diagrama: `sub=”subtítulo”`
+- Etiqueta para el eje x: `xlab=”etiqueta”`
+- Etiqueta para el eje y: `ylab=”etiqueta”`
+- Grosor de la línea: `lwd=”número”`
+- Color de la línea: `col=”color”` (ej. “red”, “blue”, “green”, etc., lista completa en [enlace](https://r-charts.com/es/colores/))
+- Límites del eje x: `xlim=c(mínimo,máximo)`
+- Límites del eje y: `xlim=c(mínimo,máximo)`
+- Tipo de línea: `lty=0,1,2,3,4,5,6`
+  - 0=invisible
+  - 1=sólida
+  - 2=rayas
+  - 3=puntos
+  - 4=puntos y rayas
+  - 5= rayas largas
+  - 6=rayas cortas y largas
 
-```{r}
+```{webr-r}
 plot(v1,v2,type="b", main="Título del diagrama", sub="Subtítulo del diagrama", xlab="Etiqueta eje x", ylab="etiqueta eje y", col="red", lwd="3")
 plot(v1, v2, type="l", xlim = c(-10,10), ylim=c(-5,15), lty=2)
 ```
 
 Se pueden dibujar funciones, si como segundo vector se pasa una función aplicada a los elementos del primer vector:
 
-```{r}
+```{webr-r}
 x=-10:10
 plot(x, 3*x+2,type="l", main="Recta y=3x+2")
 x=-10:10
@@ -1105,13 +1286,13 @@ Se puede dibujar cualquier curva con la función `curve(función(x), from=valor 
 
 Ejemplo:
 
-```{r}
+```{webr-r}
 curve(x^2, from=-10, to=10)
 ```
 
 Se puede crear previamente la función usando `function`:
 
-```{r}
+```{webr-r}
 mi.funcion = function(x){x^2}
 curve(mi.funcion,from=-10, to=10)
 ```
@@ -1124,7 +1305,7 @@ Para volver a tener una ventana para un solo gráfico hay que ejecutar: `par(mfr
 
 Ejemplo:
 
-```{r}
+```{webr-r}
 par(mfrow=c(2,3))
 x=-10:10
 plot(x,3*x+2,type="l", main="Recta")
@@ -1139,12 +1320,40 @@ par(mfrow=c(1,1))
 ## Ejercicios propuestos
 
 1.  Resolver la ecuación de segundo grado $3x^2+5x+1=0$, usando la fórmula: $x = \frac{-5\pm\sqrt(5^2-4·3·1)}{2·3}$.
+
+```{webr-r}
+
+```
+
 2.  Crear la función triple(x) para obtener el valor del parámetro o argumento x multiplicado por 3. Usar esa función para calcular el triple de 100.
-3.  Crear un vector v1 con los datos 20, 21, 22, .., 30 y otro vector v2 con los datos 1, 2, 3, .., 11. Con estos vectores realizar las siguientes operaciones: 
-    -   a) Obtener un vector v3 que sea la suma de v1 y v2.
-    -   b) Obtener un vector v4 que en el que los elementos sean las raíces cuadradas de los elementos de v1.
-    -   c) Obtener un vector v5 con en el que los elementos tengan un valor doble que el valor de los elementos de v1.
+
+```{webr-r}
+
+```
+
+3.  Crear un vector v1 con los datos 20, 21, 22, .., 30 y otro vector v2 con los datos 1, 2, 3, .., 11. Con estos vectores realizar las siguientes operaciones:
+
+    - a)  Obtener un vector v3 que sea la suma de v1 y v2.
+
+    - b)  Obtener un vector v4 que en el que los elementos sean las raíces cuadradas de los elementos de v1.
+
+    - c)  Obtener un vector v5 con en el que los elementos tengan un valor doble que el valor de los elementos de v1.
+    
+```{webr-r}
+
+```
+
 4.  Leer el archivo futbol.csv, omitir los valores NA, y obtener en euros la suma de los presupuestos de todos los equipos. NOTA: El presupuesto en millones de euros de cada equipo está en la columna PRESUPUESTO del archivo.
+
+```{webr-r}
+
+```
+
 5.  Dividir la ventana `Plots` de RStudio en dos partes y dibujar los siguientes diagramas, uno junto a otro:
-    -   La recta y=-3x+50, en color azul, con el eje x desde 0 a 100, usando la función `plot()`.
-    -   La recta y=-3x+50, en color azul, con el eje x desde 0 a 100, usando la función `curve()`.
+
+    - La recta y=-3x+50, en color azul, con el eje x desde 0 a 100, usando la función `plot()`.
+    - La recta y=-3x+50, en color azul, con el eje x desde 0 a 100, usando la función `curve()`.
+    
+```{webr-r}
+
+```

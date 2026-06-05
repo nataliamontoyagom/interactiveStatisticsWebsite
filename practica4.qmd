@@ -1,6 +1,6 @@
 ---
 title: "Práctica 4"
-subtitle: "Informe de estadística descriptiva"
+subtitle: "Variables aleatorias y distribuciones discretas"
 format: html
 ---
 

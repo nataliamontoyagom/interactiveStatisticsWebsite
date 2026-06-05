@@ -1,6 +1,6 @@
 ---
 title: "Práctica 6"
-subtitle: "Variables aleatorias y distribuciones continuas"
+subtitle: "Intervalos de confianza para parámetros"
 format: html
 ---
 

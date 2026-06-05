@@ -1,6 +1,6 @@
 ---
 title: "Práctica 9"
-subtitle: "Contrastes de hipótesis paramétricos"
+subtitle: "Contrastes de hipótesis no paramétricos"
 format: html
 ---
 

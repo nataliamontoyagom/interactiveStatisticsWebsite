@@ -1,6 +1,0 @@
----
-title: "Práctica 10"
-subtitle: "Contrastes de hipótesis no paramétricos"
-format: html
----
-

@@ -1,6 +1,6 @@
 ---
 title: "Práctica 5"
-subtitle: "Variables aleatorias y distribuciones discretas"
+subtitle: "Variables aleatorias y distribuciones continuas"
 format: html
 ---
 
