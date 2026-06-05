@@ -1161,7 +1161,7 @@ datos
 ```
 ```{webr-r}
 datos <- read.csv2(
-  "URL DE GITHUB PAGES"
+  "https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/futbol.csv"
 )
 ```
 
@@ -1200,13 +1200,13 @@ datos[10,3]=48
 datos
 ```
 
-Y volver a guardar en el archivo con:
+Para poder guardar esta modificación, se utiliza el siguiente comando en RStudio:
 
-```{webr-r}
+```{r}
 write.csv2(datos,"futbolcambiado.csv")
 ```
 
-Podemos comprobar en la sección `Files` de RStudio que aparece el nuevo archivo de datos en la carpeta de trabajo.
+Podrás comprobar en la sección `Files` de RStudio que aparece el nuevo archivo de datos en la carpeta de trabajo.
 
 ![](img/image032.png){fig-align="center"}
 
