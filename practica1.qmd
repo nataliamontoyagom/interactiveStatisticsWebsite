@@ -1159,6 +1159,7 @@ Cada uno habrá obtenido la ubicación de su proyecto, y es en esa carpeta donde
 datos=read.csv2("futbol.csv")
 datos
 ```
+
 ```{webr-r}
 datos <- read.csv2(
   "https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/futbol.csv"
