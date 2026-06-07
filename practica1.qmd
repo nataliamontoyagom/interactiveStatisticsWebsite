@@ -1201,7 +1201,7 @@ datos
 
 Para poder guardar esta modificación, se utiliza el siguiente comando en RStudio:
 
-```{r}
+```{webr-r}
 write.csv2(datos,"futbolcambiado.csv")
 ```
 
