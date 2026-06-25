@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -370,7 +405,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"(encuesta = read.csv2(\"https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv\"))","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"grupo = encuesta$GRUPO\ngrado = encuesta$GRADO\nnota = encuesta$NOTA\nviaje = encuesta$VIAJE\ndormir = encuesta$DORMIR\nmovil = encuesta$MOVIL\nso = encuesta$SO","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"nota","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"(encuesta = read.csv2(\"https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv\"))","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"grupo = encuesta$GRUPO\ngrado = encuesta$GRADO\nnota = encuesta$NOTA\nviaje = encuesta$VIAJE\ndormir = encuesta$DORMIR\nmovil = encuesta$MOVIL\nso = encuesta$SO","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"nota","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"encuesta = read.csv2(\"https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv\")\nnota = encuesta$NOTA\nround(mean(nota),2)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(median(nota),2)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sort(nota)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"if (!require(\"modeest\")) \n  install.packages(\"modeest\")\nlibrary(modeest)\nmlv(nota, method=\"mfv\")","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"max(tabulate(match(nota, unique(nota))))","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"so=encuesta$SO\nmoda(so)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(quantile(nota,0.1,type=2),2)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-10","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sort(nota) [1:10]","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-11","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(quantile(nota,c(0.25,0.5),type=2),2)","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-12","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(median(nota),2)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-13","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(quantile(nota,0.75),2)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-14","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"range(nota)","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-15","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"max(nota)-min(nota)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-16","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(var(nota),2)","id":17,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-17","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(sd(nota),2)","id":18,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-18","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(sd(nota)/mean(nota),2)","id":19,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-19","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"round(IQR(nota,type=2),2)","id":20,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-20","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"Q1=round(quantile(nota,c(0.25)),2)\nQ3=round(quantile(nota,c(0.75)),2)\n\nQ1=as.double(Q1) #se usa as.double() para convertir a número\nQ3=as.double(Q3)\n\nround(Q1-1.5*IQR(nota,type=2),2)\nround(Q3-1.5*IQR(nota,type=2),2)","id":21,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-21","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1624,6 +1659,35 @@ globalThis.qwebrExecuteCode = async function (
 
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -1704,6 +1768,8 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#cálculo-de-medidas-estadísticas" id="toc-cálculo-de-medidas-estadísticas" class="nav-link" data-scroll-target="#cálculo-de-medidas-estadísticas">2. Cálculo de medidas estadísticas</a>
   <ul class="collapse">
   <li><a href="#medidas-de-centralización" id="toc-medidas-de-centralización" class="nav-link" data-scroll-target="#medidas-de-centralización">2.1 Medidas de centralización</a></li>
+  <li><a href="#medidas-de-localización-o-posición" id="toc-medidas-de-localización-o-posición" class="nav-link" data-scroll-target="#medidas-de-localización-o-posición">2.2 Medidas de localización (o posición)</a></li>
+  <li><a href="#medidas-de-dispersión" id="toc-medidas-de-dispersión" class="nav-link" data-scroll-target="#medidas-de-dispersión">2.3 Medidas de dispersión</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -2064,12 +2130,255 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="medidas-de-centralización" class="level3">
 <h3 class="anchored" data-anchor-id="medidas-de-centralización">2.1 Medidas de centralización</h3>
 <p>Las medidas de centralización o de posición de tendencia central indican un valor alrededor del cual se distribuyen las observaciones.</p>
+<table class="caption-top table">
+<caption>Tabla 1. Cálculo de medidas de centralización con R</caption>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th>R</th>
+<th>Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media (aritmética)</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El resultado sería NA si hay valores NA (no disponibles) en el vector <em>x</em>. Para calcular la media ignorando esos valores NA hay que utilizar el parámetro <em>na.rm</em>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><em>x</em> es un vector que contiene los valores de la variable estadística (cuantitativa), que deben ser valores numéricos. Se obtiene el cociente entre la suma de todos los valores y el número total de valores.</td>
+</tr>
+<tr class="even">
+<td>Mediana</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><em>x</em> contiene valores numéricos (variable cuantitativa) Si <em>x</em> tiene un número impar de valores, la mediana es el número de la posición central. Si es par, la mediana es la media de los dos valores centrales.</td>
+</tr>
+<tr class="odd">
+<td>Moda</td>
+<td><p>No existe una función predefinida en R para la moda. Podemos crear una propia, como la siguiente, adaptada de la definida en <a href="https://www.statology.org/mode-in-r/">statology.org</a>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">=</span> <span class="cf">function</span> (x) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">=</span> <span class="fu">unique</span>(x)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">=</span> <span class="fu">match</span>(x,u)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">=</span> <span class="fu">tabulate</span>(m)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (u[t <span class="sc">==</span> <span class="fu">max</span>(t)])</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>O se puede instalar un paquete como “<a href="https://cran.r-project.org/web/packages/modeest/index.html">modeest</a>” y usar la función <em>mlv</em>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"modeest"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeest)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mlv</span>(x, <span class="at">method=</span><span class="st">"mfv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td>Obtiene el valor del vector <em>x</em> que más se repite. Puede devolver un valor, o un vector de valores en el caso de que haya más de una moda, porque existan valores que se repiten el mismo número de veces (variable multimodal). <em>x</em> puede ser un vector de valores numéricos (variable cuantitativa) o no numéricos (variable cualitativa).</td>
+</tr>
+</tbody>
+</table>
+<section id="ejemplos" class="level4">
+<h4 class="anchored" data-anchor-id="ejemplos">2.1.1 Ejemplos</h4>
+<ol type="1">
+<li>Media de la nota de acceso a la universidad (con dos cifras decimales)</li>
+</ol>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="2" type="1">
+<li>Mediana de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Al tener el vector un número par de valores (74), podemos comprobar que R ha calculado la mediana haciendo la media de los valores de las posiciones centrales 37 (7.804) y 38 (7.830).</p>
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="3" type="1">
+<li>Moda de la nota de acceso a la universidad</li>
+</ol>
+<p>Podemos instalar el paquete <em>modeest</em> y usar la función <em>mlv</em>:</p>
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>La variable <em>nota</em> tiene sólo una moda, es el valor 7.8, que se repite 4 veces. Se puede calcular el número de veces que se repite la moda, con este comando:</p>
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="4" type="1">
+<li>Moda del sistema operativo de los teléfonos móviles de los estudiantes</li>
+</ol>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="medidas-de-localización-o-posición" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-localización-o-posición">2.2 Medidas de localización (o posición)</h3>
+<p>Las medidas de localización o de posición de tendencia no central, permiten conocer otros puntos característicos de la distribución que no son los valores centrales. Son valores de la distribución que la dividen en partes iguales, es decir en intervalos (cuantiles) que comprenden el mismo número de datos como los deciles, cuartiles y percentiles.</p>
+<table class="caption-top table">
+<caption>Tabla 2. Cálculo de medidas de localización con R</caption>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th>R</th>
+<th>Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Percentil</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x,p,<span class="at">type=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p><em>p</em> representa el percentil divido entre 100. Por ejemplo, el percentil 35 se calcularía indicando p=0.35.</p>
+<p>NOTA: Se usa <em>type=2</em>, porque hay hasta 9 formas de calcular cuantiles<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, y el tipo 2 coincide con la explicada en <a href="https://hilera.web.uah.es/estadistica/teoria/index.html">teoría</a>.</p></td>
+</tr>
+<tr class="even">
+<td>Cuartil</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x,t,<span class="at">type=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>El primer cuartil (Q1) se obtiene con q=0.25.</p>
+<p>El segundo cuartil (Q2) con q=0.5.</p>
+<p>El tercer cuartil (Q3) con q=0.75.</p>
+<p>El cuarto cuartil (Q4) con q=1.</p></td>
+</tr>
+<tr class="odd">
+<td>Varios percentiles o cuartiles</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x,<span class="fu">c</span>(c1,c2,c3..),<span class="at">type=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td>Se indican los percentiles o cuartiles en un vector.</td>
+</tr>
+</tbody>
+</table>
+<section id="ejemplos-1" class="level4">
+<h4 class="anchored" data-anchor-id="ejemplos-1">2.2.1 Ejemplos</h4>
+<p>Vamos a redondear todos los resultados con 2 cifras decimales, usando la función <em>round()</em>.</p>
+<ol type="1">
+<li>Percentil 10 de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Como hay 74 estudiantes, el 10% serían 7.4. Según la fórmula explicada en teoría, el percentil 10 sería 𝑋<sub>⌊7.4⌋+1</sub> = 𝑋<sub>7+1</sub> = 𝑥<sub>8</sub>. Si ordenamos la muestra y mostramos los 10 primeros valores, podemos comprobar que el de la posición 8 es 6.75 por lo que, en efecto ese es el percentil 10.</p>
+<div id="qwebr-insertion-location-11"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Lo que indica es que podemos asegurar que el 10% de los estudiantes de la muestra tiene una nota igual o inferior a 6.75, y que el 90% de los estudiantes tiene una nota de acceso igual o superior a 6.75.</p>
+<ol start="2" type="1">
+<li>Primer y segundo cuartiles (Q1 y Q2) de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-12"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Lo que indica es que la cuarta parte (25%) de los estudiantes de la muestra tiene una nota de acceso igual o inferior a 7.27 y que la mitad de los estudiantes (50%) tiene una nota de acceso igual o inferior a 7.81. Ese valor coincide con la mediana.</p>
+<div id="qwebr-insertion-location-13"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="3" type="1">
+<li>Tercer cuartil (Q3) de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-14"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Lo que indica que las tres cuartas partes (75%) de los estudiantes de la muestra tiene una nota de acceso igual o inferior a 8.6.</p>
+</section>
+</section>
+<section id="medidas-de-dispersión" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-dispersión">2.3 Medidas de dispersión</h3>
+<p>Las medidas de dispersión reflejan la heterogeneidad de las observaciones y dan una idea sobre la representatividad de las medidas de centralización, de tal forma que a mayor dispersión menor representatividad.</p>
+<table class="caption-top table">
+<caption>Tabla 3. Cálculo de medidas de dispersión con R</caption>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th>R</th>
+<th>Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rango</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(x) <span class="fu">max</span>(x)<span class="sc">-</span><span class="fu">min</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>Como vector: <em>range</em> obtiene un vector con dos valores: el valor más bajo y el más alto incluido en el vector <em>x</em>.</p>
+<p>Como valor: Diferencia entre el valor máximo y el valor mínimo.</p></td>
+</tr>
+<tr class="even">
+<td>Varianza muestral o cuasivarianza (<em>s</em><sup>2</sup>)</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td>Obtiene la varianza de la muestra de los n valores incluidos en el vector <em>x</em>, según la fórmula: <span class="math display">\[s^{2} = \frac{\Sigma^{n}_{i=1}(x_{i}-\bar{x})^{2}}{n-1} \]</span></td>
+</tr>
+<tr class="odd">
+<td>Varianza poblacional (<span class="math inline">\(\sigma^{2}\)</span>)</td>
+<td><p>No existe una función predefinida en R para la varianza poblacional. Podemos crear una propia, como la siguiente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>var.pob <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>((x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(n))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>Si el vector <em>x</em> contiene los valores de una variable estadística de una población completa, la varianza poblacional es:</p>
+<p><span class="math display">\[\sigma^{2} = \frac{\Sigma^{n}_{i=1}(x_{i}-\bar{x})^{2}}{n} \]</span></p></td>
+</tr>
+<tr class="even">
+<td>Desviación estándar o típica muestral (<em>s</em>)</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>Obtiene la desviación estándar de la muestra de los n valores incluidos en el vector <em>x</em>.</p>
+<p><span class="math display">\[s = \sqrt{\frac{\Sigma^{n}_{i=1}(x_{i}-\bar{x})^{2}}{n-1}} \]</span></p></td>
+</tr>
+<tr class="odd">
+<td>Desviación estándar o típica poblacional (<span class="math inline">\(\sigma\)</span>)</td>
+<td><p>No existe una función predefinida en R para la cuasidesviación estándar. Podemos crear una propia, como la siguiente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sd.pob <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>((x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(n<span class="dv">-1</span>)))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>Si el vector <em>x</em> contiene los valores de una variable estadística de una población completa, la desviación estándar poblacional es:</p>
+<p><span class="math display">\[\sigma = \sqrt{\frac{\Sigma^{n}_{i=1}(x_{i}-\bar{x})^{2}}{n}} \]</span></p></td>
+</tr>
+<tr class="even">
+<td>Coeficiente de variación</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">mean</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>Se obtiene un valor entre 0 y 1.</p>
+<p>Cuanto menor sea su valor, mayor será la homogeneidad de los datos de la muestra y, por tanto, la media aritmética será una buena representante del conjunto de datos.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p></td>
+</tr>
+<tr class="odd">
+<td>Rango intercuartílico</td>
+<td><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(x,<span class="at">type=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></td>
+<td><p>Obtiene la diferencia entre el tercer cuartil (Q3) y el primero (Q1).</p>
+<p><em>IQR = Q3-Q1</em></p>
+<p>Los datos atípicos están fuera del intervalo:</p>
+<p><em>[Q<sub>1</sub> - 1.5IQR, Q<sub>3</sub> + 1.5IQR]</em></p>
+<p>NOTA: Como en el caso de la función <em>quantile</em>, se usa <em>type=2</em>, porque hay hasta 9 formas de calcular cuantiles, y el tipo 2 coincide con la explicada en <a href="https://hilera.web.uah.es/estadistica/teoria/index.html">teoría</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="ejemplos-2" class="level4">
+<h4 class="anchored" data-anchor-id="ejemplos-2">2.3.1 Ejemplos</h4>
+<ol type="1">
+<li>Rango de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-15"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Como diferencia de notas es:</p>
+<div id="qwebr-insertion-location-16"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="2" type="1">
+<li>Varianza de la nota de acceso a la universidad</li>
+</ol>
+<p>NOTA: Se utiliza la varianza muestral o cuasivarianza, porque no se dispone de las notas de toda la población de estudiantes, sólo de una muestra, de los que respondieron a la encuesta.</p>
+<div id="qwebr-insertion-location-17"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="3" type="1">
+<li>Desviación estándar o típica de la nota de acceso a la universidad</li>
+</ol>
+<p>NOTA: Se dispone de una muestra, por lo que hay que calcular la desviación muestral.</p>
+<div id="qwebr-insertion-location-18"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ol start="4" type="1">
+<li>Coeficiente de variación de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-19"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>NOTA: Muchos autores afirman que si es menor a 0.3 el conjunto de datos puede considerarse homogéneo, como ocurre en este caso.</p>
+<ol start="5" type="1">
+<li>Rango intercuartílico de la nota de acceso a la universidad</li>
+</ol>
+<div id="qwebr-insertion-location-20"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Los datos atípicos están fuera del intervalo: <em>[Q~1-1.5·IQR, Q~3+1.5·IQR] = [5.29, 6.62]</em></p>
+<div id="qwebr-insertion-location-21"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 
 
 </section>
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>No existe un consenso sobre el método de cálculo de un percentil o un cuartil. Existen al menos 9 métodos diferentes, resumidos en un artículo de <a href="https://www.jstor.org/stable/2684934">Hyndman y Fan (1996)</a>. La función <em>quantile</em> de R permite hacer el cálculo usando los 9 métodos del artículo, indicando el número del método (1 a 9) mediante un parámetro “<em>type=n</em>”. Si no se utiliza el parámetro <em>type</em>, por defecto se aplica el método número 7. El algoritmo aplicado en cada método está explicado en el artículo y en la ayuda de R a la que se accede con <em>help(“quantile”)</em> y en <a href="https://blogs.sas.com/content/iml/2017/05/24/definitions-sample-quantiles.html">otras fuentes</a>. La diferencia de los resultados no es significativa, y se basa en la forma de considerar los casos en los que el porcentaje es un número exacto.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Suele ocurrir en el campo de la Estadística que no hay consenso sobre la interpretación de los valores de algunas medidas estadísticas. Por ejemplo, en el caso del coeficiente de variación (CV), hay autores que afirman (también Wikipedia), que si CV≤0.3 la media aritmética es representativa de la muestra de datos, y por tanto es un conjunto de datos “Homogéneo”; mientras que si CV&gt;0.3, la media no es representativa del conjunto de datos por ser un conjunto de datos “Heterogéneo”). Sin embargo, otros autores afinan más y proponen más rangos de valores. Se recomienda consultar este <a href="https://www.researchgate.net/post/What_are_the_acceptable_values_for_the_percentage_deviation_DEV_and_the_coefficient_of_variance_CV">foro de discusión sobre valores aceptables para el coeficiente de variación</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
