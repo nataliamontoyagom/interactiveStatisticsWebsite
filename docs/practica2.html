@@ -2488,7 +2488,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </section>
 <section id="resumen-de-medidas" class="level3">
 <h3 class="anchored" data-anchor-id="resumen-de-medidas">2.5 Resumen de medidas</h3>
-<p>Existe en R la función summary que obtiene un resumen de las principales medidas estadísticas descriptivas: valores mínimo y máximo, media, mediana, y primer y tercer cuartil.</p>
+<p>Existe en R la función <em>summary</em> que obtiene un resumen de las principales medidas estadísticas descriptivas: valores mínimo y máximo, media, mediana, y primer y tercer cuartil.</p>
 <div id="qwebr-insertion-location-25"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
@@ -2645,7 +2645,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Algunos gráficos que se pueden dibujar utilizando funciones de R sobre los valores de una variable estadística son histogramas, diagramas de barras, diagramas de tarta, diagramas de caja (box plot) y diagramas de tallo y hojas.</p>
 <section id="diagrama-de-tallo-y-hojas" class="level3">
 <h3 class="anchored" data-anchor-id="diagrama-de-tallo-y-hojas">4.1 Diagrama de tallo y hojas</h3>
-<p>Se realiza para variables cuantitativas, utilizando la función <code>stem(variable)</code>.</p>
+<p>Se realiza para variables cuantitativas, utilizando la función <em>stem(variable)</em>.</p>
 <p>Podemos utilizar, por ejemplo, la variable DORMIR sobre las horas que duermen los alumnos:</p>
 <div id="qwebr-insertion-location-49"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2656,7 +2656,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Se puede hacer el diagrama de otras variables numéricas, por ejemplo las notas de acceso.</p>
 <div id="qwebr-insertion-location-51"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>En este caso, al tener 2 dígitos decimales, la función <code>stem</code> de R aplica previamente un redondeo a una sola cifra.</p>
+<p>En este caso, al tener 2 dígitos decimales, la función <em>stem</em> de R aplica previamente un redondeo a una sola cifra.</p>
 <div id="qwebr-insertion-location-52"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Observamos que las notas que más se repiten son las que están en el rango de 7 a 7.9 puntos.</p>
@@ -2667,13 +2667,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="diagrama-de-barras" class="level3">
 <h3 class="anchored" data-anchor-id="diagrama-de-barras">4.2 Diagrama de barras</h3>
 <p>Se suele realizar para variables cualitativas, y para variables cuantitativas si tienen un número reducido de valores diferentes.</p>
-<p>Se realiza con la función <code>barplot()</code>, a partir de la tabla de frecuencias absolutas o relativas. Por ejemplo, de la variable estadística GRADO, que representa en qué opción eligió un alumno la titulación de Grado en Ingeniería en Sistemas de Información.</p>
+<p>Se realiza con la función <em>barplot()</em>, a partir de la tabla de frecuencias absolutas o relativas. Por ejemplo, de la variable estadística GRADO, que representa en qué opción eligió un alumno la titulación de Grado en Ingeniería en Sistemas de Información.</p>
 <div id="qwebr-insertion-location-54"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Si queremos que aparezcan en otro orden, se puede definir un orden:</p>
 <div id="qwebr-insertion-location-55"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>En la función <code>barplot</code> se pueden utilizar parámetros como:</p>
+<p>En la función <em>barplot</em> se pueden utilizar parámetros como:</p>
 <ul>
 <li>Título del diagrama: <code>main="título"</code></li>
 <li>Subtítulo del diagrama: <code>sub=”subtítulo”</code></li>
@@ -2691,7 +2691,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>O aplicar una gama de colores usando la función <code>heat</code>.</p>
 <div id="qwebr-insertion-location-58"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Para conocer más parámetros de la función <code>barplot</code> se puede consultar la ayuda de R:</p>
+<p>Para conocer más parámetros de la función <em>barplot</em> se puede consultar la ayuda de R:</p>
 <div id="qwebr-insertion-location-59"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
@@ -2701,7 +2701,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Para dibujarlo se puede importar el paquete “<em>qcc</em>”:</p>
 <div id="qwebr-insertion-location-60"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Y se obtiene con la función pareto.chart, a la que se pasa como parámetro la tabla de frecuencias absolutas.</p>
+<p>Y se obtiene con la función <em>pareto.chart</em>, a la que se pasa como parámetro la tabla de frecuencias absolutas.</p>
 <div id="qwebr-insertion-location-61"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
@@ -2713,16 +2713,16 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Se puede indicar un color y una densidad de rallado para cada valor de la variable.</p>
 <div id="qwebr-insertion-location-63"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Para conocer más parámetros de la función <code>pie</code> se puede consultar la ayuda de R:</p>
+<p>Para conocer más parámetros de la función <em>pie</em> se puede consultar la ayuda de R:</p>
 <div id="qwebr-insertion-location-64"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="diagrama-de-caja-box-plot" class="level3">
 <h3 class="anchored" data-anchor-id="diagrama-de-caja-box-plot">4.5 Diagrama de caja (box plot)</h3>
-<p>Sólo se puede realizar para variables cuantitativas. En un diagrama de caja se muestra información que también se obtiene con la función <code>summary</code>.</p>
+<p>Sólo se puede realizar para variables cuantitativas. En un diagrama de caja se muestra información que también se obtiene con la función <em>summary</em>.</p>
 <div id="qwebr-insertion-location-65"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>El diagrama se dibuja utilizando la función <code>boxplot(variable)</code> y la función <code>segments()</code> para dibujar también la media dentro de la caja, como una línea roja discontinua.</p>
+<p>El diagrama se dibuja utilizando la función <em>boxplot(variable)</em> y la función <em>segments()</em> para dibujar también la media dentro de la caja, como una línea roja discontinua.</p>
 <div id="qwebr-insertion-location-66"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>La línea sólida que aparece dentro de la caja representa la mediana (7.81), el borde inferior de la caja es el primer cuartil (Q1=7.27), y el borde superior el tercer cuartil (Q3=8.60). Por tanto la altura de la caja es el rango intercuartílilco (IQR=1.32).</p>
@@ -2732,7 +2732,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>El bigote superior sería <em>Q3+1.5*IQR=8.6+1.5*1.32=10.58</em>. Como no es mayor que el valor máximo de la variable (10.80), entonces en este caso es el valor calculado.</li>
 </ul>
 <p>El un diagrama de caja se dibujan con puntos los denominados “datos atípicos” (outliers), que son los valores de la variable fueran de los bigotes. En este ejemplo sólo hay uno, se trata de la nota 10.80, es es mayor al bigote superior (10.58).</p>
-<p>Se pueden utlizar parámentos de la función <code>boxplot</code>, para mejorar el diagrama. Por ejemplo:</p>
+<p>Se pueden utlizar parámentos de la función <em>boxplot</em>, para mejorar el diagrama. Por ejemplo:</p>
 <ul>
 <li><p>Con el parámetro <code>horizontal=TRUE</code>, se dibuja en horizontal.</p></li>
 <li><p>Con el parámetro <code>outline=FALSE</code>, no se dibujan los datos atípicos.</p></li>
@@ -2741,7 +2741,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </ul>
 <div id="qwebr-insertion-location-67"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Para conocer más parámetros de la función <code>boxplot</code> se puede consultar la ayuda de R:</p>
+<p>Para conocer más parámetros de la función <em>boxplot</em> se puede consultar la ayuda de R:</p>
 <div id="qwebr-insertion-location-68"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
@@ -2769,7 +2769,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Y si queremos que se vea la posición de la media y la mediana, podemos dibujar sobre el diagrama una línea vertical roja discontinua en el valor de la media y una línea roja continua en el valor de al mediana.</p>
 <div id="qwebr-insertion-location-73"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>En la función <code>hist</code> se pueden parámetros como:</p>
+<p>En la función <em>hist</em> se pueden parámetros como:</p>
 <ul>
 <li>Título del diagrama: <code>main=”título”</code></li>
 <li>Subtítulo del diagrama: <code>sub=”subtítulo”</code></li>
