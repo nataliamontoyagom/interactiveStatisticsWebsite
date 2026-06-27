@@ -1,6 +1,733 @@
 ---
 title: "Práctica 4"
 subtitle: "Variables aleatorias y distribuciones discretas"
-format: html
+format: 
+  html: 
+    toc: true
+    toc-location: left
+    toc-title: "Índice"
+engine: knitr
+filters:
+  - webr
 ---
 
+## 1. Introducción
+
+Con esta práctica se utiliza R y RStudio para calcular probabilidades de sucesos a partir de variables discretas que siguen una distribución binomial o una distribución de Poisson.
+
+## 2. Variables discretas con distribución binomial
+
+Una variable binomial es una variable discreta (*X*) que representa el número de éxitos (*x*) obtenidos en n ensayos independientes (de Bernoulli), conociendo la probabilidad (*p*) de un éxito.
+
+Se representa como `X:B(n,p)`. Y se dice que la variable tiene una distribución binomial.
+
+Por ejemplo, una variable `X:B(10,0.5)` que representa: “*Número de caras (éxitos) al lanzar 10 veces una moneda (n=10), sabiendo que la probabilidad de que salga cara (éxito) en cada tirada es del 50% (p=0.5)*”.
+
+En R se pueden utilizar las funciones indicadas en la siguiente tabla. En la columna “Ejemplo de uso”, se utiliza una variable `B(10,0.5)`.
+
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+| Función                          | Código R      | Resultado                                                                                                                                                                  | Ejemplo de uso                                                                                                                  |
++==================================+===============+============================================================================================================================================================================+=================================================================================================================================+
+| Masa de probabilidad             | ``` r         | Calcula la probabilidad de que una variable aleatoria binomial `X:B(n,p)` tenga el valor *x*.                                                                              | ``` r                                                                                                                           |
+|                                  | dbinom(x,n,p) |                                                                                                                                                                            | dbinom(3,10,0.5)                                                                                                                |
+| *P{X=x}*                         | ```           |                                                                                                                                                                            | ```                                                                                                                             |
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+| Distribución acumulada           | ``` r         | Calcula la probabilidad de que una variable aleatoria binomial `X:B(n,p)` tenga un valor igual o menor que *x*.                                                            | ``` r                                                                                                                           |
+|                                  | pbinom(x,n,p) |                                                                                                                                                                            | pbinom(3,10,0.5)                                                                                                                |
+| *F(X)=P{X≤x}*                    | ```           |                                                                                                                                                                            | ```                                                                                                                             |
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+| Cuantil                          | ``` r         | Calcula el menor valor de una variable aleatoria binomial X:B(n,p), que cumple que la probabilidad de que la variable sea menor o igual a ese valor, es mayor o igual a q. | ``` r                                                                                                                           |
+|                                  | qbinom(q,n,p) |                                                                                                                                                                            | qbinom(0.7,10,0.5)                                                                                                              |
+|                                  | ```           |                                                                                                                                                                            | ```                                                                                                                             |
+|                                  |               |                                                                                                                                                                            |                                                                                                                                 |
+|                                  |               |                                                                                                                                                                            | Entonces se cumple: P{X≤6} ≥ 0.7                                                                                                |
+|                                  |               |                                                                                                                                                                            |                                                                                                                                 |
+|                                  |               |                                                                                                                                                                            | Pero no se cumple: P{X≤5} ≥ 0.7                                                                                                 |
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+| Generación aleatoria de muestras | ``` r         | Genera aleatoriamente un vector de m valores aleatorios de una variable binomial `X:B(n,p)`. Cada valor representa el número de éxitos en cada simulación del experimento. | ``` r                                                                                                                           |
+|                                  | rbinom(m,n,p) |                                                                                                                                                                            | rbinom(4,10,0.5)                                                                                                                |
+|                                  | ```           |                                                                                                                                                                            | ```                                                                                                                             |
+|                                  |               |                                                                                                                                                                            |                                                                                                                                 |
+|                                  |               |                                                                                                                                                                            | Realiza 4 simulaciones del experimento de lanzar 10 veces la moneda, indicando el número de caras obtenidas en cada simulación. |
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+| Esperanza                        | ``` r         |                                                                                                                                                                            | ``` r                                                                                                                           |
+|                                  | n*p           |                                                                                                                                                                            | (E=10*0.5)                                                                                                                      |
+| *E\[X\]*                         | ```           |                                                                                                                                                                            | ```                                                                                                                             |
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+| Varianza                         | ``` r         |                                                                                                                                                                            | ``` r                                                                                                                           |
+|                                  | n*p*(1-p)     |                                                                                                                                                                            | (Var=10*0.5*(1-0.5))                                                                                                            |
+| *Var\[X\]*                       | ```           |                                                                                                                                                                            | ```                                                                                                                             |
++----------------------------------+---------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Las funciones anteriores se pueden combinar con otras de generación de gráficos, para obtener los diagramas que se indican en la siguiente tabla:
+
++----------------------------------------------------------------------------------------+-----------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| Diagrama                                                                               | Código R                                | Comentarios                                                                                                                                                                                          | Ejemplo de uso                               |
++========================================================================================+=========================================+======================================================================================================================================================================================================+==============================================+
+| Función de masa de probabilidad                                                        | ``` r                                   | `tipo` puede ser:                                                                                                                                                                                    | ``` r                                        |
+|                                                                                        | plot(0:n,dbinom(0:n,n,p),type=tipo)     |                                                                                                                                                                                                      | plot(0:10,dbinom(0:10,10,0.5),type="h")      |
+|                                                                                        | ```                                     | - "l": líneas                                                                                                                                                                                        | ```                                          |
+|                                                                                        |                                         |                                                                                                                                                                                                      |                                              |
+|                                                                                        |                                         | - "h": barras                                                                                                                                                                                        |                                              |
+|                                                                                        |                                         |                                                                                                                                                                                                      |                                              |
+|                                                                                        |                                         | - "b": líneas y barras                                                                                                                                                                               |                                              |
++----------------------------------------------------------------------------------------+-----------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| Función de distribución acumulada                                                      | ``` r                                   | `type` también puede ser:                                                                                                                                                                            | ``` r                                        |
+|                                                                                        | plot(0:n,pbinom(0:n,n,p),type=”s”)      |                                                                                                                                                                                                      | plot(0:10,pbinom(0:10,10,0.5),type="s")      |
+|                                                                                        | ```                                     | - "l": líneas                                                                                                                                                                                        | ```                                          |
+|                                                                                        |                                         |                                                                                                                                                                                                      |                                              |
+|                                                                                        | Otra opción:                            | - "h": barras                                                                                                                                                                                        |                                              |
+|                                                                                        |                                         |                                                                                                                                                                                                      |                                              |
+|                                                                                        | ``` r                                   | - "b": líneas y barras                                                                                                                                                                               |                                              |
+|                                                                                        | plot(stepfun(0:n-1,pbinom(0:n,n,p))     |                                                                                                                                                                                                      |                                              |
+|                                                                                        | ```                                     |                                                                                                                                                                                                      |                                              |
++----------------------------------------------------------------------------------------+-----------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| Diagrama de frecuencias de una simulación de posibles valores de la variable aleatoria | ``` r                                   | En este caso se simulan los datos con la función *rbinom*. Se podría hacer lo mismo si se dispone de datos reales, para ver si las muestras reales tienen una distribución aproximadamente binomial. | ``` r                                        |
+|                                                                                        | plot(table(rbinom(m,n,p)), xlim=c(0,n)) |                                                                                                                                                                                                      | plot(table(rbinom(100,10,0.5)),xlim=c(0,10)) |
+|                                                                                        | ```                                     | Por ejemplo, lanzando realmente una moneda.                                                                                                                                                          | ```                                          |
++----------------------------------------------------------------------------------------+-----------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Se puede comparar el efecto en la función de masa de probabilidad al modificar los parámetros *n* y *p*, mostrando simultáneamente varios gráficos.
+
+Por ejemplo, dividiendo la ventana gráfica en 2 filas y 3 columnas:
+
+```{webr-r}
+par(mfrow=c(2,3))
+plot(0:10,dbinom(0:10,10,0.2), type="h", main = "B(10,0.2)")
+plot(0:10,dbinom(0:10,10,0.5), type="h", main = "B(10,0.5)")
+plot(0:10,dbinom(0:10,10,0.8), type="h", main = "B(10,0.8)")
+plot(0:50,dbinom(0:50,50,0.2), type="h", main = "B(50,0.2)")
+plot(0:50,dbinom(0:50,50,0.5), type="h", main = "B(50,0.5)")
+plot(0:50,dbinom(0:50,50,0.8), type="h", main = "B(50,0.8)")
+par(mfrow=c(1,1))
+```
+
+## 3. Variables discretas con distribución hipergeométrica
+
+Una variable hipergeométrica es una variable discreta (*X*) que representa el número de éxitos (*x*) obtenidos en n ensayos (de Bernoulli), donde cada uno de ellos consiste en extraer un elemento de un conjunto inicial de N elementos, pero sin reposición, conociendo la probabilidad (*p*) del primer éxito, cuando están todos los elementos (*N*) en el conjunto.
+
+Se trata de una variable similar a una variable binomial, pero en este caso los n ensayos no son independientes, porque no tienen la misma probabilidad de éxito cada uno de ellos, ya que en el primer ensayo en el conjunto hay N elementos, pero en el segundo ensayo ya no hay N sino N-1 elementos, y así sucesivamente hasta el ensayo n, en el que hay N-n-1 elementos.
+
+Se representa como `X:H(N,n,p)`. Y se dice que la variable tiene una distribución hipergeométrica.
+
+Por ejemplo, una variable `X:H(50,10,0.6)` que representa: “*Número de bolas blancas (éxitos) al sacar 10 bolas (n=10) sin reposición de una bolsa con 50 bolas, sabiendo que en la bolsa hay 30 bolas blancas (p=30/50=0.6) y 20 bolas negras*”.
+
+En R se pueden utilizar las funciones indicadas en la siguiente tabla. En la columna “Ejemplo de uso”, se utiliza una variable `H(50,10,0.6)`.
+
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Función                          | Código R                | Resultado                                                                                                                                                                               | Ejemplo de uso                                                                                                                        |
++==================================+=========================+=========================================================================================================================================================================================+=======================================================================================================================================+
+| Masa de probabilidad             | ``` r                   | Calcula la probabilidad de que una variable aleatoria hipergeométrica `X:H(N,n,p)` tenga el valor *x*.                                                                                  | ``` r                                                                                                                                 |
+|                                  | dhyper(x,N*p,N*(1-p),n) |                                                                                                                                                                                         | dhyper(7,30,20,10)                                                                                                                    |
+| *P{X=x}*                         | ```                     |                                                                                                                                                                                         | ```                                                                                                                                   |
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Distribución acumulada           | ``` r                   | Calcula la probabilidad de que una variable aleatoria hipergeométrica `X:H(N,n,p)` tenga un valor igual o menor que *x*.                                                                | ``` r                                                                                                                                 |
+|                                  | phyper(x,N*p,N*(1-p),n) |                                                                                                                                                                                         | phyper(7,30,20,10)                                                                                                                    |
+| *F(X)=P{X≤x}*                    | ```                     |                                                                                                                                                                                         | ```                                                                                                                                   |
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Cuantil                          | ``` r                   | Calcula el menor valor de una variable aleatoria hipergeométrica `X:H(N,n,p)`, que cumple que la probabilidad de que la variable sea menor o igual a ese valor, es mayor o igual a *q*. | ``` r                                                                                                                                 |
+|                                  | qhyper(q,N*p,N*(1-p),n) |                                                                                                                                                                                         | qhyper(0.4,30,20,10)                                                                                                                  |
+|                                  | ```                     |                                                                                                                                                                                         | ```                                                                                                                                   |
+|                                  |                         |                                                                                                                                                                                         |                                                                                                                                       |
+|                                  |                         |                                                                                                                                                                                         | Entonces se cumple: *P{X≤6} ≥ 0.4*                                                                                                    |
+|                                  |                         |                                                                                                                                                                                         |                                                                                                                                       |
+|                                  |                         |                                                                                                                                                                                         | Pero no se cumple: *P{X≤5} ≥ 0.4*                                                                                                     |
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Generación aleatoria de muestras | ``` r                   | Genera aleatoriamente un vector de *m* valores aleatorios de una variable hipergeométrica `X:H(N,n,p)`. Cada valor representa el número de éxitos en cada simulación del experimento.   | ``` r                                                                                                                                 |
+|                                  | rhyper(m,N*p,N*(1-p),n) |                                                                                                                                                                                         | rhyper(4,30,20,10)                                                                                                                    |
+|                                  | ```                     |                                                                                                                                                                                         | ```                                                                                                                                   |
+|                                  |                         |                                                                                                                                                                                         |                                                                                                                                       |
+|                                  |                         |                                                                                                                                                                                         | Realiza 4 simulaciones del experimento de sacar 10 bolas, indicando el número de bolas blancas (éxitos) obtenidas en cada simulación. |
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Esperanza                        | ``` r                   |                                                                                                                                                                                         | ``` r                                                                                                                                 |
+|                                  | n*p                     |                                                                                                                                                                                         | (E=10*0.6)                                                                                                                            |
+| *E\[X\]*                         | ```                     |                                                                                                                                                                                         | ```                                                                                                                                   |
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Varianza                         | ``` r                   |                                                                                                                                                                                         | ``` r                                                                                                                                 |
+|                                  | n*p*(1-p)*(N-n)/(N-1)   |                                                                                                                                                                                         | (Var=10*0.6*0.4*(50-10)/(50-1))                                                                                                       |
+| *Var\[X\]*                       | ```                     |                                                                                                                                                                                         | ```                                                                                                                                   |
++----------------------------------+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Los diagramas de las funciones anteriores son similares a los de la distribución binomial. En la siguiente tabla se muestra el diagrama de la función de masa de probabilidad.
+
++---------------------------------+-----------------------------------------------+------------------------+-------------------------------------------+
+| Diagrama                        | Código R                                      | Comentarios            | Ejemplo de uso                            |
++=================================+===============================================+========================+===========================================+
+| Función de masa de probabilidad | ``` r                                         | `tipo` puede ser:      | ``` r                                     |
+|                                 | plot(0:n,dhyper(0:n,N*p,N*(1-p),n),type=tipo) |                        | plot(0:10,dhyper(0:10,30,20,10),type="h") |
+|                                 | ```                                           | - "l": líneas          | ```                                       |
+|                                 |                                               |                        |                                           |
+|                                 |                                               | - "h": barras          |                                           |
+|                                 |                                               |                        |                                           |
+|                                 |                                               | - "b": líneas y barras |                                           |
++---------------------------------+-----------------------------------------------+------------------------+-------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+### 3.1 Aproximación de una variable hipergeométrica a una binomial
+
+Cuando el número de veces que se repite el experimento (n) de extraer un elemento de un conjunto es muy pequeño comparado con el número total de elementos del conjunto (N), la variable hipergeométrica se puede aproximar a una variable binomial, y se pueden usar las fórmulas de la binomial para el cálculo de probabilidades.
+
+Por tanto, cuando 𝑁 es mucho mayor[^1] que 𝑛, una variable hipergeométrica `X:H(N,n,p)` se puede aproximar a una variable binomial `X:B(n,p)`.
+
+[^1]: No hay unanimidad respecto a lo que se entiende por mucho mayor. Algunos autores afirman que se puede realizar la aproximación cuando *𝑁\>20∙𝑛*, y otros autores afirman que es suficiente que *𝑁\>10∙𝑛*.
+
+### 3.2 Ejemplo (aproximación binomial): Estudiantes que tienen móviles Android
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se sabe que 50 de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá tienen teléfonos móviles con sistema operativo Android, y el resto con iOS. Si se pregunta aleatoriamente a 5 de los estudiantes, responder a las siguientes preguntas:**
+
+a.  **Definir una variable aleatoria hipergeométrica para el experimento y aproximarla a una variable aleatoria binomial**
+b.  **Calcular la esperanza y varianza de la variable aleatoria**
+c.  **Dibujar las funciones de masa de probabilidad y distribución acumulada de la variable aleatoria**
+d.  **Cuál es la probabilidad de que exactamente 3 de los 5 estudiantes tengan móvil con Android**
+e.  **Cuál es la probabilidad de que 3 o menos de los 5 estudiantes tengan móvil con Android**
+f.  **Cuál es la probabilidad de que tengan móvil con Android más de 3 de los 5 estudiantes**
+g.  **Cuál es la probabilidad de que los 5 estudiantes tengan móvil con Android**
+h.  **Cuál es la probabilidad de que ninguno de los 5 estudiantes tenga móvil con Android**
+i.  **Cuál es la probabilidad de que 3 o 4 estudiantes tenga móvil con Android**
+j.  **Cuál es el valor de los cuartiles de la variable aleatoria**
+k.  **Si tenemos los datos de la encuesta original a los 74 alumnos, comprobar si tomando las respuestas en grupos de 5 alumnos, el diagrama de frecuencias se asemeja a la función de masa de probabilidad binomial.**
+l.  **Repetir el apartado anterior, pero utilizando datos generados aleatoriamente con R, en lugar de los datos reales**
+
+***SOLUCIÓN***
+
+a.  **Definir una variable aleatoria hipergeométrica para el experimento y aproximarla a una variable aleatoria binomial**
+
+X = Número de estudiantes que tienen móvil Android de una muestra de 5 estudiantes.
+
+La variable sigue una distribución hipergeométrica, porque cuando se elige al primero de los 5 estudiantes de entre los 74 posibles, la probabilidad de que ese estudiante tenga Android viene dada por la proporción p=50/74; pero cuando se elige al siguiente esto ya no es así, porque la proporción de alumnos con Android ya no es la misma, ya que se ha eliminado al primer alumno del conjunto, y ahora el conjunto es de 73 alumnos. Y así sucesivamente.
+
+Sería una variable `X:H(N,n,p)`, donde N=74, n=5 y p=50/74.
+
+El valor p es 50/74 ya que por las encuestas se sabe que 50 de los 74 alumnos tienen móvil Android, como puede comprobarse leyendo los datos del archivo [encuesta.csv](https://hilera.web.uah.es/estadistica/r/datos/encuesta.csv) y generando una tabla de frecuencias absolutas.
+
+```{webr-r}
+encuesta=read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+encuesta$SO
+table(encuesta$SO)
+```
+
+Como N=74 es mucho mayor[^2] que el tamaño de la muestra n=5, ser puede realizar una aproximación a una variable binomial.
+
+[^2]: No hay unanimidad respecto a lo que se entiende por “mucho mayor”. [Unos autores](https://www.stat.rice.edu/~dcox/Stat305/Lessons/L0212/node2.html) afirman que la aproximación es “buena” si *𝑁\>20∙𝑛*; [otros autores](https://proyectodescartes.org/iCartesiLibri/materiales_didacticos/EstadisticaProbabilidadInferencia/VAdiscreta/4_1DistribucionHipergeometrica/index.html) afirman que es suficiente que *𝑁\>10∙𝑛*. Se ha seguido la recomendación de los autores que indican que la aproximación puede realizarse cuando *𝑁\>10∙𝑛*, ya que en este caso N=74 y n=5, por lo que se cumple que 74\>50.
+
+Por tanto, la variable binomial equivalente sería X:B(n,p), donde n=5 y p=50/74.
+
+Empezamos dando valores a los parámetros *n* y *p*. Por simplicidad vamos a redondear todos los valores con dos cifras decimales.
+
+```{webr-r}
+(n=5)
+(p=round(50/74,2))
+```
+
+b.  **Calcular la esperanza y varianza de la variable aleatoria.**
+
+```{webr-r}
+(Esperanza = round(n*p,2))
+(Varianza = round(n*p*(1-p),2))
+```
+
+c.  **Dibujar las funciones de masa de probabilidad y distribución acumulada.**
+
+```{webr-r}
+par(mfrow=c(1,2))
+plot(0:n,dbinom(0:n,n,p),type="h",main="Función de masa de probabilidad")
+plot(0:n,pbinom(0:n,n,p),type="s",main="Función de distribución acumulada")
+par(mfrow=c(1,1))
+```
+
+d.  **Cuál es la probabilidad de que exactamente 3 de los 5 estudiantes tengan móvil con Android.**
+
+Se trata de calcular *P{X=3}*, usando la función de masa de probabilidad *dbinom()*:
+
+```{webr-r}
+round(dbinom(3,n,p),2)
+```
+
+e.  **Cuál es la probabilidad de que 3 o menos de los 5 estudiantes tengan móvil con Android.**
+
+Se trata de calcular *P{X≤3}*. Se puede usar, por tanto la función de distribución acumulada *pbinom()*:
+
+```{webr-r}
+round(pbinom(3,n,p),2)
+```
+
+También se podría calcular como *P{X≤3} = P{X=0}+P{X=1}+ P{X=2}+P{X=3}*, es decir usando la función de masa de probabilidad en lugar de la de distribución acumulada:
+
+```{webr-r}
+round(dbinom(0,n,p)+dbinom(1,n,p)+dbinom(2,n,p)+dbinom(3,n,p),2)
+```
+
+f.  **Cuál es la probabilidad de que tengan móvil con Android más de 3 de los 5 estudiantes.**
+
+Como ya sabemos calcular *P{X≤5}*, se puede resolver como *P{X\>3}=1- P{X≤3}*:
+
+```{webr-r}
+1-round(pbinom(3,n,p),2)
+```
+
+También se podría calcular como *P{X\>3}=P{X=4}+ P{X=5}*:
+
+```{webr-r}
+round(dbinom(4,n,p)+dbinom(5,n,p),2)
+```
+
+g.  **Cuál es la probabilidad de que los 5 estudiantes tengan móvil con Android.**
+
+```{webr-r}
+round(dbinom(5,n,p),2)
+```
+
+h.  **Cuál es la probabilidad de que ninguno de los 5 estudiantes tenga móvil con Android.**
+
+```{webr-r}
+dbinom(0,n,p)
+```
+
+i.  **Cuál es la probabilidad de que entre 3 y 4 estudiantes tengan móvil con Android.**
+
+Se trata de calcular *P{X=3}+P{X=4}*:
+
+```{webr-r}
+round(dbinom(3,n,p)+dbinom(4,n,p),2)
+```
+
+También se puede calcular como *P{X≤4}-P{X≤2}*, es decir usando la función de distribución acumulada en lugar de la de masa de probabilidad:
+
+```{webr-r}
+round(pbinom(4,n,p)-pbinom(2,n,p),2)
+```
+
+j.  **Cuál es el valor de los cuartiles de la variable aleatoria (es decir los percentiles 25%, 50%, 75%, 100%, o cuantiles 0.25, 0.50, 0.75, 1).**
+
+En lugar de ejecutar 4 veces la función *qbinom()*, una para cada cuartil, se puede pasar como primer argumento, un vector con los valores de los cuantiles correspondientes a cada cuartil:
+
+```{webr-r}
+qbinom(c(0.25,0.50,0.75,1),n,p)
+```
+
+Lo que indican estos resultados es que:
+
+- P{X≤3} ≥ 0.25
+- P{X≤3} ≥ 0.50
+- P{X≤4} ≥ 0.75
+- P{X≤5} = 1
+
+Puede comprobarse que es cierto con la función de distribución acumulada, viendo el diagrama de esta función en el apartado c) o calculando lo valores con *pbinom()*. Por ejemplo, en el caso del cuartil 0.25, no puede ser el valor 2, porque *P{X≤2}* es 0.19 y por tanto no llega a 0.25.
+
+```{webr-r}
+round(pbinom(2,n,p),2)
+round(pbinom(3,n,p),2)
+```
+
+k.  **Si tenemos los datos de la encuesta original a los 74 estudiantes, comprobar si tomando las respuestas de la encuesta en grupos de 5 estudiantes, el histograma se ajusta realmente a la función de masa de probabilidad binomial.**
+
+Las respuestas sobre el sistema operativo que utilizaban los estudiantes fueron:
+
+```{webr-r}
+(so = encuesta$SO)
+```
+
+Al aparecer los resultados en bloques de 5 estudiantes, podemos contar las veces que aparece “Android” en cada uno de los 7 bloques de 5 estudiantes, y se obtiene: 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 2, 3, 5.
+
+Podemos crear un vector con esos valores y dibujar un diagrama con sus frecuencias y comprobar si se parece a la función de masa de probabilidad de una distribución Binomial.
+
+```{webr-r}
+(android = c(3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 2, 3, 5))
+par(mfrow=c(1,2))
+plot(table(android), xlim=c(0,n), main="Frecuencias de la muestra")
+plot(0:n,dbinom(0:n,n,p),type="h", main="Masa de probabilidad Binomial")
+```
+
+Puede comprobarse visualmente que el diagrama de frecuencias de los datos reales de la muestra se asemeja a la forma de la distribución binomial usada en este ejemplo.
+
+l.  **Repetir el apartado anterior, pero utilizando datos generados aleatoriamente con R, en lugar de los datos reales.**
+
+Repetimos los comandos del apartado anterior, pero en este caso generamos aleatoriamente una muestra con los resultados de repetir 7 veces el experimento con los mismos valores de n y p que en el caso anterior, pero ahora utilizando la función *rbinom()*.
+
+```{webr-r}
+(muestra=rbinom(7,n,p))
+par(mfrow=c(1,2))
+plot(table(muestra), xlim=c(0,n),main="Frecuencias de la muestra")
+plot(0:n,dbinom(0:n,n,p),type="h", main="Masa de probabilidad Binomial")
+```
+
+Si se ejecuta la función *rbinom()* varias veces, en cada ocasión se obtendrá valores diferentes, pero en general puede comprobarse que se asemejan a la distribución binomial.
+
+## 4. Variables discretas con distribución de Poisson
+
+Una variable aleatoria que tiene una distribución de Poisson es una variable discreta (*X*) que representa el número de eventos “raros” que ocurren en un determinado periodo de tiempo conociendo la frecuencia o número medio de esos sucesos que ocurren por unidad de tiempo (*λ*)[^3].
+
+[^3]: El símbolo λ (letra griega lambda) se escribe pulsando Alt+955.
+
+Se representa como `X:P(λ)`.
+
+Por ejemplo, una variable `X:P(10)` que representa: “*Número de visitas a un sitio web, sabiendo que la media de visitas en una hora es de 10 (λ=10)*”.
+
+En R se pueden utilizar las funciones indicadas en la siguiente tabla. En la columna “Ejemplo de uso”, se utiliza una variable P(10).
+
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Función                          | Código R   | Resultado                                                                                                                                                                    | Ejemplo de uso                      |
++==================================+============+==============================================================================================================================================================================+=====================================+
+| Masa de probabilidad             | ``` r      | Calcula la probabilidad de que una variable aleatoria de Poisson `X:P(λ)` tenga el valor *x*.                                                                                | ``` r                               |
+|                                  | dpois(x,λ) |                                                                                                                                                                              | dpois(15,10)                        |
+| *P{X=x}*                         | ```        |                                                                                                                                                                              | ```                                 |
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Distribución acumulada           | ``` r      | Calcula la probabilidad de que una variable aleatoria de Poisson `X:P(λ)` tenga un valor igual o menor que *x*.                                                              | ``` r                               |
+|                                  | ppois(x,λ) |                                                                                                                                                                              | ppois(15,10)                        |
+| *F(X)=P{X≤x}*                    | ```        |                                                                                                                                                                              | ```                                 |
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Cuantil                          | ``` r      | Calcula el menor valor de una variable aleatoria de Poisson `X:P(λ)` que cumple que la probabilidad de que la variable sea menor o igual a ese valor es mayor o igual a *q*. | ``` r                               |
+|                                  | qpois(q,λ) |                                                                                                                                                                              | qpois(0.7,10)                       |
+|                                  | ```        |                                                                                                                                                                              | ```                                 |
+|                                  |            |                                                                                                                                                                              |                                     |
+|                                  |            |                                                                                                                                                                              | Entonces se cumple: *P{X≤12} ≥ 0.7* |
+|                                  |            |                                                                                                                                                                              |                                     |
+|                                  |            |                                                                                                                                                                              | Pero no se cumple: *P{X≤11} ≥ 0.7*  |
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Generación aleatoria de muestras | ``` r      | Genera aleatoriamente un vector de *m* valores aleatorios de una variable de Poisson `X:P(λ)`.                                                                               | ``` r                               |
+|                                  | rpois(m,λ) |                                                                                                                                                                              | rpois(4,10)                         |
+|                                  | ```        |                                                                                                                                                                              | ```                                 |
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Esperanza                        | ``` r      |                                                                                                                                                                              | ``` r                               |
+|                                  | λ          |                                                                                                                                                                              | (E=10)                              |
+| *E\[X\]*                         | ```        |                                                                                                                                                                              | ```                                 |
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+| Varianza                         | ``` r      |                                                                                                                                                                              | ``` r                               |
+|                                  | λ          |                                                                                                                                                                              | (Var=10)                            |
+| *Var\[X\]*                       | ```        |                                                                                                                                                                              | ```                                 |
++----------------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Las funciones anteriores se pueden combinar con otras de generación de gráficos, para obtener los diagramas que se indican en la siguiente tabla.
+
++----------------------------------------------------------------------------------------+--------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------+
+| Diagrama                                                                               | Código R                             | Comentarios                                                                                                                                                                                           | Ejemplo de uso                          |
++========================================================================================+======================================+=======================================================================================================================================================================================================+=========================================+
+| Función de masa de probabilidad                                                        | ``` r                                | `tipo` puede ser:                                                                                                                                                                                     | ``` r                                   |
+|                                                                                        | plot(0:n,dpois(0:n,λ),type=tipo)     |                                                                                                                                                                                                       | plot(0:40,dpois(0:40,10),type="h")      |
+|                                                                                        | ```                                  | - "l": líneas                                                                                                                                                                                         | ```                                     |
+|                                                                                        |                                      |                                                                                                                                                                                                       |                                         |
+|                                                                                        |                                      | - "h": barras                                                                                                                                                                                         |                                         |
+|                                                                                        |                                      |                                                                                                                                                                                                       |                                         |
+|                                                                                        |                                      | - "b": líneas y barras                                                                                                                                                                                |                                         |
++----------------------------------------------------------------------------------------+--------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------+
+| Función de distribución acumulada                                                      | ``` r                                | `type` también puede ser:                                                                                                                                                                             | ``` r                                   |
+|                                                                                        | plot(0:n,ppois(0:n,λ),type=”s”)      |                                                                                                                                                                                                       | plot(0:40,ppois(0:40,10), type="s")     |
+|                                                                                        | ```                                  | - "l": líneas                                                                                                                                                                                         | ```                                     |
+|                                                                                        |                                      |                                                                                                                                                                                                       |                                         |
+|                                                                                        |                                      | - "h": barras                                                                                                                                                                                         |                                         |
+|                                                                                        |                                      |                                                                                                                                                                                                       |                                         |
+|                                                                                        |                                      | - "b": líneas y barras                                                                                                                                                                                |                                         |
++----------------------------------------------------------------------------------------+--------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------+
+| Diagrama de frecuencias de una simulación de posibles valores de la variabla aleatoria | ``` r                                | En este caso se simulan los datos con la función *rpois*. Se podría hacer lo mismo si se dispone de datos reales, para ver si las muestras reales tienen una distribución aproximadamente de Poisson. | ``` r                                   |
+|                                                                                        | plot(table(rpois(m,λ)), xlim=c(0,m)) |                                                                                                                                                                                                       | plot(table(rpois(40,10)), xlim=c(0,40)) |
+|                                                                                        | ```                                  |                                                                                                                                                                                                       | ```                                     |
++----------------------------------------------------------------------------------------+--------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Se puede comparar el efecto de modificar el parámetro *λ* en la función de masa de probabilidad, mostrando simultáneamente varios gráficos.
+
+Por ejemplo, dividiendo la ventana gráfica en 3 columnas:
+
+```{webr-r}
+par(mfrow=c(1,3))
+plot(0:40,dpois(0:40,10), type="h", main = "λ=10")
+plot(0:40,dpois(0:40,20), type="h", main = "λ=20")
+plot(0:40,dpois(0:40,30), type="h", main = "λ=30")
+par(mfrow=c(1,1))
+```
+
+### 4.1 Ejemplo: Correo electrónico no deseado (spam)
+
+***ENUNCIADO***
+
+**Una persona ha comprobado que recibe una media de 5 mensajes al día de correo electrónico no deseado (spam).**
+
+a.  **Definir una variable aleatoria de Poisson para el número de mensajes no deseados recibidos en una semana (7 días).**
+b.  **Calcular la esperanza y varianza de la variable aleatoria.**
+c.  **Dibujar las funciones de masa de probabilidad y distribución acumulada de la variable aleatoria.**
+d.  **Cuál es la probabilidad de que se reciban 20 mensajes no deseados en una semana.**
+e.  **Cuál es la probabilidad de que se reciban 20 o menos mensajes no deseados en una semana.**
+f.  **Cuál es la probabilidad de que se reciban más de 20 mensajes no deseados en una semana.**
+g.  **Cuál es la probabilidad de que no se reciba ningún mensaje en una semana.**
+h.  **Cuál es la probabilidad de que se reciban entre 20 y 30 mensajes no deseados en una semana.**
+i.  **Cuál es el valor de los cuartiles de la variable aleatoria.**
+j.  **Generar aleatoriamente 100 valores para la variable y comprobar si el diagrama de frecuencias se asemeja a la función de masa de probabilidad de Poisson.**
+k.  **Definir una nueva variable aleatoria para calcular la probabilidad de que en un día se reciban 3 mensajes.**
+l.  **Generar aleatoriamente 100 valores para la nueva variable y comprobar si el diagrama de frecuencias se asemeja a la función de masa de probabilidad de Poisson.**
+
+***SOLUCIÓN***
+
+a.  **Definir una variable aleatoria de Poisson para el número de mensajes no deseados recibidos en una semana (7 días).**
+
+X = Mensajes no deseados recibidos en una semana, sabiendo que la media de mensajes no deseados recibidos en un día es de 5 mensajes.
+
+La variable sigue una distribución de Poisson *P(λ)*, donde *λ=5*7=35\* mensajes/semana. Por simplicidad se utiliza “*lambda*” en lugar de “*λ*” en el código R.
+
+```{webr-r}
+(lambda=35)
+```
+
+b.  **Calcular la esperanza y varianza de la variable aleatoria.**
+
+La esperanza y varianza coinciden con *λ*, por lo que su valor es 35.
+
+```{webr-r}
+(Esperanza = lambda)
+(Varianza = lambda)
+```
+
+c.  **Dibujar las funciones de masa de probabilidad y distribución acumulada de la variable aleatoria.**
+
+```{webr-r}
+par(mfrow=c(1,2))
+plot(0:100,dpois(0:100,lambda),type="h",main="Función de masa de probabilidad")
+plot(0:100,ppois(0:100,lambda),type="s",main="Función de distribución acumulada")
+par(mfrow=c(1,1))
+```
+
+d.  **Cuál es la probabilidad de que se reciban 20 mensajes no deseados en una semana.**
+
+Se trata de calcular *P{X=20}*, usando la función de masa de probabilidad *dpois()*:
+
+```{webr-r}
+dpois(20,lambda)
+```
+
+e.  **Cuál es la probabilidad de que se reciban 20 o menos mensajes no deseados en una semana.**
+
+Se trata de calcular *P{X≤20}*. Se puede usar, por tanto la función de distribución acumulada *ppois()*:
+
+```{webr-r}
+ppois(20,lambda)
+```
+
+f.  **Cuál es la probabilidad de que se reciban más de 20 mensajes no deseados en una semana.**
+
+Como ya sabemos *P{X≤20}*, se puede calcular como *P{X\>20}=1-P{X≤20}*:
+
+```{webr-r}
+1-ppois(20,lambda)
+```
+
+g.  **Cuál es la probabilidad de que no se reciba ningún mensaje en una semana.**
+
+```{webr-r}
+dpois(0,lambda)
+```
+
+Para que el resultado no se obtenga con notación científica, puede cambiarse la opción scipen antes de ejecutar el cálculo. Para volver a la notación científica puede ejecutarse *options(scipen=0)*.
+
+```{webr-r}
+options(scipen = 100)
+dpois(0,lambda)
+```
+
+h.  **Cuál es la probabilidad de que se reciban entre 20 y 30 mensajes no deseados en una semana.**
+
+Se trata de calcular *P{X=20}+P{X=21}+…+P{X=30}*, pero es más fácil calcularlo como *P{X≤30}-P{X≤20}*, usando la función de distribución acumulada en lugar de la de masa de probabilidad:
+
+```{webr-r}
+ppois(30,lambda)-ppois(19,lambda)
+```
+
+i.  **Cuál es el valor de los cuartiles de la variable aleatoria.**
+
+En lugar de ejecutar 4 veces la función qpois(), una para cada cuartil, se puede pasar como primer argumento, un vector con los valores de los cuantiles correspondientes a cada cuartil:
+
+```{webr-r}
+qpois(c(0.25,0.50,0.75,1),lambda)
+```
+
+Lo que indican estos resultados es que:
+
+- P{X≤31} ≥ 0.25
+- P{X≤35} ≥ 0.50
+- P{X≤39} ≥ 0.75
+- P{X≤infinito} = 1
+
+Puede comprobarse que es cierto con la función de distribución acumulada, viendo el diagrama de esta función en el apartado c) o calculando lo valores con *ppois()*. Por ejemplo en el caso del cuantil 0.25, no puede ser el valor 30, porque *P{X≤30}* es 0.23 y por tanto no llega a 0.25.
+
+```{webr-r}
+round(ppois(30,lambda),2)
+round(ppois(31,lambda),2)
+```
+
+j.  **Generar aleatoriamente 100 valores para la variable y comprobar si el diagrama de frecuencias se asemeja a la función de masa de probabilidad de Poisson.**
+
+```{webr-r}
+(muestra=rpois(100,lambda))
+par(mfrow=c(1,2))
+plot(table(muestra), xlim=c(0,100),main="Frecuencias de la muestra")
+plot(0:100,dpois(0:100,lambda),type="h", main="Masa de probabilidad de Poisson")
+```
+
+Si se ejecuta la función *rpois()* varias veces, en cada ocasión se obtendrá valores diferentes, pero en general puede comprobarse que se ajustan a la distribución de Poisson.
+
+k.  **Definir una nueva variable aleatoria para calcular la probabilidad de que en un día se reciban 3 mensajes.**
+
+En este caso, la nueva variable sería “*Mensajes no deseados recibidos en un día, sabiendo que la media de mensajes no deseados recibidos en un día es de 5 mensajes*”, y el parámetro *λ* de la variable sería 5.
+
+```{webr-r}
+dpois(3,5)
+```
+
+l.  **Generar aleatoriamente 100 valores para la nueva variable y comprobar si el diagrama de frecuencias se asemeja a la función de masa de probabilidad de Poisson.**
+
+```{webr-r}
+(muestra=rpois(100,5))
+par(mfrow=c(1,2))
+plot(table(muestra), xlim=c(0,20),main="Frecuencias de la muestra")
+plot(0:100,dpois(0:100,5),xlim=c(0,20),type="h", main="Masa de probabilidad de Poisson")
+```
+
+### 4.2 Aproximar una variable binomial a una distribución de Poisson
+
+Si en una variable binomial *B(n,p)* se cumple que n es grande y p pequeño[^4], entonces se puede aproximar a una distribución de Poisson *P(λ)* con *λ=n\*p*.
+
+[^4]: No hay unanimidad respecto a lo que se entiende por “grande” y “pequeño”. Algunos autores afirman que la aproximación es “buena” si *n≥20* y *p≤0,05* y “muy buena” si *n≥100* y *p≤0,01*, otros que se cumpla *n≥30* y *np\<10* o *n(1-p)\<10*, otros que *n\>30* y *p\<0.1*, otros que es suficiente que *np\<5*, otros que *np\>1* y *p\<0.1*, etc.
+
+Se puede comprobar por ejemplo con *B(100,0.05)*, aproximándola a una de Poisson con *λ=100\*0.05=5*.
+
+```{webr-r}
+dbinom(2,100,0.05)
+dpois(2,5)
+```
+
+Podemos comparar gráficamente sus funciones de masa de probabilidad:
+
+```{webr-r}
+par(mfrow=c(1,2))
+plot(0:20,dbinom(0:20,100,0.05),type="h",main="Binomial")
+plot(0:20,dpois(0:20,5),type="h",main="Poisson")
+par(mfrow=c(1,1))
+```
+
+## 5. Otras distribuciones discretas
+
+En R se pueden utilizar otras distribuciones de probabilidad para variables aleatorias discretas, y para todas ellas existen las funciones de masa de probabilidad, de distribución acumulada, de cálculo de cuantiles y de generación de valores aleatorios. Se trata de las siguientes:
+
++-------------------+---------------------------------+-----------------------------------+-------------+-------------------------------+
+| Distribución      | Función de masa de probabilidad | Función de distribución acumulada | Cuantiles   | Generación valores aleatorios |
++===================+=================================+===================================+=============+===============================+
+| Binomial negativa | ``` r                           | ``` r                             | ``` r       | ``` r                         |
+|                   | dnbinom()                       | pnbinom()                         | qnbinom()   | rnbinom()                     |
+|                   | ```                             | ```                               | ```         | ```                           |
++-------------------+---------------------------------+-----------------------------------+-------------+-------------------------------+
+| Geométrica        | ``` r                           | ``` r                             | ``` r       | ``` r                         |
+|                   | dgeom()                         | pgeom()                           | qgeom()     | rgeom()                       |
+|                   | ```                             | ```                               | ```         | ```                           |
++-------------------+---------------------------------+-----------------------------------+-------------+-------------------------------+
+| Multinomial       | ``` r                           | ``` r                             | ``` r       | ``` r                         |
+|                   | dmultinom()                     | pmultinom()                       | qmultinom() | rmultinom()                   |
+|                   | ```                             | ```                               | ```         | ```                           |
++-------------------+---------------------------------+-----------------------------------+-------------+-------------------------------+
+
+Para ver la ayuda sobre todas las distribuciones en R se debe ejecutar el comando:
+
+```{webr-r}
+help("Distributions")
+```
+
+Se pueden encontrar ejemplos en R en <https://fhernanb.github.io/Manual-de-R/discretas.html>. Y los fundamentos teóricos de éstas y otras distribuciones de variables discretas en <https://es.m.wikipedia.org/wiki/Distribución_de_probabilidad>.
+
+## 6. Ejercicios propuestos
+
+1.  Si se lanza 50 veces un dado de seis lados con valores 1, 2, 3, 4, 5 y 6 en cada lado:
+    a.  Definir una variable aleatoria binomial para el experimento
+    b.  Calcular la esperanza y varianza de la variable aleatoria
+    c.  Dibujar las funciones de masa de probabilidad y distribución acumulada de la variable aleatoria
+    d.  Calcular la probabilidad de que nunca aparezca el lado con el valor 6.
+    e.  Calcular la probabilidad de que siempre aparezca el lado con el valor 6.
+    f.  Calcular la probabilidad de que el lado con el valor 6 aparezca menos de 10 veces.
+    g.  Calcular la probabilidad de que el lado con el valor 6 aparezca más de 10 veces.
+    h.  Calcular la probabilidad de que el lado con el valor 6 aparezca entre 20 y 40 veces.
+    i.  Calcular los cuantiles 50 y 90.
+    j.  Generar aleatoriamente 100 valores para la variable y comprobar si el diagrama de frecuencias se asemeja a la función de masa de probabilidad Binomial.
+
+```{webr-r}
+
+```
+
+2.  Mediante una encuesta cuyas respuestas están disponibles en el archivo encuesta.csv, se sabe que 26 de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá tienen una línea telefónica contratada con las compañías Jazzte/Orange/Simyo. Si se pregunta aleatoriamente a 6 de los estudiantes, responder a las siguientes preguntas:
+    a.  Definir una variable aleatoria hipergeométrica para el experimento y aproximarla a una variable binomial
+    b.  Calcular la esperanza y varianza de la variable aleatoria
+    c.  Dibujar las funciones de masa de probabilidad y distribución acumulada de la variable aleatoria
+    d.  Cuál es la probabilidad de que exactamente 3 de los 6 estudiantes tengan contrato con Jazzte/Orange/Simyo
+    e.  Cuál es la probabilidad de que 3 o menos de los 6 estudiantes tengan contrato con Jazzte/Orange/Simyo
+    f.  Cuál es la probabilidad de que tengan contrato con Jazzte/Orange/Simyo más de 3 de los 6 estudiantes
+    g.  Cuál es la probabilidad de que los 6 estudiantes tengan contrato con Jazzte/Orange/Simyo
+    h.  Cuál es la probabilidad de que ninguno de los 6 estudiantes tenga contrato con Jazzte/Orange/Simyo
+    i.  Cuál es la probabilidad de que entre 2 y 4 estudiantes tengan contrato con Jazzte/Orange/Simyo
+    j.  Cuál es el valor de los cuartiles de la variable aleatoria
+    k.  Si tenemos los datos de la encuesta original a los 74 alumnos, comprobar si tomando las respuestas en grupos de 6 alumnos, el diagrama de frecuencias se asemeja a la función de masa de probabilidad binomial.
+    l.  Repetir el apartado anterior, pero utilizando datos generados aleatoriamente con R, en lugar de los datos reales.
+
+```{webr-r}
+
+```
+
+3.  Se ha comprobado que un sitio web tiene una media de 120 visitas al día.
+    a.  Definir una variable aleatoria de Poisson para el número de visitas en una hora
+    b.  Calcular la esperanza y varianza de la variable aleatoria
+    c.  Dibujar las funciones de masa de probabilidad y distribución acumulada de la variable aleatoria
+    d.  Cuál es la probabilidad de que haya 4 visitas en una hora
+    e.  Cuál es la probabilidad de que haya 4 o menos visitas en una hora
+    f.  Cuál es la probabilidad de que haya más de 4 visitas en una hora
+    g.  Cuál es la probabilidad de que no haya ninguna visita en una hora
+    h.  Cuál es la probabilidad de que haya entre 4 y 6 visitas en una hora
+    i.  Cuál es el valor de los cuartiles de la variable aleatoria
+    j.  Generar aleatoriamente 100 valores para la variable y comprobar si el diagrama de frecuencias se asemeja a la función de masa de probabilidad de Poisson.
+    k.  Definir una nueva variable aleatoria para calcular la probabilidad de que en un día haya 100 visitas.
+    l.  Generar aleatoriamente 100 valores para la nueva variable y comprobar si diagrama de frecuencias se asemeja a la función de masa de probabilidad de Poisson.
+
+```{webr-r}
+
+```
