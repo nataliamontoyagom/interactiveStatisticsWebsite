@@ -1,6 +1,952 @@
 ---
 title: "Práctica 5"
 subtitle: "Variables aleatorias y distribuciones continuas"
-format: html
+format: 
+  html: 
+    toc: true
+    toc-location: left
+    toc-title: "Índice"
+engine: knitr
+filters:
+  - webr
 ---
 
+## 1. Introducción
+
+Con esta práctica se utiliza R y RStudio para calcular probabilidades de sucesos a partir de variables aleatorias continuas que tienen una distribución Normal o que se aproximan a una distribución Normal.
+
+## 2. Variables continuas con distribución Normal
+
+Una variable Normal es una variable continua (X) cuya función de probabilidad o densidad de probabilidad se ajusta a la siguiente expresión matemática, siendo μ la esperanza (media) y σ la desviación estándar de la variable:
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}$$
+
+Se representa como `X:N(μ,σ)` y se dice que *𝑋* tiene una distribución Normal.
+
+Por ejemplo, una variable `X:N(5,1)` que representa: “*Calificación obtenida en una asignatura con una calificación media de 5 y una desviación estándar de 1*”.
+
+En R se pueden utilizar las funciones indicadas en la siguiente tabla. Por simplicidad, para la esperanza “*μ*” usaremos “*m*” y para la desviación estándar usaremos “*d*”. En la columna “Ejemplo de uso”, se utiliza una variable `N(5,1)`.
+
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Función                          | Código R               | Resultado                                                                                                                                                            | Ejemplo de uso                                                  |
++==================================+========================+======================================================================================================================================================================+=================================================================+
+| Densidad de probabilidad         | ``` r                  | En teoría el resultado siempre debería ser 0, sólo debe usarse para dibujar la función de densidad.                                                                  | No debe usarse para calcular probabilidades, sólo para dibujar. |
+|                                  | dnorm(x,m,d)           |                                                                                                                                                                      |                                                                 |
+| *f(x)*                           | ```                    |                                                                                                                                                                      |                                                                 |
+|                                  |                        |                                                                                                                                                                      |                                                                 |
+|                                  | También puede usarse:  |                                                                                                                                                                      |                                                                 |
+|                                  |                        |                                                                                                                                                                      |                                                                 |
+|                                  | ``` r                  |                                                                                                                                                                      |                                                                 |
+|                                  | dnorm(x, mean=m, sd=d) |                                                                                                                                                                      |                                                                 |
+|                                  | ```                    |                                                                                                                                                                      |                                                                 |
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Distribución acumulada           | ``` r                  | Calcula la probabilidad de que una variable aleatoria Normal `X:N(m,d)` tenga un valor igual o menor que *x*.                                                        | ``` r                                                           |
+|                                  | pnorm(x,m,d)           |                                                                                                                                                                      | pnorm(6,5,1)                                                    |
+| *F(x)=P{X≤x}= P{X\<x}*           | ```                    |                                                                                                                                                                      | ```                                                             |
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Cuantil                          | ``` r                  | Calcula el “menor” valor de una variable aleatoria Normal `X:N(m,d)` que cumple que la probabilidad de que la variable sea menor o igual a ese valor es igual a *q*. | ``` r                                                           |
+|                                  | qnorm(q,m,d)           |                                                                                                                                                                      | qnorm(0.7,5,1)                                                  |
+|                                  | ```                    |                                                                                                                                                                      | ```                                                             |
+|                                  |                        |                                                                                                                                                                      |                                                                 |
+|                                  |                        |                                                                                                                                                                      | Entonces se cumple: P{X≤5.524401} = 0.7                         |
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Generación aleatoria de muestras | ``` r                  | Genera aleatoriamente un vector de n valores aleatorios de una variable Normal `X:N(m,d)`.                                                                           | ``` r                                                           |
+|                                  | rnorm(n,m,d)           |                                                                                                                                                                      | rnorm(4,5,1)                                                    |
+|                                  | ```                    |                                                                                                                                                                      | ```                                                             |
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Esperanza                        | ``` r                  |                                                                                                                                                                      | ``` r                                                           |
+|                                  | m                      |                                                                                                                                                                      | (E=5)                                                           |
+| *E\[X\]*                         | ```                    |                                                                                                                                                                      | ```                                                             |
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Varianza                         | ``` r                  |                                                                                                                                                                      | ``` r                                                           |
+|                                  | d^2                    |                                                                                                                                                                      | (Var=1^2)                                                       |
+| *Var\[X\]*                       | ```                    |                                                                                                                                                                      | ```                                                             |
++----------------------------------+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Las funciones anteriores se pueden combinar con otras de generación de gráficos, para obtener los diagramas que se indican en la siguiente tabla.
+
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+| Diagrama                                                                                   | Código R                                 | Comentarios                                                                                                                                                            | Ejemplo de uso                                |
++============================================================================================+==========================================+========================================================================================================================================================================+===============================================+
+| Función de densidad de probabilidad                                                        | ``` r                                    | Dibuja el resultado de la función desde *x=a* hasta *x=b*.curve(dnorm(x,m,d),a ,b, add=TRUE)                                                                           | ``` r                                         |
+|                                                                                            | curve(dnorm(x,m,d),a,b)                  |                                                                                                                                                                        | curve(dnorm(x,5,1),-10,20)                    |
+|                                                                                            | ```                                      |                                                                                                                                                                        | ```                                           |
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+| Función de distribución acumulada                                                          | ``` r                                    | Dibuja el resultado de la función desde *x=a* hasta *x=b*.                                                                                                             | ``` r                                         |
+|                                                                                            | curve(pnorm(x,m,d),a,b)                  |                                                                                                                                                                        | curve(pnorm(x,5,1),-10,20)                    |
+|                                                                                            | ```                                      |                                                                                                                                                                        | ```                                           |
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+| Histograma de una muestra de valores reales de la variable aleatoria                       | ``` r                                    | Se puede representar primero el histograma con los datos de la variable y después la función de densidad de probabilidad Normal teórica, para ver si son similares.    | ``` r                                         |
+|                                                                                            | hist(datos,breaks=a:b, freq=FALSE)       |                                                                                                                                                                        | datos=c(5,5,4,6,4,5,5,3,3,6)                  |
+|                                                                                            |                                          | Los valores reales de la muestra están en "datos".                                                                                                                     |                                               |
+|                                                                                            | curve(dnorm(x,m,d),a,b, add=TRUE)        |                                                                                                                                                                        | hist(datos, breaks=0:10,freq=FALSE)           |
+|                                                                                            | ```                                      |                                                                                                                                                                        |                                               |
+|                                                                                            |                                          |                                                                                                                                                                        | curve(dnorm(x,5,1),0,10,add=TRUE,col="red")   |
+|                                                                                            |                                          |                                                                                                                                                                        | ```                                           |
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+| Histograma de una muestra de valores simulados de la variable aleatoria                    | ``` r                                    | Se puede representar primero el histograma con los datos de la simulación de “s” datos y después la función de probabilidad Normal teórica, para ver si son similares. | ``` r                                         |
+|                                                                                            | hist(rnorm(s,m,d),breaks=a:b,freq=FALSE) |                                                                                                                                                                        | hist(rnorm(100,5,1),breaks = 0:10,freq=FALSE) |
+|                                                                                            |                                          |                                                                                                                                                                        |                                               |
+|                                                                                            | curve(dnorm(x,m,d),a,b, add=TRUE)        |                                                                                                                                                                        | curve(dnorm(x,5,1),0,10,add=TRUE,col="red")   |
+|                                                                                            | ```                                      |                                                                                                                                                                        | ```                                           |
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+| Diagrama de densidad a partir de una muestra de valores reales de la variable aleatoria    | ``` r                                    | Se utilliza la función *density()* de R.                                                                                                                               | ``` r                                         |
+|                                                                                            | plot(density(datos))                     |                                                                                                                                                                        | datos=c(5,5,4,6,4,5,5,3,3,6)                  |
+|                                                                                            |                                          | Los valores reales de la muestra están en “*datos*”.                                                                                                                   |                                               |
+|                                                                                            | curve(dnorm(x,m,d),a,b,add=TRUE)         |                                                                                                                                                                        | plot(density(datos))                          |
+|                                                                                            | ```                                      |                                                                                                                                                                        |                                               |
+|                                                                                            |                                          |                                                                                                                                                                        | curve(dnorm(x,5,1),0,10,add=TRUE,col="red")   |
+|                                                                                            |                                          |                                                                                                                                                                        | ```                                           |
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+| Diagrama de densidad a partir de una muestra de valores simulados de la variable aleatoria | ``` r                                    | Se utilliza la función *density()* de R.                                                                                                                               | ``` r                                         |
+|                                                                                            | plot(density(rnorm(s,m,d)))              |                                                                                                                                                                        | plot(density(rnorm(100,5,1)))                 |
+|                                                                                            |                                          |                                                                                                                                                                        |                                               |
+|                                                                                            | curve(dnorm(x,m,d),a,b,add=TRUE)         |                                                                                                                                                                        | curve(dnorm(x,5,1),0,10, add=TRUE,col="red")  |
+|                                                                                            | ```                                      |                                                                                                                                                                        | ```                                           |
++--------------------------------------------------------------------------------------------+------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+En la función *curve()* se indica *add=TRUE* para que se dibuje sobre el diagrama anterior.
+
+Se puede comparar el efecto de modificar los parámetros *m* y *d*, mostrando simultáneamente varios gráficos.
+
+Por ejemplo, dividiendo la ventana gráfica en 2 filas y 3 columnas:
+
+```{webr-r}
+par(mfrow=c(2,3))
+curve(dnorm(x,0,1),-10,10, main = "N(0,1)")
+curve(dnorm(x,5,1),-10,10, main = "N(5,1)")
+curve(dnorm(x,10,1),-10,10, main = "N(5,1)")
+curve(dnorm(x,0,0.4),-10,10, main = "N(0,0.4)")
+curve(dnorm(x,5,0.4),-10,10, main = "N(5,0.4)")
+curve(dnorm(x,10,0.4),-10,10, main = "N(5,0.4)")
+par(mfrow=c(1,1))
+```
+
+O se pueden dibujar varios diagramas en el mismo gráfico, el primero con *plot* y el resto con *lines*:
+
+```{webr-r}
+curve(dnorm(x,0,1),-10,10)
+curve(dnorm(x,5,1),-10,10, add=TRUE, col="red")
+curve(dnorm(x,10,1),-10,10, add=TRUE, col="blue")
+legend("topleft",legend=c("N(0,1)","N(5,1)","N(10,1)"), col=c("black", "red", "blue"), bg="transparent", lty=1)
+```
+
+Se recomienda investigar diferentes formas de dibujar la leyenda en el gráfico.
+
+### 2.1 Comprobar la normalidad de un conjunto de datos
+
+Se puede comporbar si un conjunto de datos se adapta a una distribución normal de varias formas:
+
+1)  Visualmente comparando el histograma de los datos con la función de densidad Normal
+2)  Visualmente comparando la función de densidad de los datos con la función de densidad Normal
+3)  Visualmente utilizando un diagrama de cuantiles (Q-Q plot)
+4)  Comprobando la regla empírica de la Normal: 68-95-99
+5)  Comprobando la asimetría y apuntamiento
+6)  Realizando un test o contraste de hipótesis
+
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Método                                                         | Código R                          | Comentarios                                                                                                                                                                    | Ejemplo de uso                              |
++================================================================+===================================+================================================================================================================================================================================+=============================================+
+| Histograma datos vs Densidad Normal                            | ``` r                             | *x* es el vector con la lista de valores de la variable aleatoria                                                                                                              | ``` r                                       |
+|                                                                | hist(x,freq=FALSE)                |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | curve(dnorm(x,m,d),a,b,add=TRUE)  |                                                                                                                                                                                |                                             |
+|                                                                | ```                               |                                                                                                                                                                                | hist(x, freq=FALSE,breaks=0:10)             |
+|                                                                |                                   |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | curve(dnorm(x,5,1),0,10,add=TRUE,col="red") |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Densidad datos vs Densidad Normal                              | ``` r                             | *x* es el vector con la lista de valores de la variable aleatoria                                                                                                              | ``` r                                       |
+|                                                                | x = datos                         |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | plot(density(x))                  |                                                                                                                                                                                |                                             |
+|                                                                | curve(dnorm(x,m,d),a,b, add=TRUE) |                                                                                                                                                                                | plot(density(x))                            |
+|                                                                | ```                               |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | curve(dnorm(x,5,1),0,10,add=TRUE,col="red") |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Gráfico Q-Q (Cuantil- Cuantil)                                 | ``` r                             | Cuanto más próximos estén los puntos a la recta, más se ajustan los datos a una distribución Normal                                                                            | ``` r                                       |
+|                                                                | x = datos                         |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | qqnorm(x)                         |                                                                                                                                                                                |                                             |
+|                                                                | qqline(x)                         |                                                                                                                                                                                | qqnorm(x)                                   |
+|                                                                | ```                               |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | qqline(x,col="red")                         |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Diagrama Q-Q con región de confianza del 95%                   | ``` r                             | Cuantos más puntos queden dentro de la región, más se ajustan los datos a una distribución Normal                                                                              | ``` r                                       |
+|                                                                | install.packages("car")           |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | library(car)                      |                                                                                                                                                                                |                                             |
+|                                                                | qqPlot(x)                         |                                                                                                                                                                                | qqPlot(x)                                   |
+|                                                                | ```                               |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Regla empírica                                                 | ``` r                             | Regla empírica:                                                                                                                                                                | ``` r                                       |
+|                                                                | n=length(x)                       |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+| 68-95-99                                                       | length(x[x<m+d & x>m-d])/n        | \- En m±d se encuentra el 68.27% de la distribución.                                                                                                                           |                                             |
+|                                                                | length(x[x<m+2*d &                |                                                                                                                                                                                | (n=length(x))                               |
+|                                                                | x>m-2*d])/n                       | \- En m±2d se encuentra el 95.45% de la distribución                                                                                                                           |                                             |
+|                                                                | length(x[x<m+3*d &                |                                                                                                                                                                                | (m=mean(x))                                 |
+|                                                                | x>m-3*d])/n                       | \- En m±3d se encuentra el 99.73% de la distribución                                                                                                                           |                                             |
+|                                                                | ```                               |                                                                                                                                                                                | (d=sd(x))                                   |
+|                                                                |                                   |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | length(x[x<m+d & x>m-d])/n                  |
+|                                                                |                                   |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | length(x[x<m+2*d & x>m-2*d])/n              |
+|                                                                |                                   |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | length(x[x<m+3*d & x>m-3*d])/n              |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Asimetría y Apuntamiento (Curtosis)                            | ``` r                             | Si[^1] el valor absoluto del coeficiente de asimetría (skewness) es ≤1.5, y el del coeficiente de apuntamiento (curtosis) es ≤1.                                               | ``` r                                       |
+|                                                                | install.packages("e1071")         |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | library(e1071)                    |                                                                                                                                                                                |                                             |
+|                                                                | skewness(x)                       |                                                                                                                                                                                | skewness(x)                                 |
+|                                                                | ```                               |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | kurtosis(x)                                 |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Test de hipótesis de asimetría y curtosis de Jarque-Bera       | ``` r                             | Si se obtiene un p-valor mayor que un valor tabulado[^2] en función del tamaño de la muestra, se puede afirmar con un 95% de confianza que se ajusta a una distribución Normal | ``` r                                       |
+|                                                                | library("tseries")                |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | jarque.bera.test(x)               |                                                                                                                                                                                |                                             |
+|                                                                | ```                               |                                                                                                                                                                                | jarque.bera.test(x)                         |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Test de hipótesis (Test de Shapiro-Wilk) Muestra pequeña[^3]   | ``` r                             | Si se obtiene un *p- value* mayor que 0.05 se puede afirmar con un 95% de confianza que se ajusta a una distribución Normal                                                    | ``` r                                       |
+|                                                                | shapiro.test(x)                   |                                                                                                                                                                                | x=c(5,5,4,6,4,5,5,3,3,6)                    |
+|                                                                | ```                               |                                                                                                                                                                                | shapiro.test(x)                             |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Test de hipótesis (Test de Kolmogorov- Smirnov) Muestra grande | ``` r                             | Si se obtiene un *p- value* mayor que 0.05 se puede afirmar con un 95% de confianza que se ajusta a una distribución Normal                                                    | ``` r                                       |
+|                                                                | ks.test(x, pnorm,mean(x), sd(x))  |                                                                                                                                                                                | x=rnorm(100,5,2)                            |
+|                                                                | ```                               |                                                                                                                                                                                |                                             |
+|                                                                |                                   |                                                                                                                                                                                | ks.test(x, pnorm,mean(x), sd(x))            |
+|                                                                |                                   |                                                                                                                                                                                | ```                                         |
++----------------------------------------------------------------+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+
+[^1]: Una distribución Normal tiene un coeficiente de asimetría y de apuntamiento de valor 0. No hay unanimidad entre los expertos sobre los límites alrededor de estos valores para considerar que unos datos son normales. Algunas propuestas, entre ellas la indicada en la tabla, pueden encontrarse en: <https://rpubs.com/FabioScielzoOrtiz/Analisis_de_Normalidad_en_R> <https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/Simon>
+
+[^2]: Tabla de posibles *p-valores* en función del tamaño de la muestra: <https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test>
+
+[^3]: No hay unanimidad respecto a lo que se considera muestra pequeña o grande. En general, para estas pruebas se suele suponer el límite en 50 datos. Aunque hay [autores](https://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S0212-16112023000100030) que defienden que el test de Shapiro-Wilk sólo debería realizarse para una muestra de como mínimo 30 datos.
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+### 2.2 Ejemplo: Calificaciones de estudiantes
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se saben las calificaciones de acceso a la universidad de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá. Si se supone que tienen una distribución Normal, responder a las siguientes preguntas:**
+
+a)  **Definir una variable aleatoria Normal para la calificación de un estudiante seleccionado al azar.**
+b)  **Calcular la media o esperanza y la varianza de la variable aleatoria.**
+c)  **Dibujar las funciones de densidad de probabilidad y distribución acumulada de la variable aleatoria.**
+d)  **Cuál es la probabilidad de que un estudiante seleccionado al azar tenga una calificación menor de 7. Dibujar en el diagrama de la función de densidad el área correspondiente a la acumulación de la probabilidad obtenida.**
+e)  **Cuál es la probabilidad de que un estudiante seleccionado al azar tenga una calificación de entre 7 y 9. Dibujar en el diagrama de la función de densidad el área correspondiente a la acumulación de la probabilidad obtenida.**
+f)  **Cuál es la probabilidad de que un estudiante seleccionado al azar tenga una calificación mayor que 9. Dibujar en el diagrama de la función de densidad el área correspondiente a la acumulación de la probabilidad obtenida.**
+g)  **Cuál es el valor de los cuartiles de la variable aleatoria. Dibujar en el diagrama de la función de densidad el área correspondiente al segundo cuartil.**
+h)  **Si tenemos los datos de la encuesta original a los 74 estudiantes, comprobar si tomando las notas reales, el histograma se ajusta realmente a la distribución Normal.**
+i)  **Repetir el apartado anterior pero haciendo la comprobación utilizando el diagrama de la función de densidad generada con *density()*.**
+j)  **Repetir el apartado anterior pero haciendo la comprobación utilizando el diagrama Q-Q (Cuantil-Cuantil): sin y con región de confianza del 95%.**
+k)  **Repetir el apartado anterior pero haciendo la comprobación mediante la regla empírica 68-95-99 de la distribución Normal.**
+l)  **Repetir el apartado anterior haciendo la comprobación mediante los coeficientes de asimetría y apuntamiento.**
+m)  **Repetir el apartado anterior pero haciendo la comprobación mediante test de hipótesis.**
+n)  **Repetir los apartados h) a l) pero utilizando datos generados aleatoriamente con R, en lugar de los datos reales.**
+
+***SOLUCIÓN***
+
+a)  **Definir una variable aleatoria Normal para la calificación de un estudiante.**
+
+X = Calificación de un estudiante seleccionado al azar de una muestra de 74 estudiantes.
+
+La variable sigue una distribución Normal `N(m,d)`, donde hay que calcular *m* y *d*.
+
+La media es *m*, por lo que hay que acceder a las notas de los 74 estudiantes y calcular la media.
+
+En el archivo [encuesta.csv](https://hilera.web.uah.es/estadistica/r/datos/encuesta.csv) estaban los resultados de la encuesta.
+
+```{webr-r}
+encuesta = read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+(m = round(mean(encuesta$NOTA),2))
+(d = round(sd(encuesta$NOTA),2))
+```
+
+Por tanto la variable es X:N(8.02, 1.13).
+
+b)  **Calcular la media o esperanza y la varianza de la variable aleatoria.**
+
+```{webr-r}
+(Esperanza = m)
+(Varianza = round(d^2,2))
+```
+
+c)  **Dibujar las funciones de densidad de probabilidad y distribución acumulada.**
+
+```{webr-r}
+par(mfrow=c(1,2))
+curve(dnorm(x,m,d),0,20, main="Función de densidad")
+curve(pnorm(x,m,d),0,20, main="Función de distribución")
+par(mfrow=c(1,1))
+```
+
+d)  **Cuál es la probabilidad de que un estudiante seleccionado al azar tenga una calificación menor de 7**
+
+Se trata de calcular P{X\<7} que al ser una variable continua equivale a P{X≤7}. Se puede usar, por tanto la función de distribución *pnorm()*:
+
+```{webr-r}
+(P.menor.7=pnorm(7,m,d))
+```
+
+Para dibujar el área correspondiente a la acumulación de la probabilidad obtenida, podemos ejecutar la función *xnorm()* del paquete *mosaic*:
+
+```{webr-r}
+install.packages("mosaic")
+library(mosaic)
+xpnorm(c(0,7),m,d, xlim=c(0,12))
+```
+
+e)  **Cuál es la probabilidad de que un estudiante seleccionado al azar tenga una calificación de entre 7 y 9**
+
+Se trata de calcular P{X≤9} - P{X≤7}.
+
+```{webr-r}
+(P.entre.7.y.9=pnorm(9,m,d)-pnorm(7,m,d))
+```
+
+Para dibujar el área correspondiente a la acumulación de la probabilidad obtenida, podemos ejecutar el siguiente comando:
+
+```{webr-r}
+xpnorm(c(7,9),m,d, xlim=c(0,12))
+```
+
+f)  **Cuál es la probabilidad de que un estudiante seleccionado al azar tenga una calificación superior a 9.**
+
+En ese caso P{X\>9} = 1 – P{X\<9}.
+
+```{webr}
+(P.mayor.9=1-pnorm(9,m,d))
+1-xpnorm(c(0,9),m,d, xlim=c(0,12))
+```
+
+g)  **Cuál es el valor de los cuartiles de la variable aleatoria (es decir los percentiles 25%, 50%, 75%, o cuantiles 0.25, 0.50, 0.75). Dibujar en el diagrama de la función de densidad el área correspondiente al segundo cuartil.**
+
+En lugar de ejecutar 4 veces la función *qnorm()*, una para cada cuartil, se puede pasar como primer argumento, un vector con los valores de los cuantiles correspondiente a cada cuartil:
+
+```{webr-r}
+(cuartiles=round(qnorm(c(0.25,0.50,0.75),m,d),2))
+```
+
+Lo que indican estos resultados es que:
+
+- P{X≤7.26} = 0.25
+- P{X≤8.02} = 0.50
+- P{X≤8.78} = 0.75
+
+Puede comprobarse que es cierto con la función de distribución, por ejemplo, para el segundo cuartil:
+
+```{webr-r}
+(segundo.cuartil=cuartiles[2])
+(p.segundo.cuartil=pnorm(segundo.cuartil,m,d))
+```
+
+Se puede mostrar gráficamente:
+
+```{webr-r}
+xpnorm(c(0,segundo.cuartil),m,d, xlim=c(0,12))
+```
+
+h)  **Si tenemos los datos de la encuesta original a los 74 estudiantes, comprobar si tomando las notas reales, el histograma se ajusta realmente a la distribución Normal.**
+
+Las notas están en la columna NOTA:
+
+```{webr-r}
+(notas.reales=encuesta$NOTA)
+```
+
+Podemos crear un vector con esos valores y dibujar su histograma y superponer la curva de la función de densidad Normal.
+
+```{webr-r}
+hist(notas.reales, freq=FALSE)
+curve(dnorm(x,m,d),0,20, add = TRUE)
+```
+
+Puede comprobarse visualmente que el histograma con los datos reales se ajusta aproximadamente a la forma de la distribución Normal usada en este ejemplo.
+
+i)  **Repetir el apartado anterior pero haciendo la comprobación utilizando el diagrama de la función de densidad generada con *density()*.**
+
+```{webr-r}
+plot(density(notas.reales))
+curve(dnorm(x,m,d),0,12, add=TRUE, col="red")
+legend("topleft",legend=c("Notas","N(8.02,1.13)"), col=c("black", "red"), lty=1)
+```
+
+j)  **Repetir el apartado anterior, pero haciendo la comprobación utilizando el diagrama Q-Q (Cuantil-Cuantil) sin y con región de confianza del 95%.**
+
+En este apartado se va a usar la función *qqPlot()* del paquete “*car*”, que hay que instalar previamente:
+
+```{webr-r}
+install.packages("car")
+library(car)
+par(mfrow=c(1,2))
+qqnorm(notas.reales, main = "Q-Q plot")
+qqline(notas.reales, col="red")
+qqPlot(notas.reales, main = "Q-Q plot con región de confianza del 95%")
+par(mfrow=c(1,1))
+```
+
+Se observan puntos fuera de la región de confianza.
+
+k)  **Repetir el apartado anterior, pero haciendo la comprobación mediante la regla empírica 68-95-99 de la distribución Normal.**
+
+En una distribución Normal *N(m,d)* ,según la llamada “regla empírica” se cumple que en el intervalo:
+
+- *m±d* se encuentra el 68.27% de la distribución
+- *m±2d* se encuentra el 95.45% de la distribución
+- *m±3d* se encuentra el 99.73% de la distribución
+
+Se puede comprobar si se cumple en el caso de los datos de las notas reales:
+
+```{webr-r}
+length(notas.reales[notas.reales<m+d & notas.reales>m-d])/74
+length(notas.reales[notas.reales<m+2*d & notas.reales>m-2*d])/74
+length(notas.reales[notas.reales<m+3*d & notas.reales>m-3*d])/74
+```
+
+En todos los casos los valores obtenidos son parecidos a los de la regla empírica.
+
+l)  **Repetir el apartado anterior haciendo la comprobación mediante los coeficientes de asimetría y apuntamiento.**
+
+```{webr-r}
+install.packages("e1071")
+library(e1071)
+skewness(notas.reales)
+kurtosis(notas.reales)
+```
+
+Son valores cercanos a los de la Normal (0 en ambos casos) y están dentro del rango propuesto por algunos expertos, de un valor absoluto menor que 1.5 en la asimetría (*skewness*), y menor que 1 en el apuntamiento (*kurtosis*).
+
+m)  Repetir el apartado anterior pero haciendo la comprobación mediante test de hipótesis.
+
+Se puede aplicar el test de Jarque-Bera.
+
+``` r
+install.packages("tseries")
+library(tseries)
+jarque.bera.test(notas.reales)
+```
+
+Según la [tabla de p-valores](https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test) para superar este test el *p-valor* debería ser mayor que 0.067 para 70 datos, y se comprueba que es superior.
+
+Como el tamaño de la muestra es grande, también se puede aplicar el test de Test de Kolmogorov-Smirnov.
+
+```{webr-r}
+ks.test(notas.reales, pnorm, mean(notas.reales), sd(notas.reales))
+```
+
+El *p-value* es mayor que 0.05 por lo que se puede aceptar la hipótesis de que se ajusta a una distribución Normal.
+
+n)  **Repetir los apartados h) a m) pero utilizando datos generados aleatoriamente con R, en lugar de los datos reales**
+
+Repetimos los comandos del apartado h), pero en este caso generamos aleatoriamente una muestra con 74 valores utilizando la función *rnorm()*.
+
+```{webr-r}
+notas.simuladas = rnorm(74,m,d)
+hist(notas.simuladas, freq=FALSE)
+curve(dnorm(x,m,d),0,20, add = TRUE)
+```
+
+Si se ejecuta la función *rnorm()* varias veces, en cada ocasión se obtendrá valores diferentes, pero en general puede comprobarse que se ajustan a la distribución Normal.
+
+Usando la función de densidad como en **i)**:
+
+```{webr-r}
+plot(density(notas.simuladas))
+curve(dnorm(x,m,d),0,12, add=TRUE, col="red")
+legend("topleft",legend=c("Notas","N(8.02,1.13)"), col=c("black", "red"), lty=1)
+```
+
+Y con el gráfico Q-Q como en el **j)**:
+
+```{webr-r}
+par(mfrow=c(1,2))
+qqnorm(notas.simuladas, main = "Q-Q plot")
+qqline(notas.simuladas, col="red")
+qqPlot(notas.simuladas, main = "Q-Q plot con región de confianza del 95%")
+par(mfrow=c(1,1))
+```
+
+Comprobando la regla empírica 68-95-99:
+
+```{webr-r}
+length(notas.simuladas[notas.simuladas<m+d & notas.simuladas>m-d])/74
+length(notas.simuladas[notas.simuladas<m+2*d & notas.simuladas>m-2*d])/74
+length(notas.simuladas[notas.simuladas<m+3*d & notas.simuladas>m-3*d])/74
+```
+
+Comprobando asimetría y apuntamiento:
+
+```{webr-r}
+install.packages("e1071")
+library(e1071)
+skewness(notas.simuladas)
+kurtosis(notas.simuladas)
+```
+
+Realizando el test de hipótesis de Jarque-Bera:
+
+``` r
+install.packages("tseries")
+library(tseries)
+jarque.bera.test(notas.simuladas)
+```
+
+Realizando el test de hipótesis de Kolmogorov-Smirnov:
+
+```{webr-r}
+ks.test(notas.simuladas, pnorm, mean(notas.simuladas), sd(notas.simuladas))
+```
+
+Como *p-value* \> 0.05 se puede afirmar con un 95% de confianza que se ajusta a una distribución Normal.
+
+### 2.3 Aproximar una variable Binomial o de Poisson a una distribución Normal
+
+#### 1) Aproximar una variable Binomial a una distribución Normal
+
+Si en una variable Binomial `X:B(n,p)` se cumple que n es grande[^4], entonces se puede aproximar a una variable Normal `X:N(m,d)`, con $m = np$ y $d = \sqrt{np(1-p)}$, y se puede calcular que la variable Binomial esté en el intervalo \[a,b\] calculando P{X≤b}-P{X\<a} aplicando la Normal, pero en este caso sería P{X\<b+0.5}-P{X\<a-0.5}, porque hay que expandir el intervalo sumando y restando 0.5 en cada extremo debido a la conocida corrección de continuidad, debido a que la distribución Binomial es discreta y la Normal continua.
+
+[^4]: No hay unanimidad respecto a lo que se entiende por “grande” ni por la condición que debe cumplir *p*. Algunos autores establecen que la aproximación es buena cuando n≥30, np≥5 y n(1-p)≥5; otros autores establecen n\>50 y *p* con un valor cercano a 0.5.
+
+Se puede comprobar por ejemplo con B(100,0.5), aproximándola a una Normal N(50, 5).
+
+```{webr-r}
+(n=100)
+(p=0.5)
+(m=n*p)
+(d=sqrt(n*p*(1-p)))
+```
+
+Podemos comparar gráficamente sus funciones de masa (Binomial) y densidad (Normal) de probabilidad:
+
+```{webr-r}
+plot(0:n,dbinom(0:n,n,p), type="h", main="Comparación entre B(100, 0.5) y N(50,5)")
+curve(dnorm(x,m,d), 0, n, add = TRUE, col="red")
+legend("topleft", legend = c("Binomial", "Normal"), col = c("black", "red"), lwd = 1)
+```
+
+Y la probabilidad de que la variable Binomial esté, por ejemplo, en el intervalo \[40,50\], aplicando la función de distribución acumulada de la Normal:
+
+```{webr-r}
+pnorm(50+0.5,m,d)-pnorm(40-0.5,m,d)
+```
+
+Que coincide en gran medida con el resultado que se obtendría aplicando la Binomial:
+
+```{webr-r}
+pbinom(50,n,p)-pbinom(39,n,p)
+```
+
+#### 2) Aproximar una variable de Poisson a una distribución Normal
+
+Si en una variable de Poisson `X:P(λ)` se cumple que *λ* es grande[^5], entonces se puede aproximar a una variable Normal `X:N(m,d)`, con $𝑚=\lambda$ y $𝑑=\sqrt{\lambda}$, y se puede calcular que la variable de Poisson esté en el intervalo \[a,b\] calculando P{X≤b}-P{X\<a} aplicando la Normal, pero en este caso sería P{X\<b+0.5}-P{X\<a-0.5}, porque hay que expandir el intervalo sumando y restando 0.5 en cada extremo debido a la conocida corrección de continuidad.
+
+[^5]: No hay unanimidad respecto a lo que se entiende por “grande”. Algunos autores establecen que es suficiente λ\>5, otros λ\>10, otros λ\>16.
+
+Se puede comprobar por ejemplo con P(100), aproximándola a una Normal N(100, 10).
+
+```{webr-r}
+(lambda = 100)
+(m = lambda)
+(d = sqrt(lambda))
+```
+
+Podemos comparar gráficamente sus funciones de masa (Poisson) y densidad (Normal) de probabilidad:
+
+```{webr-r}
+plot(0:200,dpois(0:200,lambda), type="h", main="Comparación entre P(100) y N(100,10)")
+curve(dnorm(x,m,d),0,200, add = TRUE, col="red")
+legend("topleft", legend = c("Poisson", "Normal"), col = c("black", "red"), lwd = 1)
+```
+
+Y la probabilidad de que la variable de Poisson esté, por ejemplo, en el intervalo \[80,90\], aplicando la función de distribución acumulada de la Normal:
+
+```{webr-r}
+pnorm(90+0.5,m,d)-pnorm(80-0.5,m,d)
+```
+
+Que coincide en gran medida con el resultado que se obtendría aplicando la de Poisson:
+
+```{webr-r}
+ppois(90,lambda)-ppois(79,lambda)
+```
+
+## 3. Variables continuas con distribución Exponencial
+
+El tiempo que transcurren entre la ocurrencia de dos eventos consecutivos con distribución de Poisson(λ)[^6], es una variable aleatoria (*X*) con distribución de probabilidad exponencial. Se representa como `X:Exp(λ)`.
+
+[^6]: El símbolo *λ* (letra griega lambda) se escribe pulsando `Alt+955`.
+
+Por ejemplo, una variable `X:Exp(2)` que representa: “*Tiempo entre dos visitas a un sitio web, sabiendo que la media de visitas en una hora es de 2 (λ=2)*”.
+
+En R se pueden utilizar las funciones indicadas en la siguiente tabla. En la columna “Ejemplo de uso”, se utiliza una variable *Exp(2)*.
+
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Función                          | Código R    | Resultado                                                                                                                                                               | Ejemplo de uso                                                  |
++==================================+=============+=========================================================================================================================================================================+=================================================================+
+| Densidad de probabilidad         | ``` r       | En teoría el resultado siempre debería ser 0, sólo debe usarse para dibujar la función de densidad.                                                                     | No debe usarse para calcular probabilidades, sólo para dibujar. |
+|                                  | dexp(x,λ)   |                                                                                                                                                                         |                                                                 |
+| *f(x)*                           | ```         | $$f(x) = \lambda e^{-\lambda x}$$                                                                                                                                       |                                                                 |
+|                                  |             |                                                                                                                                                                         |                                                                 |
+|                                  | o bien      |                                                                                                                                                                         |                                                                 |
+|                                  |             |                                                                                                                                                                         |                                                                 |
+|                                  | ``` r       |                                                                                                                                                                         |                                                                 |
+|                                  | λ*exp(-λ*x) |                                                                                                                                                                         |                                                                 |
+|                                  | ```         |                                                                                                                                                                         |                                                                 |
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Distribución acumulada           | ``` r       | Calcula la probabilidad de que una variable aleatoria Exponencial `X:Exp(λ)` tenga un valor igual o menor que *x*.                                                      | ``` r                                                           |
+|                                  | pexp(x,λ)   |                                                                                                                                                                         | pexp(0.5,2)                                                     |
+| *F(x)=P{X≤x}= P{X\<x}*           | ```         | $$F(x) = 1-e^{-\lambda x}$$                                                                                                                                             | ```                                                             |
+|                                  |             |                                                                                                                                                                         |                                                                 |
+|                                  | o bien      |                                                                                                                                                                         |                                                                 |
+|                                  |             |                                                                                                                                                                         |                                                                 |
+|                                  | ``` r       |                                                                                                                                                                         |                                                                 |
+|                                  | 1-exp(-λ*x) |                                                                                                                                                                         |                                                                 |
+|                                  | ```         |                                                                                                                                                                         |                                                                 |
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Cuantil                          | ``` r       | Calcula el menor valor de una variable aleatoria Exponencial `X:Exp(λ)` que cumple que la probabilidad de que la variable sea menor o igual a ese valor es igual a *q*. | ``` r                                                           |
+|                                  | qexp(q,λ)   |                                                                                                                                                                         | qexp(0.9,2)                                                     |
+|                                  | ```         |                                                                                                                                                                         | ```                                                             |
+|                                  |             |                                                                                                                                                                         |                                                                 |
+|                                  |             |                                                                                                                                                                         | Entonces se cumple: P{X≤1.151293 } = 0.9                        |
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Generación aleatoria de muestras | ``` r       | Genera aleatoriamente un vector de n valores aleatorios de una variable Exponencial `X:Exp(λ)`.                                                                         | ``` r                                                           |
+|                                  | rexp(n,λ)   |                                                                                                                                                                         | rexp(4,2)                                                       |
+|                                  | ```         |                                                                                                                                                                         | ```                                                             |
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Esperanza                        | ``` r       |                                                                                                                                                                         | ``` r                                                           |
+|                                  | 1/(λ^2)     |                                                                                                                                                                         | (E=1/2)                                                         |
+| *E\[X\]*                         | ```         |                                                                                                                                                                         | ```                                                             |
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Varianza                         | ``` r       |                                                                                                                                                                         | ``` r                                                           |
+|                                  | d^2         |                                                                                                                                                                         | (Var=1/(2^2))                                                   |
+| *Var\[X\]*                       | ```         |                                                                                                                                                                         | ```                                                             |
++----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+Las funciones anteriores se pueden combinar con otras de generación de gráficos, para obtener los diagramas que se indican en la siguiente tabla.
+
++-------------------------------------+----------------------+-------------------------------------------------------+-----------------------+
+| Diagrama                            | Código R             | Comentarios                                           | Ejemplo de uso        |
++=====================================+======================+=======================================================+=======================+
+| Función de densidad de probabilidad | ``` r                | Dibuja el resultado de la función desde x=a hasta x=b | ``` r                 |
+|                                     | curve(dexp(x,λ),a,b) |                                                       | curve(dexp(x,2),0,10) |
+|                                     | ```                  |                                                       | ```                   |
++-------------------------------------+----------------------+-------------------------------------------------------+-----------------------+
+| Función de distribución acumulada   | ``` r                | Dibuja el resultado de la función desde x=a hasta x=b | ``` r                 |
+|                                     | curve(pexp(x,λ),a,b) |                                                       | curve(pexp(x,2),0,10) |
+|                                     | ```                  |                                                       | ```                   |
++-------------------------------------+----------------------+-------------------------------------------------------+-----------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+### 3.1 Ejemplo: Correo electrónico no deseado (spam)
+
+***ENUNCIADO***
+
+**Una persona ha comprobado que recibe una media de 48 mensajes al día de correo electrónico no deseado (spam).**
+
+a)  **Definir una variable aleatoria Exponencial para el tiempo entre mensajes.**
+b)  **Calcular la esperanza de la variable aleatoria.**
+c)  **Cuál es la probabilidad de que el tiempo entre dos mensajes sea de menos de 1 hora.**
+d)  **Cuál es la probabilidad de que el tiempo entre mensajes sea de más de 1 hora.**
+e)  **Cuál es la probabilidad de que el tiempo entre mensajes esté entre 1 y 2 horas.**
+
+***SOLUCIÓN***
+
+a)  **Definir una variable aleatoria Exponencial para el tiempo entre mensajes.**
+
+X = Tiempo entre dos mensajes no deseados recibidos, sabiendo que la media de mensajes no deseados recibidos en una hora es de 48/24=2 mensajes.
+
+NOTA: Como las preguntas se refieren a horas se ha hecho la conversión de días a horas.
+
+La variable sigue una distribución Exponencial(λ), donde λ=48/24=2 mensajes/hora. Por simplicidad se utiliza “lambda” en lugar de “λ” en el código R.
+
+```{webr-r}
+(lambda=48/24)
+```
+
+b)  **Calcular la esperanza de la variable aleatoria.**
+
+La esperanza es *1/λ* horas entre dos mensajes consecutivos.
+
+```{webr-r}
+(Esperanza = 1/lambda)
+```
+
+c)  **Cuál es la probabilidad de que el tiempo entre dos mensajes sea de menos de 1 hora.**
+
+Se trata de calcular P{X\<1} que al ser una variable continua equivale a P{X≤1}. Se puede usar, por tanto, la función de distribución acumulada *pexp():*
+
+```{webr-r}
+pexp(1,lambda)
+```
+
+d)  **Cuál es la probabilidad de que el tiempo entre mensajes sea de más de 1 hora.**
+
+En ese caso P{X\>1} = 1 – P{X\<1}.
+
+```{webr-r}
+1-pexp(1,lambda)
+```
+
+e)  **Cuál es la probabilidad de que el tiempo entre mensajes esté entre 1 y 2 horas.**
+
+Se trata de calcular P{X≤2} - P{X≤1}.
+
+```{webr-r}
+pexp(2,lambda)-pexp(1,lambda)
+```
+
+## 4. Otras distribuciones continuas
+
+En R se pueden utilizar otras distribuciones de probabilidad para variables aleatorias continuas, y para todas ellas existen las funciones de densidad, de distribución, de cálculo de cuantiles y de generación de valores aleatorios. Se trata de las siguientes:
+
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Distribución  | Función de densidad | Función de distribución | Cuantiles  | Generación valores aleatorios |
++===============+=====================+=========================+============+===============================+
+| Beta          | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dbeta()             | pbeta()                 | qbeta()    | rbeta()                       |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Cauchy        | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dcauchy()           | pcauchy()               | qcauchy()  | rcauchy()                     |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Chi-cuadrado  | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dchisq()            | pchisq()                | qchisq()   | rchisq()                      |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| F             | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | df()                | pf()                    | qf()       | rf()                          |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Gamma         | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dgamma()            | pgamma()                | qgamma()   | rgamma()                      |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Gamma inversa | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dIGAMMA()           | pIGAMMA()               | qIGAMMA()  | rIGAMMA()                     |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Log-normal    | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dlnorm()            | plnorm()                | qlnorm()   | rlnorm()                      |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| T de Student  | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dt()                | pt()                    | qt()       | rt()                          |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Uniforme      | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dunif()             | punif()                 | qunif()    | runif()                       |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Weibull       | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dweibull()          | pweibull()              | qweibull() | rweibull()                    |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+| Wilcoxon      | ``` r               | ``` r                   | ``` r      | ``` r                         |
+|               | dwilcox()           | pwilcox()               | qwilcox()  | rwilcox()                     |
+|               | ```                 | ```                     | ```        | ```                           |
++---------------+---------------------+-------------------------+------------+-------------------------------+
+
+Para ver la ayuda sobre las distribuciones en R se puede ejecutar el comando:
+
+```{webr-r}
+help("Distributions")
+```
+
+Se pueden encontrar ejemplos en R en <https://fhernanb.github.io/Manual-de-R/continuas.html>. Y los fundamentos teóricos de éstas y otras distribuciones de variables continuas en <https://es.m.wikipedia.org/wiki/Distribución_de_probabilidad>.
+
+Se puede comprobar a qué distribución se aproxima más un conjunto de datos reales, usando la función *fitDist()* del paquete *gamlss*:
+
+```{webr-r}
+install.packages("gamlss")
+library(gamlss)
+```
+
+Por ejemplo, en el caso de los datos de las calificaciones de los 74 estudiantes del apartado 2.3, que estaban en el vector *notas.reales* sería:
+
+```{webr-r}
+fitDist(notas.reales)
+```
+
+Al final del listado que se obtiene aparece que es la distribución “Gamma Inversa” a la que mejor se adapta el conjunto de las notas.
+
+En el paquete gamlss también existe la función *histDist()* que se puede utilizar para dibujar el histograma de los datos junto a una función de densidad de la distribución, en este caso podemos indicar Gamma Inversa (IGAMMA):
+
+```{webr-r}
+histDist(notas.reales, family=IGAMMA)
+```
+
+Podemos ver el mismo diagrama, pero comparando con la Normal (NO):
+
+```{webr-r}
+histDist(notas.reales, family=NO)
+```
+
+### 4.1 Variables continuas con distribución general
+
+Si dada una variable aleatoria continua de la que disponemos de un conjunto de valores, no encontramos ninguna distribución conocida (Normal, Beta, Gamma, etc.) a la que se ajuste, entonces se pueden utilizar las funciones *density()* y *ecdf()* para calcular empíricamente probabilidades relacionadas con variable.
+
+Toda variable aleatoria continua *X* tiene asociada dos funciones:
+
+- La función de densidad de probabilidad *f(x)*: que representa la probabilidad de que la variable tenga un valor concreto: P{X=x}. En el caso de las variables continuas, esta función sólo se utiliza a efectos teóricos y de representación gráfica, porque la probabilidad de la variable en un punto no puede calcularse, es cero, y siempre hay que calcular la probabilidad en un intervalo. En el caso de R se puede asociar a la función *density()*.
+
+- La función de distribución acumulada *F(x)*, que representa la probabilidad de que la variable sea igual a inferior a un valor concreto: P{X≤x}. En una variable continua, al no tener sentido hablar de probabilidad de un valor, en este caso se cumple que P{X≤x}=P{X\<x}. En el caso de R se puede asociar a la función *ecdf()*.
+
+Si disponemos de una muestra de valores de la variable, con R se pueden manejar ambas funciones como se indica en la siguiente tabla.
+
++-------------------------------------+-------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Función                             | Código R                                                          | Resultado                                                                                                                                                                      | Ejemplo de uso                                                  |
++=====================================+===================================================================+================================================================================================================================================================================+=================================================================+
+| Densidad de probabilidad            | x = vector con la muestra de valores conocidos de la variable *X* | Al ser una variable continua, en teoría el resultado siempre debería ser 0, sólo debe usarse para dibujar la función de densidad.                                              | No debe usarse para calcular probabilidades, sólo para dibujar. |
+|                                     |                                                                   |                                                                                                                                                                                |                                                                 |
+| *f(x)*                              | ``` r                                                             |                                                                                                                                                                                |                                                                 |
+|                                     | f=density(x)                                                      |                                                                                                                                                                                |                                                                 |
+|                                     | ```                                                               |                                                                                                                                                                                |                                                                 |
++-------------------------------------+-------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Distribución acumulada              | x = vector con la muestra de valores conocidos de la variable *X* | Calcula la probabilidad de que la variable aleatoria X tenga un valor igual o menor que *x*. El nombre de la función proviene de “empirical cumulative distribution function”. | ``` r                                                           |
+|                                     |                                                                   |                                                                                                                                                                                | x=c(5.1, 5.2, 4.5,                                              |
+| *F(x)=P{X≤x}= P{X\<x}*              | ``` r                                                             |                                                                                                                                                                                | 6.2, 4.2, 5.3,5.2,                                              |
+|                                     | F=ecdf(x)                                                         |                                                                                                                                                                                | 3.1, 3.5, 6.1)                                                  |
+|                                     | ```                                                               |                                                                                                                                                                                | F=ecdf(x)                                                       |
+|                                     |                                                                   |                                                                                                                                                                                | F(4.8)                                                          |
+|                                     |                                                                   |                                                                                                                                                                                | ```                                                             |
++-------------------------------------+-------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Función de densidad de probabilidad | ``` r                                                             |                                                                                                                                                                                | ``` r                                                           |
+|                                     | plot(density(x))                                                  |                                                                                                                                                                                | x=c(5.1, 5.2, 4.5,                                              |
+|                                     | ```                                                               |                                                                                                                                                                                | 6.2,4.2,5.3,5.2,3.1, 3.5, 6.1)                                  |
+|                                     |                                                                   |                                                                                                                                                                                | plot(density(x))                                                |
+|                                     |                                                                   |                                                                                                                                                                                | ```                                                             |
++-------------------------------------+-------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Función de distribución acumulada   | ``` r                                                             |                                                                                                                                                                                | ``` r                                                           |
+|                                     | plot(ecdf(x))                                                     |                                                                                                                                                                                | x=c(5.1, 5.2, 4.5,                                              |
+|                                     | ```                                                               |                                                                                                                                                                                | 6.2, 4.2, 5.3, 5.2,                                             |
+|                                     |                                                                   |                                                                                                                                                                                | 3.1, 3.5, 6.1)                                                  |
+|                                     |                                                                   |                                                                                                                                                                                | plot(ecdf(x))                                                   |
+|                                     |                                                                   |                                                                                                                                                                                | ```                                                             |
++-------------------------------------+-------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+
+```{webr-r}
+
+```
+:::
+
+## 5. Ejercicios propuestos
+
+(1) Mediante una encuesta cuyas respuestas están disponibles en el archivo encuesta.csv, y después de eliminar las respuestas de las personas que no contestaron alguna pregunta, se sabe el tiempo en minutos del viaje a la Escuela Politécnica de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá. Si se supone que tienen una distribución Normal, responder a las siguientes preguntas:
+    a.  Definir una variable aleatoria Normal para el tiempo del viaje de un estudiante
+    b.  Calcular la media o esperanza y la varianza de la variable aleatoria
+    c.  Dibujar las funciones de densidad y distribución acumulada de la variable aleatoria
+    d.  Cuál es la probabilidad de que un estudiante seleccionado al azar tarde menos de 1 hora en llegar a la escuela. Dibujar en el diagrama de la función de densidad el área correspondiente a la acumulación de la probabilidad obtenida.
+    e.  Cuál es la probabilidad de que un estudiante seleccionado al azar tarde entre 1 hora y 1 hora y media. Dibujar en el diagrama de la función de densidad el área correspondiente a la acumulación de la probabilidad obtenida.
+    f.  Cuál es la probabilidad de que un estudiante seleccionado al azar tarde más de 1 hora y media. Dibujar en el diagrama de la función de densidad el área correspondiente a la acumulación de la probabilidad obtenida.
+    g.  Cuál es el valor de los cuartiles de la variable aleatoria. Dibujar en el diagrama de la función de densidad el área correspondiente al segundo cuartil.
+    h.  Si tenemos los datos de la encuesta original a los 74 estudiantes, comprobar si tomando los tiempos reales, el histograma se ajusta realmente a la distribución Normal.
+    i.  Repetir el apartado anterior pero haciendo la comprobación utilizando el diagrama de la función de densidad generada con density().
+    j.  Repetir el apartado anterior pero haciendo la comprobación utilizando el diagrama Q- Q (Cuantil-Cuantil) sin y con región de confianza del 95%.
+    k.  Repetir el apartado anterior pero haciendo la comprobación mediante la regla empírica 68-95-99 de la distribución Normal.
+    l.  Repetir el apartado anterior pero haciendo la comprobación mediante test de hipótesis.
+    m.  Repetir los apartados h) a l) pero utilizando datos generados aleatoriamente con R, en lugar de los datos reales.
+
+```{webr-r}
+
+```
+
+(2) Resolver el ejercicio 1) de la práctica P4 (parte 1) aproximando la distribución Binomial B(50,1/6) a una distribución Normal y comparar los resultados.
+
+    a)  Definir una variable aleatoria Normal aproximando a la Binomial.
+
+    b)  Calcular la esperanza y varianza de la variable aleatoria.
+
+    c)  Dibujar las funciones de densidad de probabilidad y distribución acumulada de la variable aleatoria.
+
+    d)  Calcular la probabilidad de que nunca aparezca el lado con el valor 6.
+
+    e)  Calcular la probabilidad de que siempre aparezca el lado con el valor 6.
+
+    f)  Calcular la probabilidad de que el lado con el valor 6 aparezca menos de 10 veces.
+
+    g)  Calcular la probabilidad de que el lado con el valor 6 aparezca más de 10 veces.
+
+    h)  Calcular la probabilidad de que el lado con el valor 6 aparezca entre 20 y 40 veces.
+
+    i)  Calcular los cuantiles 0.50 y 0.90.
+
+    j)  Generar aleatoriamente 100 valores para la variable y comprobar si el histograma se ajusta realmente a la función de densidad de la Normal.
+
+```{webr-r}
+
+```
+
+(3) Resolver el ejercicio 3) de la práctica P4 (parte 1) aproximando la distribución de Poisson P(120) a una distribución Normal y comparar los resultados.
+
+    (a) Definir una variable Normal aproximando a la de Poisson para el número de visitas en una hora.
+
+    (b) Calcular la esperanza y varianza de la variable aleatoria.
+
+    (c) Dibujar las funciones de densidad de probabilidad y distribución acumulada de la variable aleatoria.
+
+    (d) Cuál es la probabilidad de que haya 4 visitas en una hora.
+
+    (e) Cuál es la probabilidad de que haya 4 o menos visitas en una hora.
+
+    (f) Cuál es la probabilidad de que haya más de 4 visitas en una hora.
+
+    (g) Cuál es la probabilidad de que no haya ninguna visita en una hora.
+
+    (h) Cuál es la probabilidad de que haya entre 4 y 6 visitas en una hora.
+
+    (i) Cuál es el valor de los cuartiles de la variable aleatoria.
+
+    (j) Generar aleatoriamente 100 valores para la variable y comprobar si el histograma se ajusta realmente a la función de densidad de Poisson.
+
+    (k) Definir una nueva variable aleatoria para calcular la probabilidad de que en un día haya 100 visitas.
+
+    (l) Generar aleatoriamente 100 valores para la nueva variable y comprobar si el histograma se ajusta realmente a la función de densidad de Poisson.
+
+```{webr-r}
+
+```
