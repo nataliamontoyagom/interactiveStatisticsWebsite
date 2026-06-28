@@ -24,6 +24,12 @@ website:
             href: practica5.qmd
           - text: Práctica 6
             href: practica6.qmd
+          - text: Práctica 7
+            href: practica7.qmd
+          - text: Práctica 8
+            href: practica8.qmd
+          - text: Práctica 9
+            href: practica9.qmd
         
       - text: Sobre mí
         href: about.qmd

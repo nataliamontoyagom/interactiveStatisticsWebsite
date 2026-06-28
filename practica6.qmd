@@ -1,6 +1,132 @@
 ---
 title: "Práctica 6"
 subtitle: "Intervalos de confianza para parámetros"
-format: html
+format: 
+  html: 
+    toc: true
+    toc-location: left
+    toc-title: "Índice"
+engine: knitr
+filters:
+  - webr
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
+## 1. Introducción
+
+Con esta práctica se utiliza R y RStudio para estimar (inferir) con un
+nivel de confianza determinado, el intervalo en el que se encuentra el
+valor de los parámetros de una población (media, varianza y proporción)
+a partir de una muestra de la misma.
+
+En estadística hay que diferenciar entre conceptos "parámetros" y
+"estadísticos".
+
+El término "parámetro" suele utilizarse en referencia a una población,
+mientras que el término "estadístico" suele utilizarse en referencia a
+una muestra extraída de dicha población. En la siguiente tabla se
+muestra la nomenclatura utilizada habitualmente.
+
++---------------------------------+-----------------------------------+
+| PARÁMETROS (POBLACIONALES)      | ESTADÍSTICOS (MUESTRALES)         |
++=================================+===================================+
+| Media poblacional ($\mu$)       | Media muestral ($\overline{x}$)   |
++---------------------------------+-----------------------------------+
+| Desviación estándar poblacional | Desviación estándar muestral      |
+| ($\sigma$)                      | ($s$)                             |
++---------------------------------+-----------------------------------+
+| Varianza poblacional            | Varianza muestral ($s^{2}$)       |
+| ($\sigma^{2}$)                  |                                   |
++---------------------------------+-----------------------------------+
+| Tamaño población ($N$)          | Tamaño muestra ($n$)              |
++---------------------------------+-----------------------------------+
+| Proporción poblacional ($p$)    | Proporción muestral ($\hat{p}$)   |
++---------------------------------+-----------------------------------+
+
+Se puede calcular el intervalo en el que se puede asegurar que se
+encuentra el valor de un parámetro poblacional con un determinado nivel
+de confianza, obteniendo lo que se conoce como Intervalo de Confianza,
+con un límite inferior *L_i* y un límite superior *L_s*:
+
+$$\text{Intervalo de confianza con nivel de confianza } 1-\alpha = [L_i, L_s]$$
+
+El nivel de confianza ($1-\alpha$) es un valor de 0 a 1 y representa la
+probabilidad de acertar en la predicción, es decir, la probabilidad de
+que el valor real del parámetro se encuentre entre los límites del
+intervalo. Se suele utilizar en % multiplicando por 100. En la expresión
+del nivel de confianza aparece un valor $\alpha$ (alfa) que se denomina
+nivel de error o nivel de significación, y representa la probabilidad de
+no acertar en la predicción.
+
+En la siguiente tabla se indican las fórmulas para calcular los
+parámetros poblacionales y su posible programación utilizando el
+lenguaje R.
+
++--------------+--------------+-----------+---------------------------------------+
+| Parámetro a  | Se conoce la | Intervalo | Código R                              |
+| calcular     | varianza     | de        |                                       |
+|              | poblacional  | confianza |                                       |
+|              | $\sigma^{2}$ | (Li, Ls)  |                                       |
++==============+==============+===========+=======================================+
+|              |              |           | ``` r                                 |
+|              |              |           | n=tamaño muestra                      |
+|              |              |           | z=qnorm(1-alfa/2,0,1)                 |
+|              |              |           | m=media muestral                      |
+|              |              |           | sigma=desviación                      |
+|              |              |           | poblacional                           |
+|              |              |           | Li=m-z*(sigma/sqrt(n))                |
+|              |              |           | Ls=m+z*(sigma/sqrt(n))                |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
+|              |              |           | ``` r                                 |
+|              |              |           | Li=qnorm(alfa/2, m,sigma/sqrt(n))     |
+|              |              |           | Ls=qnorm(1-alfa/2, m,sigma/sqrt(n))   |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
+|              |              |           | ``` r                                 |
+|              |              |           | n=tamaño muestra                      |
+|              |              |           | z=qnorm(1-alfa/2,0,1)                 |
+|              |              |           | m=media muestral                      |
+|              |              |           | s=desviación muestral                 |
+|              |              |           | Li=m-z*(s/sqrt(n))                    |
+|              |              |           | Ls=m+z*(s/sqrt(n))                    |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
+|              |              |           | ``` r                                 |
+|              |              |           | Li=qnorm(alfa/2,m,s/sqrt(n))          |
+|              |              |           | Ls=qnorm(1-alfa/2,m,s/sqrt(n))        |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
+|              |              |           | ``` r                                 |
+|              |              |           | n=tamaño muestra                      |
+|              |              |           | t=qt(1-alfa/2,n-1)                    |
+|              |              |           | m=media muestral                      |
+|              |              |           | s=desviación muestral                 |
+|              |              |           | Li=m-t*(s/sqrt(n))                    |
+|              |              |           | Ls=m+t*(s/sqrt(n))                    |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
+|              |              |           | ``` r                                 |
+|              |              |           | n=tamaño muestra                      |
+|              |              |           | chi.li=qchisq(1-alfa/2,n-1)           |
+|              |              |           | chi.ls=qchisq(alfa/2,n-1)             |
+|              |              |           | s=desviación muestral                 |
+|              |              |           | Li=((n-1)*s^2)/chi.li                 |
+|              |              |           | Ls=((n-1)*s^2)/chi.ls                 |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
+|              |              |           | ``` r                                 |
+|              |              |           | n=tamaño muestra                      |
+|              |              |           | z=qnorm(1-alfa/2,0,1)                 |
+|              |              |           | p=proporción                          |
+|              |              |           | Li=p-z*sqrt(p*(1-p)/n)                |
+|              |              |           | Li=p+z*sqrt(p*(1-p)/n)                |
+|              |              |           | ```                                   |
+|              |              |           |                                       |
+|              |              |           | ``` r                                 |
+|              |              |           | Li=qnorm(alfa/2, p,sqrt(p*(1-p)/n))   |
+|              |              |           | Ls=qnorm(1-alfa/2, p,sqrt(p*(1-p)/n)) |
+|              |              |           | ```                                   |
++--------------+--------------+-----------+---------------------------------------+
