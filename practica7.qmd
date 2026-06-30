@@ -243,7 +243,7 @@ Son las funciones predefinidas *t.test()* y *prop.test()*, y la función *z.test
 +-----------------------------------------------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 
 ::: {.callout-tip collapse="true"}
-## Copia los ejemplos de uso de la tabla y prúebalos tú mismo aquí
+## Copia los ejemplos de las tablas y prúebalos tú mismo aquí
 
 ```{webr-r}
 
@@ -340,8 +340,7 @@ El intervalo de confianza para la diferencia de medias entre los grupos de maña
 
 c)  **Dibujar la función de densidad de probabilidad del estimador (sin estandarizar) de la diferencia de medias poblacionales.**
 
-El estimador sin estandarizar es una variable aleatoria con distribución Normal:
-$$Normal(\bar{x}-\bar{y},\sqrt{\frac{s^2_{X}}{n}+\frac{s^2_{Y}}{m}})$$
+El estimador sin estandarizar es una variable aleatoria con distribución Normal: $$Normal(\bar{x}-\bar{y},\sqrt{\frac{s^2_{X}}{n}+\frac{s^2_{Y}}{m}})$$
 
 Por tanto, la función de densidad de probabilidad se puede dibujar de la siguiente forma:
 
