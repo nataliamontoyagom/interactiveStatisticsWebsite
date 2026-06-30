@@ -1,6 +1,377 @@
 ---
 title: "Práctica 8"
 subtitle: "Contrastes de hipótesis paramétricos"
-format: html
+format: 
+  html: 
+    toc: true
+    toc-location: left
+    toc-title: "Índice"
+engine: knitr
+filters:
+  - webr
 ---
+
+## 1. Introducción
+
+Con esta práctica se utiliza R y RStudio para determinar si se puede aceptar una hipótesis, con un nivel de confianza determinado, para el valor de un parámetro de una población (media) a partir de una muestra de la misma.
+
+En estadística hay que diferenciar entre conceptos “parámetros” y “estadísticos”. El término “parámetro” suele utilizarse en referencia a una población mientras que el término “estadístico” suele utilizarse en referencia a una muestra extraída de dicha población. En la siguiente tabla se muestra la nomenclatura utilizada habitualmente.
+
++-----------------------------------------------------+---------------------------------------------+
+| PARÁMETROS (POBLACIONALES)                          | ESTADÍSTICOS (MUESTRALES)                   |
++=====================================================+=============================================+
+| Media poblacional ($\mu$)                           | Media muestral ($\overline{x}$)             |
++-----------------------------------------------------+---------------------------------------------+
+| Desviación típica o estándar poblacional ($\sigma$) | Desviación típica o estándar muestral ($s$) |
++-----------------------------------------------------+---------------------------------------------+
+| Varianza poblacional ($\sigma^{2}$)                 | Varianza muestral ($s^{2}$)                 |
++-----------------------------------------------------+---------------------------------------------+
+| Tamaño población ($N$)                              | Tamaño muestra ($n$)                        |
++-----------------------------------------------------+---------------------------------------------+
+| Proporción poblacional ($p$)                        | Proporción muestral ($\hat{p}$)             |
++-----------------------------------------------------+---------------------------------------------+
+
+En un contraste de hipótesis:
+
+$$H_{0}: \text{Hipótesis nula vs } H_{A}: \text{Hipótesis alternativa}$$
+
+Se manejan varios conceptos:
+
+- **Nivel de significación del contraste** $(\alpha)$: Es la probabilidad de rechazar la hipótesis $H_{0}$ cuando dicha hipótesis es cierta. Se denomina error tipo I.
+
+- **Nivel de confianza del contraste** $(1-\alpha)$: Es la probabilidad de no rechazar la hipótesis $H_{0}$ cuando dicha hipótesis es cierta.
+
+- Potencia del contraste: Es la probabilidad de rechazar la hipótesis $H_{0}$ cuando dicha hipótesis es falsa.
+
+- Debilidad del contraste (1- potencia del contraste): Es la probabilidad de no rechazar la hipótesis $H_{0}$ cuando dicha hipótesis es falsa. Se denomina error tipo II.
+
+Se resumen en la siguiente tabla:
+
++--------------------------+------------------+---------------------+----------------------------------------------------------------------------+
+|                          | Decisión:        | Decisión:           | Probabilidad de acertar                                                    |
+|                          |                  |                     |                                                                            |
+|                          | Rechazar $H_{0}$ | No rechazar $H_{0}$ |                                                                            |
++==========================+==================+=====================+============================================================================+
+| Realidad:                | FALLO            | **ACIERTO**         | (1 – $\alpha$) es la probabilidad de acertar cuando la hipótesis es cierta |
+|                          |                  |                     |                                                                            |
+| Hipótesis $H_{0}$ CIERTA | Error tipo I     |                     |                                                                            |
++--------------------------+------------------+---------------------+----------------------------------------------------------------------------+
+| Realidad:                | **ACIERTO**      | FALLO               | (1 – potencia) es la probabilidad de acertar cuando la hipótesis es falsa  |
+|                          |                  |                     |                                                                            |
+| Hipótesis $H_{0}$ FALSA  |                  | Error tipo II       |                                                                            |
++--------------------------+------------------+---------------------+----------------------------------------------------------------------------+
+
+Un contraste de hipótesis puede ser:
+
+- Paramétrico: cuando los datos de la población tienen una distribución de probabilidad Normal.
+
+- No Paramétrico: Cuando no hay evidencias de que los datos tengan una distribución Normal.
+
+Por tanto, lo primero que hay que hacer antes de resolver un contraste es comprobar si la población tiene una distribución Normal, para decidir si hay que hacer un contraste paramétrico o no paramétrico. Si no se tiene acceso a los datos de toda la población habrá que hacer la comprobación con la muestra disponible.
+
+Si superan la prueba de normalidad se pueden aplicar los contrastes paramétricos tratados en esta práctica.
+
+Para realizar la prueba de normalidad, se suele usar la función *shapiro.test()* de R cuando la muestra es pequeña[^1] (prueba de Shapiro-Wilk), o la función *ks.test()* cuando la muestra es grande (prueba de Kolmogorov-Smirnov), con el siguiente formato:
+
+[^1]: No hay unanimidad respecto a lo que se considera muestra pequeña o grande. En general, para estas pruebas se suele suponer el límite en 50 datos. Aunque hay [autores](https://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S0212-16112023000100030) que defienden que el test de Shapiro-Wilk sólo debería realizarse para una muestra de como mínimo 30 datos.
+
+``` r
+shapiro.test(muestra)
+ks.test(muestra, pnorm, mean(muestra), sd(muestra))
+```
+
+Si el resultado obtiene un p-valor\<0.05, con un nivel de confianza del 95% no puede afirmarse que los datos tengan una distribución Normal.
+
+Por ejemplo:
+
+```{webr-r}
+x = c(4.4, 3, 0.6, 1.7, 0.4, 1.0, 1.4, 0.9, 4.5, 0.2)
+shapiro.test(x)
+```
+
+En este caso el p-valor es menor que 0.05, por lo que los datos de la muestra no son Normales y hay que aplicar contrastes de hipótesis no paramétricos.
+
+En esta práctica nos limitaremos a los contrastes paramétricos. Existen dos métodos para realizar un contraste de hipótesis paramétrico:
+
+1.  Comprobando la región de no rechazo
+2.  Calculando el p-valor
+
+## 2. Contraste de hipótesis para la media poblacional
+
+Se calcula el valor del estadístico de contraste ($z_{o}$ si es muestra grande, o $t_{o}$ si es muestra pequeña), después se calculan los límites de la región de aceptación, y si el valor del estadístico de contraste está:
+
+- Dentro de la región, entonces no se puede rechazar la hipótesis $H_{0}$, por lo que se acepta y se rechaza $H_{A}$.
+- Fuera de la región, entonces se rechaza la hipótesis $H_{0}$ y se acepta $H_{A}$.
+
+Otra opción es calcular el p-valor y si el p-valor es:
+
+- Mayor que $\alpha$, entonces no se puede rechazar $H_{0}$.
+- Menor que $\alpha$, entonces se rechaza $H_{0}$.
+
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+| Varianza conocida | Contraste de hipótesis                                  | Región de aceptación y código R para calcularla | p-valor y código R para calcularlo  |
++===================+=========================================================+=================================================+=====================================+
+| No $n \ge 30$     | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu < \mu_{o}$$   | $$(-z_{\alpha}, +\infty)$$                      | $$P\{Z \le Z_{o}\}$$                |
+|                   |                                                         |                                                 |                                     |
+|                   |                                                         | ``` r                                           | ``` r                               |
+|                   |                                                         | z.alfa=qnorm(1-alfa,0,1)                        | p.valor=pnorm(zo,0,1)               |
+|                   |                                                         | ```                                             | ```                                 |
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu > \mu_{o}$$   | $$(-\infty,z_{\alpha})$$                        | $$P\{Z \ge Z_{o}\}$$                |
+|                   |                                                         |                                                 |                                     |
+|                   |                                                         | ``` r                                           | ``` r                               |
+|                   |                                                         | z.alfa=qnorm(1-alfa,0,1)                        | p.valor=1-pnorm(zo,0,1)             |
+|                   |                                                         | ```                                             | ```                                 |
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu \ne \mu_{o}$$ | $$(-z_{\alpha/2},z_{\alpha/2})$$                | $$2P\{Z \ge \lvert Z_{o}\rvert \}$$ |
+|                   |                                                         |                                                 |                                     |
+|                   |                                                         | ``` r                                           | ``` r                               |
+|                   |                                                         | z.alfa.medios=qnorm(1-alfa/2,0,1)               | p.valor=2*(1-pnorm(abs(zo),0,1))    |
+|                   |                                                         | ```                                             | ```                                 |
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+| No $n<30$         | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu < \mu_{o}$$   | $$(-t_{\alpha, n-1}, +\infty)$$                 | $$P\{t \le t_{o} \}$$               |
+|                   |                                                         |                                                 |                                     |
+|                   |                                                         | ``` r                                           | ``` r                               |
+|                   |                                                         | t.alfa=qt(1-alfa,n-1)                           | p.valor=pt(to,n-1)                  |
+|                   |                                                         | ```                                             | ```                                 |
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu > \mu_{o}$$   | $$(-\infty, t_{\alpha, n-1})$$                  | $$P\{t \ge t_{o} \}$$               |
+|                   |                                                         |                                                 |                                     |
+|                   |                                                         | ``` r                                           | ``` r                               |
+|                   |                                                         | t.alfa=qt(1-alfa,n-1)                           | p.valor=1-pt(to,n-1)                |
+|                   |                                                         | ```                                             | ```                                 |
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu \ne \mu_{o}$$ | $$(-t_{\alpha/2, n-1}, t_{\alpha/2, n-1})$$     | $$2P\{t \ge \lvert t_{o}\rvert \}$$ |
+|                   |                                                         |                                                 |                                     |
+|                   |                                                         | ``` r                                           | ``` r                               |
+|                   |                                                         | t.alfa.medios=qt(1-alfa/2,n-1)                  | p.valor=2*(1-pt(abs(to),n-1))       |
+|                   |                                                         | ```                                             | ```                                 |
++-------------------+---------------------------------------------------------+-------------------------------------------------+-------------------------------------+
+
+Cálculo del estadístico de contraste.
+
++--------------------------------------------------------+--------------------------------------+
+| Estadístico de contraste                               | Código R                             |
++========================================================+======================================+
+| $$Z_{o} = \frac{\bar{x}-\mu_{o}}{\frac{s}{\sqrt{n}}}$$ | ``` r                                |
+|                                                        | x=muestra de X                       |
+|                                                        | m=mean(x)                            |
+|                                                        | s=sd(x)                              |
+|                                                        | n=length(x)                          |
+|                                                        | mo=valor a comprobar en la hipótesis |
+|                                                        | zo=(m-mo)/(s/sqrt(n))                |
+|                                                        | ```                                  |
++--------------------------------------------------------+--------------------------------------+
+| $$t_{o} = \frac{\bar{x}-\mu_{o}}{\frac{s}{\sqrt{n}}}$$ | ``` r                                |
+|                                                        | x=muestra de X                       |
+|                                                        | m=mean(x)                            |
+|                                                        | s=sd(x)                              |
+|                                                        | n=length(x)                          |
+|                                                        | mo=valor a comprobar en la hipótesis |
+|                                                        | to=(m-mo)/(s/sqrt(n))                |
+|                                                        | ```                                  |
++--------------------------------------------------------+--------------------------------------+
+
+En lugar de calcular las fórmulas, se pueden usar las funciones *z.test* y *t.test* de R.
+
++-------------------+---------------------------------------------------------+---------------------------------+
+| Varianza conocida | Contraste de hipótesis                                  | Código R                        |
++===================+=========================================================+=================================+
+| No $n \ge 30$     | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu < \mu_{o}$$   | ``` r                           |
+|                   |                                                         | install.packages("BSDA")        |
+|                   |                                                         | library(BSDA)                   |
+|                   |                                                         | z.test(x,                       |
+|                   |                                                         |          alternative="less",    |
+|                   |                                                         |          mu=mo,                 |
+|                   |                                                         |          sigma.x=s)             |
+|                   |                                                         | ```                             |
++-------------------+---------------------------------------------------------+---------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu > \mu_{o}$$   | ``` r                           |
+|                   |                                                         | z.test(x,                       |
+|                   |                                                         |        alternative="greater",   |
+|                   |                                                         |        mu=mo,                   |
+|                   |                                                         |        sigma.x=s)               |
+|                   |                                                         | ```                             |
++-------------------+---------------------------------------------------------+---------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu \ne \mu_{o}$$ | ``` r                           |
+|                   |                                                         | z.test(x,                       |
+|                   |                                                         |        alternative="two.sided", |
+|                   |                                                         |        mu=mo,                   |
+|                   |                                                         |        sigma.x=s)               |
+|                   |                                                         | ```                             |
++-------------------+---------------------------------------------------------+---------------------------------+
+| No $n<30$         | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu < \mu_{o}$$   | ``` r                           |
+|                   |                                                         | t.test(x,                       |
+|                   |                                                         |        alternative="less",      |
+|                   |                                                         |        mu=mo)                   |
+|                   |                                                         | ```                             |
++-------------------+---------------------------------------------------------+---------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu > \mu_{o}$$   | ``` r                           |
+|                   |                                                         | t.test(x,                       |
+|                   |                                                         |        alternative="greater",   |
+|                   |                                                         |        mu=mo)                   |
+|                   |                                                         | ```                             |
++-------------------+---------------------------------------------------------+---------------------------------+
+|                   | $$H_{0}:\mu =\mu_{o}\text{ vs }H_{A}: \mu \ne \mu_{o}$$ | ``` r                           |
+|                   |                                                         | t.test(x,                       |
+|                   |                                                         |        alternative="two.sided", |
+|                   |                                                         |        mu=mo)                   |
+|                   |                                                         | ```                             |
++-------------------+---------------------------------------------------------+---------------------------------+
+
+## 3. Ejemplo: Contraste de hipótesis sobre la media de calificaciones de una población de estudiantes (muestra grande)
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se saben las calificaciones de acceso a la universidad de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 108 matriculados.**
+
+a.  **Comprobar si las calificaciones tienen una distribución Normal, para poder aplicar contrastes paramétricos.**
+
+b.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población es diferente a 8.6?**
+
+    1.  **Resolverlo comprobando la región de aceptación.**
+
+    2.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
+    3.  **Resolverlo usando la función *z.test()* del paquete BSDA de R.**
+
+c.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población de alumnos matriculados en la asignatura es inferior a 8.6?**
+
+    1.  **Resolverlo comprobando la región de aceptación.**
+
+    2.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
+    3.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+
+d.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población de alumnos matriculados en la asignatura es superior a 8.6?**
+
+    a.  **Resolverlo comprobando la región de aceptación.**
+
+    b.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
+    c.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+
+***SOLUCIÓN***
+
+Primero hay que leer los datos de las notas, disponibles en el archivo [encuesta.csv](https://hilera.web.uah.es/estadistica/r/datos/encuesta.csv):
+
+```{webr-r}
+encuesta = read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+(nota=encuesta$NOTA)
+```
+
+a.  **Comprobar si las calificaciones tienen una distribución Normal, para poder aplicar contrastes paramétricos.**
+
+Como el tamaño de la muestra es grande, se realiza una prueba de normalidad con el test de Kolmogorov-Smirnov.
+
+```{webr-r}
+ks.test(nota,pnorm,mean(nota),sd(nota))
+```
+
+Se obtiene un p-valor mayor que 0.05, por lo que se puede aceptar que la población es Normal.
+
+b.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población es diferente a 8.6?**
+
+No se conoce la varianza poblacional y es una muestra grande (74 >30).
+
+Primero se crean las variables *alfa*, *n*, *s*, *m* y *mo*.
+
+```{webr-r}
+(alfa=1-0.95)
+(n=length(nota))
+(s=sd(nota))
+(m=mean(nota))
+(mo=8.6)
+```
+
+Se formula el siguiente contraste de hipótesis:
+
+$$
+H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu \ne 8.6
+$$
+  b.1)  **Resolverlo comprobando la región de aceptación.**
+
+La región de aceptación es $(-z_{\alpha/2},z_{\alpha/2})$.
+
+```{webr-r}
+(zo=(m-mo)/(s/sqrt(n)))
+(z.alfa.medios=qnorm(1-alfa/2,0,1))
+(-z.alfa.medios<=zo)&(zo<=z.alfa.medios)
+```
+
+Como zo (-4.39) no está en la región de aceptación (−1.96,1.96), entonces se rechaza la hipótesis nula $H_{0}$ y se acepta la alternativa $H_{A}$, por lo que la respuesta es **SÍ se puede afirmar con una confianza del 95% que la media poblacional es diferente a 8.6**.
+
+Podemos hacer la comprobación visualmente.
+
+```{webr-r}
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=-z.alfa.medios, col="red", lty=2)
+abline(v=z.alfa.medios, col="red", lty=2)
+```
+
+En el diagrama, el área bajo la función entre las dos líneas es 1-alfa (0.95), el área desde la primera línea hacia la izquierda es alfa/2 (0.025), y el área desde la segunda línea hacia la derecha es alfa/2 (0.025). El área total es 1.
+
+La región de aceptación está limitada por las dos líneas rojas, y zo es el punto dibujado. Se comprueba visualmente que zo está fuera de la región.
+
+  b.2)  **Resolverlo calculando el p-valor aplicando fórmulas.**
+  
+```{webr-r}
+(p.valor=2*(1-pnorm(abs(zo),0,1)))
+```
+
+Como el p-valor (0.00001) es menor que alfa (0.05), como ocurrió en el apartado anterior, se rechaza la hipótesis nula y se acepta la alternativa de que la media poblacional es diferente a 8.6.
+
+En el mismo diagrama del apartado anterior podemos dibujar una línea vertical azul continua en el punto zo y otra en -zo.
+
+```{webr-r}
+abline(v=zo, col="blue")
+abline(v=-zo, col="blue")
+```
+
+El área desde la primera línea roja hacia la izquierda es alfa/2 (0.025), y el área desde la segunda línea hacia la derecha es alfa/2 (0.025). El área desde la primera línea azul continua hacia la izquierda es p-valor/2 y el área desde la segunda línea azul continua hacia la derecha es p-valor/2, y la suma de ambas es p-valor. Se observa visualmente que p-valor < alfa.
+
+  b.3)  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+  
+```{webr-r}
+z.test(nota, alternative="two.sided", mu=mo, sigma.x=s, conf.level=0.95)
+```
+
+El p-valor es el mismo que en apartado anterior. Como el p-valor es menor que alfa (0.05), se rechaza la hipótesis nula y se acepta la alternativa de que la media poblacional es diferente a 8.6.
+
+El resultado de la función *z.test()* incluye más información:
+
+-   Indica que el valor del estadístico de contraste zo (llamado z en el resultado de la función) es -4.3898, que coincide con los apartados anteriores.
+-   Indica que la hipótesis alternativa es que la media fuera diferente a 8.6, como así se indicó al llamar al a la función con el parámetro `alternative="two.sided"`.
+-   Indica que el nivel de confianza es del 95%, como así se indicó al llamar a la función con el parámetro `conf.level=0.95`.
+-   Indica que el intervalo de confianza para la media poblacional con un nivel del 95% es, redondeando a dos decimales: (7.76, 8.28). Puede comprobarse que 8.6 está fuera del intervalo.
+-   Indica que la media muestral es 8.022568.
+
+c)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población de alumnos matriculados en la asignatura es inferior a 8.6?**
+
+Se formula el siguiente contraste de hipótesis:
+
+$$
+H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu < 8.6
+$$
+  c.1)  **Resolverlo comprobando la región de aceptación.**
+  
+La región de aceptación es $(-z_{\alpha},+\infty)$.
+
+```{webr-r}
+(zo=(m-mo)/(s/sqrt(n)))
+(z.alfa=qnorm(1-alfa,0,1))
+(zo>-z.alfa) #Como es FALSE se acepta la alternativa. Respuesta SI
+```
+
+Como zo (-4.39) está fuera de la región de aceptación $(−1.64,+\infty)$, entonces se rechaza la hipótesis nula $H_{0}$ y se acepta la alternativa $H_{A}$, por lo que la respuesta es **SÍ se puede afirmar con una confianza del 95% que la media poblacional es menor a 8.6**.
+
+Podemos hacer la comprobación visualmente, dibujando la curva de la función de densidad de probabilidad normal Z: N(0,1) para la variable estadístico de contraste, señalando un punto para el valor calculado para el estadístico (zo), y una línea vertical roja con trazo discontinuo, en el extremo inferior de la región de aceptación (-z.alfa), que no tiene límite superior, pues sería -infinito. Puede comprobarse visualmente que el punto zo está fuera de la región de aceptación.
+
+```{webr-r}
+plot(zo,0, xlim = c(-5,5), ylim=c(0,1))
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=-z.alfa, col="red", lty=2)
+```
+
+En el diagrama, el área bajo la función desde la línea roja hacia la izquierda es alfa (0.05), mientras que el área hacia la derecha es 1-alfa (0.95). La región de aceptación es desde la línea roja hasta $+\infty$, y zo es el punto dibujado. Se comprueba visualmente que zo está fuera de la región.
 
