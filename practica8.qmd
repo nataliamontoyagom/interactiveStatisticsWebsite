@@ -245,11 +245,11 @@ c.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acce
 
 d.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población de alumnos matriculados en la asignatura es superior a 8.6?**
 
-    a.  **Resolverlo comprobando la región de aceptación.**
+    1.  **Resolverlo comprobando la región de aceptación.**
 
-    b.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+    2.  **Resolverlo calculando el p-valor aplicando fórmulas.**
 
-    c.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+    3.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
 
 ***SOLUCIÓN***
 
@@ -272,7 +272,7 @@ Se obtiene un p-valor mayor que 0.05, por lo que se puede aceptar que la poblaci
 
 b.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población es diferente a 8.6?**
 
-No se conoce la varianza poblacional y es una muestra grande (74 >30).
+No se conoce la varianza poblacional y es una muestra grande (74 \>30).
 
 Primero se crean las variables *alfa*, *n*, *s*, *m* y *mo*.
 
@@ -286,10 +286,9 @@ Primero se crean las variables *alfa*, *n*, *s*, *m* y *mo*.
 
 Se formula el siguiente contraste de hipótesis:
 
-$$
-H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu \ne 8.6
-$$
-  b.1)  **Resolverlo comprobando la región de aceptación.**
+$$H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu \ne 8.6$$
+
+  1.  **Resolverlo comprobando la región de aceptación.**
 
 La región de aceptación es $(-z_{\alpha/2},z_{\alpha/2})$.
 
@@ -304,6 +303,7 @@ Como zo (-4.39) no está en la región de aceptación (−1.96,1.96), entonces s
 Podemos hacer la comprobación visualmente.
 
 ```{webr-r}
+plot(zo, 0, xlim = c(-5, 5), ylim = c(0, 0.8))
 curve(dnorm(x,0,1),-5,5, add = TRUE)
 abline(v=-z.alfa.medios, col="red", lty=2)
 abline(v=z.alfa.medios, col="red", lty=2)
@@ -313,8 +313,8 @@ En el diagrama, el área bajo la función entre las dos líneas es 1-alfa (0.95)
 
 La región de aceptación está limitada por las dos líneas rojas, y zo es el punto dibujado. Se comprueba visualmente que zo está fuera de la región.
 
-  b.2)  **Resolverlo calculando el p-valor aplicando fórmulas.**
-  
+  2.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
 ```{webr-r}
 (p.valor=2*(1-pnorm(abs(zo),0,1)))
 ```
@@ -324,15 +324,21 @@ Como el p-valor (0.00001) es menor que alfa (0.05), como ocurrió en el apartado
 En el mismo diagrama del apartado anterior podemos dibujar una línea vertical azul continua en el punto zo y otra en -zo.
 
 ```{webr-r}
+plot(zo, 0, xlim = c(-5, 5), ylim = c(0, 0.8))
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=-z.alfa.medios, col="red", lty=2)
+abline(v=z.alfa.medios, col="red", lty=2)
 abline(v=zo, col="blue")
 abline(v=-zo, col="blue")
 ```
 
-El área desde la primera línea roja hacia la izquierda es alfa/2 (0.025), y el área desde la segunda línea hacia la derecha es alfa/2 (0.025). El área desde la primera línea azul continua hacia la izquierda es p-valor/2 y el área desde la segunda línea azul continua hacia la derecha es p-valor/2, y la suma de ambas es p-valor. Se observa visualmente que p-valor < alfa.
+El área desde la primera línea roja hacia la izquierda es alfa/2 (0.025), y el área desde la segunda línea hacia la derecha es alfa/2 (0.025). El área desde la primera línea azul continua hacia la izquierda es p-valor/2 y el área desde la segunda línea azul continua hacia la derecha es p-valor/2, y la suma de ambas es p-valor. Se observa visualmente que p-valor \< alfa.
 
-  b.3)  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
-  
+  3.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+
 ```{webr-r}
+install.packages("BSDA")
+library(BSDA)
 z.test(nota, alternative="two.sided", mu=mo, sigma.x=s, conf.level=0.95)
 ```
 
@@ -340,21 +346,20 @@ El p-valor es el mismo que en apartado anterior. Como el p-valor es menor que al
 
 El resultado de la función *z.test()* incluye más información:
 
--   Indica que el valor del estadístico de contraste zo (llamado z en el resultado de la función) es -4.3898, que coincide con los apartados anteriores.
--   Indica que la hipótesis alternativa es que la media fuera diferente a 8.6, como así se indicó al llamar al a la función con el parámetro `alternative="two.sided"`.
--   Indica que el nivel de confianza es del 95%, como así se indicó al llamar a la función con el parámetro `conf.level=0.95`.
--   Indica que el intervalo de confianza para la media poblacional con un nivel del 95% es, redondeando a dos decimales: (7.76, 8.28). Puede comprobarse que 8.6 está fuera del intervalo.
--   Indica que la media muestral es 8.022568.
+- Indica que el valor del estadístico de contraste zo (llamado z en el resultado de la función) es -4.3898, que coincide con los apartados anteriores.
+- Indica que la hipótesis alternativa es que la media fuera diferente a 8.6, como así se indicó al llamar al a la función con el parámetro `alternative="two.sided"`.
+- Indica que el nivel de confianza es del 95%, como así se indicó al llamar a la función con el parámetro `conf.level=0.95`.
+- Indica que el intervalo de confianza para la media poblacional con un nivel del 95% es, redondeando a dos decimales: (7.76, 8.28). Puede comprobarse que 8.6 está fuera del intervalo.
+- Indica que la media muestral es 8.022568.
 
 c)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población de alumnos matriculados en la asignatura es inferior a 8.6?**
 
 Se formula el siguiente contraste de hipótesis:
 
-$$
-H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu < 8.6
-$$
-  c.1)  **Resolverlo comprobando la región de aceptación.**
-  
+$$H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu < 8.6$$ 
+
+  1.  **Resolverlo comprobando la región de aceptación.**
+
 La región de aceptación es $(-z_{\alpha},+\infty)$.
 
 ```{webr-r}
@@ -375,3 +380,488 @@ abline(v=-z.alfa, col="red", lty=2)
 
 En el diagrama, el área bajo la función desde la línea roja hacia la izquierda es alfa (0.05), mientras que el área hacia la derecha es 1-alfa (0.95). La región de aceptación es desde la línea roja hasta $+\infty$, y zo es el punto dibujado. Se comprueba visualmente que zo está fuera de la región.
 
+  2.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
+```{webr-r}
+(p.valor=pnorm(zo,0,1))
+```
+
+Como el p-valor (0.00000567) es menor que alfa (0.05), se rechaza la hipótesis $H_{0}$, como en el apartado anterior.
+
+En el mismo diagrama del apartado anterior podemos dibujar una línea vertical azul continua en el punto zo.
+
+```{webr-r}
+plot(zo,0, xlim = c(-5,5), ylim=c(0,1))
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=-z.alfa, col="red", lty=2)
+abline(v=zo, col="blue")
+```
+
+En el diagrama, el área bajo la función desde la línea roja discontinua hacia la izquierda es alfa (0.05), mientras que el área desde la línea azul continua hacia la izquierda es el p-valor (0.00000563). Se observa visualmente que p-valor < alfa.
+
+  3.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+
+```{webr-r}
+z.test(nota, alternative="less", mu=mo, sigma.x=s, conf.level=0.95)
+```
+
+El p-valor es el mismo que en el apartado anterior.
+
+d)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población es superior a 8.6?**
+
+Se formula el siguiente contraste de hipótesis:
+
+$$H_{0}:\mu = 8.6 \text{ vs } H_{A}:\mu > 8.6$$
+
+  1.  **Resolverlo comprobando la región de aceptación.**
+
+La región de aceptación es $(-\infty, z_{\alpha})$.
+
+```{webr-r}
+(zo=(m-mo)/(s/sqrt(n)))
+(z.alfa=qnorm(1-alfa,0,1))
+(zo<z.alfa)
+```
+
+Como zo (-4.39) está en la región de aceptación (−∞, 1.64), entonces no se rechaza la hipótesis nula, y se rechaza la hipótesis alternativa, por lo que la respuesta es que **NO se puede afirmar con una confianza del 95% que la media poblacional sea superior a 8.6**.
+
+Podemos hacer la comprobación visualmente.
+
+```{webr-r}
+plot(zo,0, xlim = c(-5,5), ylim=c(0,1))
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=z.alfa, col="red", lty=2)
+```
+
+En el diagrama, el área bajo la función desde la línea hacia la derecha es alfa (0.05), mientras que el área hacia la izquierda es 1-alfa (0.95). La región de aceptación es desde $(-\infty)$ hasta la línea roja, y zo es el punto dibujado. Se comprueba visualmente que zo está dentro de la región.
+
+  2.  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
+```{webr-r}
+(p.valor=1-pnorm(zo,0,1))
+```
+
+Como el p-valor (0.9999943) es mayor que alfa (0.05), no se rechaza la hipótesis nula, y se rechaza la hipótesis alternativa de que la media poblacional es mayor que 8.6.
+
+En el mismo diagrama del apartado anterior podemos dibujar una línea vertical azul continua en el punto zo.
+
+```{webr-r}
+plot(zo,0, xlim = c(-5,5), ylim=c(0,1))
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=z.alfa, col="red", lty=2)
+abline(v=zo, col="blue")
+```
+
+En el diagrama, el área bajo la función desde la línea roja discontinua hacia la derecha es alfa (0.05), mientras que el área desde la línea azul continua hacia la derecha es p-valor (0.999). Se observa visualmente que p-valor \> alfa.
+
+  3.  **Resolverlo usando la función *z.test()* del paquete *BSDA* de R.**
+
+```{webr-r}
+z.test(nota, alternative="greater", mu=mo, sigma.x=s, conf.level=0.95)
+```
+
+El p-valor es el mismo que en apartado anterior (0.9999943), pero está redondeado a 1.
+
+## 4. Contraste de hipótesis para proporciones poblaciones
+
+Se calcula el valor del estadístico de contraste (zo), después se calculan los límites de la región de aceptación, y si el valor del estadístico de contraste está:
+
+- Dentro de la región, entonces no se puede rechazar la hipótesis $H_{0}$, por lo que se acepta y se rechaza $H_{A}$.
+- Fuera de la región, entonces se rechaza la hipótesis $H_{0}$ y se acepta $H_{A}$.
+
+Otra opción es calcular el p-valor y si el p-valor es:
+
+- Mayor que $\alpha$, entonces no se puede rechazar $H_{0}$.
+- Menor que $\alpha$, entonces se rechaza $H_{0}$.
+
++-------------------------------------------------+-------------------------------------------------+-------------------------------------+
+| Contraste de hipótesis                          | Región de aceptación y código R para calcularla | p-valor y código R para calcularlo  |
++=================================================+=================================================+=====================================+
+| $$H_{0}:p =p_{o}\text{ vs }H_{A}: p < p_{o}$$   | $$(-z_{\alpha}, +\infty)$$                      | $$P\{Z \le Z_{o}\}$$                |
+|                                                 |                                                 |                                     |
+|                                                 | ``` r                                           | ``` r                               |
+|                                                 | z.alfa=qnorm(1-alfa,0,1)                        | p.valor=pnorm(zo,0,1)               |
+|                                                 | ```                                             | ```                                 |
++-------------------------------------------------+-------------------------------------------------+-------------------------------------+
+| $$H_{0}:p =p_{o}\text{ vs }H_{A}: p > p_{o}$$   | $$(-\infty,z_{\alpha})$$                        | $$P\{Z \ge Z_{o}\}$$                |
+|                                                 |                                                 |                                     |
+|                                                 | ``` r                                           | ``` r                               |
+|                                                 | z.alfa=qnorm(1-alfa,0,1)                        | p.valor=1-pnorm(zo,0,1)             |
+|                                                 | ```                                             | ```                                 |
++-------------------------------------------------+-------------------------------------------------+-------------------------------------+
+| $$H_{0}:p =p_{o}\text{ vs }H_{A}: p \ne p_{o}$$ | $$(-z_{\alpha/2},z_{\alpha/2})$$                | $$2P\{Z \ge \lvert Z_{o}\rvert \}$$ |
+|                                                 |                                                 |                                     |
+|                                                 | ``` r                                           | ``` r                               |
+|                                                 | z.alfa.medios=qnorm(1-alfa/2,0,1)               | p.valor=2*(1-pnorm(abs(zo),0,1))    |
+|                                                 | ```                                             | ```                                 |
++-------------------------------------------------+-------------------------------------------------+-------------------------------------+
+
+Cálculo del estadístico de contraste.
+
++-------------------------------------------------------------------+--------------------------------------+
+| Estadístico de contraste                                          | Código R                             |
++===================================================================+======================================+
+| $$Z_{o} = \frac{\hat{p}-p_{o}}{\sqrt{\frac{p_{o}(1-p_{o})}{n}}}$$ | ``` r                                |
+|                                                                   | x=muestra de X                       |
+|                                                                   | n=length(x)                          |
+|                                                                   | p=proporción muestral                |
+|                                                                   | po=valor a comprobar en la hipótesis |
+|                                                                   | zo=(p-po)/sqrt(po*(1-po)/n)          |
+|                                                                   | ```                                  |
++-------------------------------------------------------------------+--------------------------------------+
+
+En lugar de calcular la fórmula, se puede usar la función *prop.test* de R.
+
++-------------------------------------------------+------------------------------------+
+| Contraste de hipótesis                          | Código R                           |
++=================================================+====================================+
+| $$H_{0}:p =p_{o}\text{ vs }H_{A}: p < p_{o}$$   | ``` r                              |
+|                                                 | prop.test(ng,                      |
+|                                                 |           n,                       |
+|                                                 |           p=po,                    |
+|                                                 |           alternative="less",      |
+|                                                 |           conf.level=0.95,         |
+|                                                 |           correct=FALSE)           |
+|                                                 | ```                                |
++-------------------------------------------------+------------------------------------+
+| $$H_{0}:p =p_{o}\text{ vs }H_{A}: p > p_{o}$$   | ``` r                              |
+|                                                 | prop.test(ng,                      |
+|                                                 |           n,                       |
+|                                                 |           p=po,                    |
+|                                                 |           alternative="greater",   |
+|                                                 |           conf.level=0.95,         |
+|                                                 |           correct=FALSE)           |
+|                                                 | ```                                |
++-------------------------------------------------+------------------------------------+
+| $$H_{0}:p =p_{o}\text{ vs }H_{A}: p \ne p_{o}$$ | ``` r                              |
+|                                                 | prop.test(ng,                      |
+|                                                 |           n,                       |
+|                                                 |           p=po,                    |
+|                                                 |           alternative="two.sided", |
+|                                                 |           conf.level=0.95,         |
+|                                                 |           correct=FALSE)           |
+|                                                 | ```                                |
++-------------------------------------------------+------------------------------------+
+
+Donde *n* es el tamaño de la muestra, y *ng* es el tamaño del grupo de datos de la muestra para el que se calcula la proporción, es decir la proporción muestral sería *ng/n*.
+
+## 5. Ejemplo: Contraste de hipótesis sobre la proporción de estudiantes que tienen móvil Android
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se sabe que 50 de una muestra de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá tienen teléfonos móviles con sistema operativo Android. La población es de 108 estudiantes matriculados. Responder a la siguiente pregunta:**
+
+**¿Se puede afirmar con una confianza del 95% que más de la mitad de los alumnos matriculados en la asignatura tienen teléfono Android?**
+
+a)  **Resolverlo comprobando la región de aceptación.**
+b)  **Resolverlo calculando el p-valor aplicando fórmulas.**
+c)  **Resolverlo usando la función *prop.test()*.**
+
+***SOLUCIÓN***
+
+Se formula el siguiente contraste de hipótesis, ya que la mitad es el 50%, es decir una proporción de 0.5:
+
+$$H_{o}:p=0.5 \text{ vs } H{A}:p>0.5$$
+
+a)  **Resolverlo comprobando la región de aceptación.**
+
+La región de aceptación es $(-\infty, z_{\alpha})$.
+
+```{webr-r}
+so=encuesta$SO
+(n=length(so))
+so.android=so[so=="Android"]
+(ng=length(so.android))
+(p=ng/n)
+po=0.5
+alfa=0.05
+(zo=(p-po)/sqrt(po*(1-po)/n))
+(z.alfa=qnorm(1-alfa,0,1))
+(zo<z.alfa)
+```
+
+Como zo (3.02) está fuera de la región de aceptación $(-\infty, 1.64)$, entonces se rechaza la hipótesis nula $(H_{0})$, y se acepta la hipótesis alternativa $(H_{A})$, por lo que la respuesta es **SÍ se puede afirmar con una confianza del 95% que la proporción poblacional de alumnos con Android es superior al 50%**.
+
+Podemos hacer la comprobación visualmente.
+
+```{webr-r}
+plot(zo,0, xlim = c(-5,5), ylim=c(0,1))
+curve(dnorm(x,0,1),-5,5, add = TRUE)
+abline(v=z.alfa, col="red", lty=2)
+```
+
+En el diagrama, el área bajo la función desde la línea hacia la izquierda es 1-alfa (0.95), mientras que el área hacia la derecha es alfa (0.055). La región de aceptación es desde $(-\infty)$ hasta la línea roja, y zo es el punto dibujado. Se comprueba visualmente que zo está fuera de la región.
+
+b)  **Resolverlo calculando el p-valor aplicando fórmulas.**
+
+```{webr-r}
+(p.valor=1-pnorm(zo,0,1))
+```
+
+Como el p-valor (0.001) es menor que alfa (0.05), se rechaza la hipótesis $H_{0}$, como en el apartado anterior.
+
+En el mismo diagrama del apartado anterior podemos dibujar una línea vertical azul continua en el punto zo.
+
+En el diagrama, el área bajo la función desde la línea roja discontinua hacia la derecha es alfa (0.05), mientras que el área desde la línea azul continua hacia la derecha es el p-valor (0.001). Se observa visualmente que p-valor \< alfa.
+
+c)  **Resolverlo usando la función *prop.test()*.**
+
+```{webr-r}
+prop.test(ng, n, p=po, alternative="greater", conf.level=0.95, correct=FALSE)
+```
+
+El p-valor es el mismo que en el apartado anterior.
+
+## 6. Contraste de hipótesis sobre la diferencia de medias
+
+Por simplicidad se utilizará sólo el método del p-valor usando las funciones *z.test* y *t.test* de R.
+
+Si *x* e *y* son dos vectores con las muestras de las poblaciones *X* e *Y* independientes, entonces se utilizarán las funciones indicadas en la siguiente tabla.
+
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+| Varianza conocida             | Contraste de hipótesis                                          | Función R                       |
++===============================+=================================================================+=================================+
+| No                            | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} < \mu_{Y}$$   | ``` r                           |
+|                               |                                                                 | z.test(x,                       |
+| $n,m \ge 30$                  |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="less",      |
+|                               |                                                                 |        sigma.x=sd(x),           |
+|                               |                                                                 |        sigma.y=sd(y),           |
+|                               |                                                                 |        conf.level=valor)        |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+|                               | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} > \mu_{Y}$$   | ``` r                           |
+|                               |                                                                 | z.test(x,                       |
+|                               |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="greater",   |
+|                               |                                                                 |        sigma.x=sd(x),           |
+|                               |                                                                 |        sigma.y=sd(y),           |
+|                               |                                                                 |        conf.level=valor)        |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+|                               | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} \ne \mu_{Y}$$ | ``` r                           |
+|                               |                                                                 | z.test(x,                       |
+|                               |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="two.sided", |
+|                               |                                                                 |        sigma.x=sd(x),           |
+|                               |                                                                 |        sigma.y=sd(y),           |
+|                               |                                                                 |        conf.level=valor)        |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+| No                            | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} < \mu_{Y}$$   | ``` r                           |
+|                               |                                                                 | t.test(x,                       |
+| $$n,m<30$$                    |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="less",      |
+| $$\sigma_{X} \ne \sigma_{Y}$$ |                                                                 |        conf.level=valor,        |
+|                               |                                                                 |        var.equal=FALSE)         |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+|                               | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} > \mu_{Y}$$   | ``` r                           |
+|                               |                                                                 | t.test(x,                       |
+|                               |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="greater",   |
+|                               |                                                                 |        conf.level=valor,        |
+|                               |                                                                 |        var.equal=FALSE)         |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+|                               | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} \ne \mu_{Y}$$ | ``` r                           |
+|                               |                                                                 | t.test(x,                       |
+|                               |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="two.sided", |
+|                               |                                                                 |        conf.level=valor,        |
+|                               |                                                                 |        var.equal=FALSE)         |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+| No                            | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} < \mu_{Y}$$   | ``` r                           |
+|                               |                                                                 | t.test(x,                       |
+| $$n,m<30$$                    |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="less",      |
+| $$\sigma_{X} = \sigma{Y}$$    |                                                                 |        conf.level=valor,        |
+|                               |                                                                 |        var.equal=TRUE)          |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+|                               | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} > \mu_{Y}$$   | ``` r                           |
+|                               |                                                                 | t.test(x,                       |
+|                               |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="greater",   |
+|                               |                                                                 |        conf.level=valor,        |
+|                               |                                                                 |        var.equal=TRUE)          |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+|                               | $$H_{0}:\mu_{X} =\mu_{Y}\text{ vs }H_{A}: \mu_{X} \ne \mu_{Y}$$ | ``` r                           |
+|                               |                                                                 | t.test(x,                       |
+|                               |                                                                 |        y,                       |
+|                               |                                                                 |        alternative="two.sided", |
+|                               |                                                                 |        conf.level=valor,        |
+|                               |                                                                 |        var.equal=TRUE)          |
+|                               |                                                                 | ```                             |
++-------------------------------+-----------------------------------------------------------------+---------------------------------+
+
+## 7. Ejemplo: Contraste de hipótesis sobre la diferencia de medias de calificaciones de estudiantes del turno de mañana y del turno de tarde (muestras grandes e independientes)
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se saben las calificaciones de acceso a la universidad de 42 estudiantes del turno de mañana y de 32 estudiantes del turno de tarde de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 52 matriculados en el turno de mañana y 56 en el turno de tarde. Si se supone que las calificaciones tienen una distribución Normal, responder a la siguiente pregunta:**
+
+a)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es diferente a la media de notas de acceso de los alumnos de tarde?**
+
+b)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es mayor que la media de notas de acceso de los alumnos de tarde?**
+
+c)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es menor que la media de notas de acceso de los alumnos de tarde?**
+
+***SOLUCIÓN***
+
+Primero hay que crear los vectores con los datos de las dos muestras.
+
+```{webr-r}
+encuesta=read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+encuesta.mañana=encuesta[(encuesta$GRUPO=="A1")|(encuesta$GRUPO=="A2"),]
+encuesta.tarde=encuesta[(encuesta$GRUPO=="B1")|(encuesta$GRUPO=="B2"),]
+notaM=encuesta.mañana$NOTA
+notaT=encuesta.tarde$NOTA
+```
+
+a)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es diferente a la media de notas de acceso de los alumnos de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:\mu_{Mañana} = \mu_{Tarde} \text{ vs } H_{A}:\mu_{Mañana} \ne \mu_{Tarde}$$
+
+```{webr-r}
+z.test(notaM, notaT, alternative="two.sided", sigma.x=sd(notaM),sigma.y=sd(notaT), conf.level=0.95)
+```
+
+Como el p-valor (0.0028) es menor que alfa (0.05), se rechaza la Hipótesis $H_{0}$ y se acepta $H_{A}$, por lo que **SÍ se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es diferente a la media de notas de acceso de los alumnos de tarde**.
+
+b)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es mayor que la media de notas de acceso de los alumnos de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:\mu_{Mañana} = \mu_{Tarde} \text{ vs } H_{A}:\mu_{Mañana} > \mu_{Tarde}$$
+
+```{webr-r}
+z.test(notaM, notaT, alternative="greater", sigma.x=sd(notaM), sigma.y=sd(notaT), conf.level=0.95)
+```
+
+Como el p-valor (0.0014) es menor que alfa (0.05), se rechaza la Hipótesis $H_{0}$ y se acepta $H_{A}$, por lo que **SÍ se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es mayor que la media de notas de acceso de los alumnos de tarde**.
+
+c)  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es menor que la media de notas de acceso de los alumnos de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:\mu_{Mañana} = \mu_{Tarde} \text{ vs } H_{A}:\mu_{Mañana} < \mu_{Tarde}$$
+
+```{webr-r}
+z.test(notaM, notaT, alternative="less", sigma.x=sd(notaM), sigma.y=sd(notaT), conf.level=0.95)
+```
+
+Como el p-valor (0.9986) es mayor que alfa (0.05), no se puede rechazar la Hipótesis $H_{0}$ y, por tanto, se rechaza $H_{A}$, por lo que **NO se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es menor que la media de notas de acceso de los alumnos de tarde**.
+
+## 8. Contraste de hipótesis sobre la diferencia de proporciones
+
+Por simplicidad se utilizará sólo el método del p-valor usando la función *prop.test* de R.
+
+Si *x* e *y* son dos vectores con las muestras de las poblaciones *X* e *Y* independientes, entonces se utilizarán las funciones indicadas en la siguiente tabla.
+
++-----------------------------------------------------------+------------------------------------+
+| Contraste de hipótesis                                    | Función R                          |
++===========================================================+====================================+
+| $$H_{0}:p_{1} = p_{2} \text{ vs } H_{A}:p_{1}<p_{2}$$     | ``` r                              |
+|                                                           | prop.test(c(ng1,ng2),              |
+|                                                           |           c(n1,n2),                |
+|                                                           |           alternative="less",      |
+|                                                           |           conf.level=valor,        |
+|                                                           |           correct=FALSE)           |
+|                                                           | ```                                |
++-----------------------------------------------------------+------------------------------------+
+| $$H_{0}:p_{1} = p_{2} \text{ vs } H_{A}:p_{1}>p_{2}$$     | ``` r                              |
+|                                                           | prop.test(c(ng1,ng2),              |
+|                                                           |           c(n1,n2),                |
+|                                                           |           alternative="greater",   |
+|                                                           |           conf.level=valor,        |
+|                                                           |           correct=FALSE)           |
+|                                                           | ```                                |
++-----------------------------------------------------------+------------------------------------+
+| $$H_{0}:p_{1} = p_{2} \text{ vs } H_{A}:p_{1} \ne p_{2}$$ | ``` r                              |
+|                                                           | prop.test(c(ng1,ng2),              |
+|                                                           |           c(n1,n2),                |
+|                                                           |           alternative="two.sided", |
+|                                                           |           conf.level=valor,        |
+|                                                           |           correct=FALSE)           |
+|                                                           | ```                                |
++-----------------------------------------------------------+------------------------------------+
+
+*n1* y *n2* son los tamaños de las muestras, y *ng1* y *ng2* son los tamaños de los grupos de datos de las muestras para los que se calculan las proporciones, es decir, las proporciones muestrales serían *p1=ng1/n1* y *p2=ng2/n2*.
+
+## 9. Ejemplo: Contraste de hipótesis sobre la diferencia de proporciones de estudiantes que tienen móvil Android en el turno de mañana y en el turno de tarde (muestras grandes e independientes)
+
+***ENUNCIADO***
+
+**Mediante una encuesta se sabe que, en una muestra de 42 estudiantes del turno de mañana de la asignatura Estadística, 27 tienen teléfonos móviles con sistema operativo Android, y que, en una muestra de 32 estudiantes del turno de tarde, 23 tienen también teléfono Android. Responder a las siguientes preguntas:**
+
+a)  **¿Se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es diferente a la proporción de alumnos con Android en el turno de tarde?**
+
+b)  **¿Se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es mayor que la proporción de alumnos con Android en el turno de tarde?**
+
+c)  **¿Se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es menor que la proporción de alumnos con Android en el turno de tarde?**
+
+***SOLUCIÓN***
+
+Primero creamos variables con el número de alumnos total y los que tiene Android en cada turno:
+
+```{webr-r}
+soM=encuesta.mañana$SO
+soT=encuesta.tarde$SO
+(nM=length(soM))
+(nT=length(soT))
+(nMA=length(soM[soM=="Android"]))
+(nTA=length(soT[soT=="Android"]))
+```
+
+a)  **¿Se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es diferente a la proporción de alumnos con Android en el turno de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:p_{Mañana} = p_{Tarde} \text{ vs } H_{A}:p_{Mañana} \ne p_{Tarde}$$
+
+```{webr-r}
+prop.test(c(nMA,nTA), c(nM,nT), alternative="two.sided", conf.level=0.95,correct=FALSE)
+```
+
+Como el p-valor (0.4896) es mayor que alfa (0.05), no se puede rechazar la Hipótesis $H_{0}$ y, por tanto se rechaza $H_{A}$, por lo que **NO se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es diferente a la proporción de alumnos con Android en el turno de tarde**.
+
+b)  **¿Se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es mayor que la proporción de alumnos con Android en el turno de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:p_{Mañana} = p_{Tarde} \text{ vs } H_{A}:p_{Mañana} > p_{Tarde}$$
+
+```{webr-r}
+prop.test(c(nMA,nTA), c(nM,nT), alternative="greater", conf.level=0.95, correct=FALSE)
+```
+
+Como el p-valor (0.7552) es mayor que alfa (0.05), no se puede rechazar la Hipótesis $H_{0}$ y, por tanto se rechaza $H_{A}$, por lo que **NO se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es mayor que la proporción de alumnos con Android en el turno de tarde.**
+
+c)  **¿Se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es menor que la proporción de alumnos con Android en el turno de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:p_{Mañana} = p_{Tarde} \text{ vs } H_{A}:p_{Mañana} < p_{Tarde}$$
+
+```{webr-r}
+prop.test(c(nMA,nTA), c(nM,nT), alternative="less", conf.level=0.95,correct=FALSE)
+```
+
+Como el p-valor (0.2448) es mayor que alfa (0.05), no se puede rechazar la Hipótesis $H_{0}$ y, por tanto se rechaza $H_{A}$, por lo que **NO se puede afirmar con una confianza del 95% que la proporción de alumnos con Android en el turno de mañana es menor que la proporción de alumnos con Android en el turno de tarde**.
+
+## 10. Ejercicios propuestos
+
+1.  Mediante una encuesta, se sabe el tiempo en minutos del viaje a la Escuela Politécnica de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 108 matriculados. Responder a las siguientes preguntas:
+    a.  ¿Se puede afirmar con una confianza del 95% que la media del tiempo de viaje de toda la población es inferior o igual a 50 minutos?
+        1.  Resolverlo comprobando la región de no rechazo.
+        2.  Resolverlo calculando el p-valor aplicando fórmulas.
+        3.  Resolverlo calculando el p-valor usando la función z.test() del paquete BSDA de R.
+
+```{webr-r}
+
+```
