@@ -380,7 +380,12 @@ Podemos leer los datos por turno del archivo [*encuesta.csv*](https://hilera.web
 
 ```{webr-r}
 encuesta=read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+encuesta.mañana=encuesta[((encuesta$GRUPO=="A1")|(encuesta$GRUPO=="A2")),]
+encuesta.tarde=encuesta[((encuesta$GRUPO=="B1")|(encuesta$GRUPO=="B2")),]
+encuesta.mañana$TURNO=rep(c("Mañana"),times=nrow(encuesta.mañana))
+encuesta.tarde$TURNO=rep(c("Tarde"),times=nrow(encuesta.tarde))
 encuesta.con.turno=rbind(encuesta.mañana, encuesta.tarde)
+
 (nota.mañana=encuesta.con.turno[encuesta.con.turno$TURNO=="Mañana",]$NOTA)
 (nota.tarde=encuesta.con.turno[encuesta.con.turno$TURNO=="Tarde",]$NOTA)
 ```
