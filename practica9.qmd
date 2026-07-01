@@ -1,6 +1,452 @@
 ---
 title: "Práctica 9"
 subtitle: "Contrastes de hipótesis no paramétricos"
-format: html
+format: 
+  html: 
+    toc: true
+    toc-location: left
+    toc-title: "Índice"
+engine: knitr
+filters:
+  - webr
 ---
 
+## 1. Introducción
+
+Con esta práctica se utiliza R y RStudio para determinar si se puede aceptar una hipótesis, con un nivel de confianza determinado, sobre un parámetro (mediana) de una o dos poblaciones a partir de una o dos muestras respectivamente, sin exigir que los datos tengan una distribución Normal.
+
+## 2. Contraste de hipótesis para la mediana poblacional
+
+Se trata de realizar uno de los siguiente contrastes:
+
+- $H_{0}:M = m_{o} \text{ vs } H_{A}:M \ne m_{o}$
+- $H_{0}:M = m_{o} \text{ vs } H_{A}:M < m_{o}$
+- $H_{0}:M = m_{o} \text{ vs } H_{A}:M > m_{o}$
+
+Siendo *M* la mediana poblacional y $m_{o}$, el posible valor de la mediana frente al que se quiere contrastar.
+
+Se puede utilizar un contraste de signos o un contraste de rangos cons igno de Wilcoxon.
+
+Para ello, primero se establece un nivel de significación $\alpha$ para el contraste (normalmente 0.05), después hay que calcular el valor del estadístico de contraste, y finalmente el p-valor, de tal forma que el p-valor es:
+
+- Mayor que $\alpha$, entonces no se puede rechazar $H_{0}$.
+- Menor que $\alpha$, entonces se rechaza $H_{0}$.
+
+El cálculo del estadístico de contraste puede realizarse en R como se indica en la siguiente tabla.
+
++-------------+----------------------------------------------+-------------------------------------------------------------------------+
+| Tipo        | Estadístico de contraste                     | Código R                                                                |
++=============+==============================================+=========================================================================+
+| Signos      | $$S_{o} = \text{nº de observaciones}>m_{o}$$ | ``` r                                                                   |
+|             |                                              | x=muestra                                                               |
+|             |                                              | mo=valor a comprobar en la hipótesis                                    |
+|             |                                              | n=length(x[x!=mo])                                                      |
+|             |                                              | so=sum(x>mo)                                                            |
+|             |                                              | ```                                                                     |
+|             |                                              |                                                                         |
+|             |                                              | NOTA: con `x[x!=mo]` se eliminan de la muestra los datos iguales a *mo* |
++-------------+----------------------------------------------+-------------------------------------------------------------------------+
+| Wilcoxon    | $$W_{o} = \sum_{i:X_{i}>m}R_{i}$$            | No es necesario calcularlo, lo calcula la función *wilcox.test()*       |
++-------------+----------------------------------------------+-------------------------------------------------------------------------+
+
+Para el contraste se pueden usar las funciones *binom.test* y *wilcox.test* de R.
+
++--------------+--------------------------------------------------+--------------------------------------+
+| Tipo         | Contraste de hipótesis                           | Código R                             |
++==============+==================================================+======================================+
+| Signos       | $$H_{0}:M = m_{o}\text{ vs } H_{A}:M \ne m_{o}$$ | ``` r                                |
+|              |                                                  | binom.test(so,                       |
+|              |                                                  |            n,                        |
+|              |                                                  |            p=0.5,                    |
+|              |                                                  |            alternative="two.sided",  |
+|              |                                                  |            conf.level=0.95)          |
+|              |                                                  | ```                                  |
++--------------+--------------------------------------------------+--------------------------------------+
+|              | $$H_{0}:M = m_{o}\text{ vs } H_{A}:M < m_{o}$$   | ``` r                                |
+|              |                                                  | binom.test(so,                       |
+|              |                                                  |            n,                        |
+|              |                                                  |            p=0.5,                    |
+|              |                                                  |            alternative="less",       |
+|              |                                                  |            conf.level=0.95)          |
+|              |                                                  | ```                                  |
++--------------+--------------------------------------------------+--------------------------------------+
+|              | $$H_{0}:M = m_{o}\text{ vs } H_{A}:M > m_{o}$$   | ``` r                                |
+|              |                                                  | binom.test(so,                       |
+|              |                                                  |            n,                        |
+|              |                                                  |            p=0.5,                    |
+|              |                                                  |            alternative="greater",    |
+|              |                                                  |            conf.level=0.95)          |
+|              |                                                  | ```                                  |
++--------------+--------------------------------------------------+--------------------------------------+
+| Wilcoxon     | $$H_{0}:M = m_{o}\text{ vs } H_{A}:M \ne m_{o}$$ | ``` r                                |
+|              |                                                  | wilcox.test(x,                       |
+|              |                                                  |             mu=mo,                   |
+|              |                                                  |             alternative="two.sided", |
+|              |                                                  |             conf.level=0.95,         |
+|              |                                                  |             exact=FALSE)             |
+|              |                                                  | ```                                  |
++--------------+--------------------------------------------------+--------------------------------------+
+|              | $$H_{0}:M = m_{o}\text{ vs } H_{A}:M < m_{o}$$   | ``` r                                |
+|              |                                                  | wilcox.test(x,                       |
+|              |                                                  |             mu=mo,                   |
+|              |                                                  |             alternative="less",      |
+|              |                                                  |             conf.level=0.95,         |
+|              |                                                  |             exact=FALSE)             |
+|              |                                                  | ```                                  |
++--------------+--------------------------------------------------+--------------------------------------+
+|              | $$H_{0}:M = m_{o}\text{ vs } H_{A}:M > m_{o}$$   | ``` r                                |
+|              |                                                  | wilcox.test(x,                       |
+|              |                                                  |             mu=mo,                   |
+|              |                                                  |             alternative="greater",   |
+|              |                                                  |             conf.level=0.95,         |
+|              |                                                  |             exact=FALSE)             |
+|              |                                                  | ```                                  |
++--------------+--------------------------------------------------+--------------------------------------+
+
+Ejemplo:
+
+Muestra = c(4.4,3,0.6,1.7,0.4,1.0,1.4,0.9,4.5,0.2)
+
+$m_{o} = 3$
+
+1)  Cálculo del estadístico $S_{o}$ para el contraste de signos.
+
+```{webr-r}
+(x=c(4.4, 3, 0.6, 1.7, 0.4, 1.0, 1.4, 0.9, 4.5, 0.2))
+(mo=3)
+(n=length(x[x!=mo]))
+(so=sum(x>mo))
+```
+
+2)  Contrastes aplicando el método de los signos y el método de los rangos con signo de Wilcoxon.
+
++-------------------------------------------+--------------+--------------------------------------+
+| Contraste de hipótesis                    | Tipo         | Código R                             |
++===========================================+==============+======================================+
+| $$H_{0}:M = 3 \text{ vs } H_{A}:M \ne 3$$ | Signos       | ``` r                                |
+|                                           |              | binom.test(so,                       |
+|                                           |              |            n,                        |
+|                                           |              |            p=0.5,                    |
+|                                           |              |            alternative="two.sided",  |
+|                                           |              |            conf.level=0.95)          |
+|                                           |              | ```                                  |
++-------------------------------------------+--------------+--------------------------------------+
+|                                           | Wilcoxon     | ``` r                                |
+|                                           |              | wilcox.test(x,                       |
+|                                           |              |             mu=mo,                   |
+|                                           |              |             alternative="two.sided", |
+|                                           |              |             conf.level=0.95,         |
+|                                           |              |             exact=FALSE)             |
+|                                           |              | ```                                  |
++-------------------------------------------+--------------+--------------------------------------+
+| $$H_{0}:M = 3 \text{ vs } H_{A}:M < 3$$   | Signos       | ``` r                                |
+|                                           |              | binom.test(so,                       |
+|                                           |              |            n,                        |
+|                                           |              |            p=0.5,                    |
+|                                           |              |            alternative="less",       |
+|                                           |              |            conf.level=0.95)          |
+|                                           |              | ```                                  |
++-------------------------------------------+--------------+--------------------------------------+
+|                                           | Wilcoxon     | ``` r                                |
+|                                           |              | wilcox.test(x,                       |
+|                                           |              |             mu=mo,                   |
+|                                           |              |             alternative="less",      |
+|                                           |              |             conf.level=0.95,         |
+|                                           |              |             exact=FALSE)             |
+|                                           |              | ```                                  |
++-------------------------------------------+--------------+--------------------------------------+
+| $$H_{0}:M = 3 \text{ vs } H_{A}:M > 3$$   | Signos       | ``` r                                |
+|                                           |              | binom.test(so,                       |
+|                                           |              |            n,                        |
+|                                           |              |            p=0.5,                    |
+|                                           |              |            alternative="greater",    |
+|                                           |              |            conf.level=0.95)          |
+|                                           |              | ```                                  |
++-------------------------------------------+--------------+--------------------------------------+
+|                                           | Wilcoxon     | ``` r                                |
+|                                           |              | wilcox.test(x,                       |
+|                                           |              |             mu=mo,                   |
+|                                           |              |             alternative="greater",   |
+|                                           |              |             conf.level=0.95,         |
+|                                           |              |             exact=FALSE)             |
+|                                           |              | ```                                  |
++-------------------------------------------+--------------+--------------------------------------+
+
+Puede comprobarse que con ambos métodos se rechaza la hipótesis alternativa $H_{A}:M>3$ porque en ambos casos el p-valor es mayor que 0.05. Pero el en caso de $H_{A}:M<3$ con el contraste de Wilcoxon se acepta mientras que con el contraste de signos se rechazaría. Es más preciso el contraste de rangos con signo Wilcoxon, por lo que es mejor utilizarlo en lugar del contraste de signos.
+
+## 3. Ejemplo: Contraste de hipótesis sobre la mediana de calificaciones de una población de estudiantes
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se saben las calificaciones de acceso a la universidad de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 108 matriculados. Responder a las siguientes preguntas con contrastes de rangos con signo de Wilcoxon:**
+
+a.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de toda la población es diferente a 7.5?**
+
+b.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de toda la población de alumnos matriculados en la asignatura es inferior a 7.5?**
+
+c.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de toda la población de alumnos matriculados en la asignatura es superior a 7.5?**
+
+***SOLUCIÓN***
+
+Primero hay que leer los datos de las notas, disponibles en el archivo [encuesta.csv](https://hilera.web.uah.es/estadistica/r/datos/encuesta.csv):
+
+```{webr-r}
+encuesta = read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+(nota=encuesta$NOTA)
+```
+
+NOTA: Con estos datos realmente se podría utilizar un contraste paramétrico, porque si se realiza una prueba de normalidad con el test de Kolmogorov-Smirnov (por ser una muestra grande), se obtiene un p-valor mayor que 0.05, por lo que se puede aceptar que son datos Normales:
+
+```{webr-r}
+ks.test(nota,pnorm,mean(nota),sd(nota))
+```
+
+Si se aplicase un contraste paramétrico, al suponer que es una población Normal, donde la media y la mediana son iguales, el contraste sobre la media y la mediana coinciden.
+
+Sin embargo, en este ejercicio, a pesar de ser una población con distribución Normal, se puede usar también un contraste no paramétrico, ya que este tipo de contraste se puede aplicar en cualquier caso, tanto si los datos son normales o no; aunque si son normales es recomendable realizar un contraste paramétrico.
+
+a.  **¿Se puede afirmar con una confianza del 95% que la media de notas de acceso de toda la población es diferente a 8.6?**
+
+Se formula el siguiente contraste de hipótesis:
+
+$$H_{0}:M = 7.5 \text{ vs } H_{A}:M \ne 7.5$$
+
+```{webr-r}
+wilcox.test(nota, mu=7.5, alternative="two.sided", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es menor que alfa (0.05), se rechaza la hipótesis nula y se acepta la alternativa de que la mediana poblacional es diferente a 7.5.
+
+El resultado de la función *wilcox.test()* incluye más información:
+
+- Indica que el valor del estadístico de contraste $W_{o}$ (llamado V en el resultado de la función) es 1867.5.
+- Indica que la hipótesis alternativa es que la mediana fuera diferente a 7.5, como así se indicó al llamar al a la función con el parámetro `alternative="two.sided"`.
+- Indica que el nivel de confianza es del 95%, como así se indicó al llamar a la función con el parámetro `conf.level=0.95`.
+
+b.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de toda la población de alumnos matriculados en la asignatura es inferior a 7.5?**
+
+Se formula el siguiente contraste de hipótesis:
+
+$$H_{0}:M = 7.5 \text{ vs } H_{A}:M < 7.5$$
+
+```{webr-r}
+wilcox.test(nota, mu=7.5, alternative="less", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es mayor que 0.05 no se puede rechazar la hipótesis nula, y por tanto no se puede afirmar que la mediana sea inferior a 7.5.
+
+c.  **¿Se puede afirmar con una confianza del 95% que la mediana de notas de acceso de toda la población es superior a 7.5?**
+
+Se formula el siguiente contraste de hipótesis:
+
+$$H_{0}:M = 7.5 \text{ vs } H_{A}:M > 7.5$$
+
+```{webr-r}
+wilcox.test(nota, mu=7.5, alternative="greater", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es menor que 0.05, entonces se rechaza la hipótesis nula, y se acepta la hipótesis alternativa, por lo que la respuesta es que **SÍ se puede afirmar con una confianza del 95% que la mediana poblacional sea superior a 7.5**.
+
+## 4. Contraste de hipótesis sobre la diferencia de medianas
+
+Si *x* e *y* son dos vectores con las muestras de las poblaciones *X* e *Y* independientes, entonces se utilizarán el método de la suma de rangos con signo de Mann-Whitney-Wilcoxon.
+
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+| Tipo                                         | Contraste de hipótesis                                        | Función R                            |
++==============================================+===============================================================+======================================+
+| Wilcoxon                                     | $$H_{0}:M_{X-Y} = 0 \text{ vs } H_{A}:M_{X-Y} \ne 0$$         | ``` r                                |
+|                                              |                                                               | wilcox.test(x,                       |
+| Muestras pareadas del mismo tamaño $n$       |                                                               |             y,                       |
+|                                              |                                                               |             paired=TRUE,             |
+|                                              |                                                               |             alternative="two.sided", |
+|                                              |                                                               |             conf.level=0.95,         |
+|                                              |                                                               |             exact=FALSE)             |
+|                                              |                                                               | ```                                  |
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+|                                              | $$H_{0}:M_{X-Y} = 0 \text{ vs } H_{A}:M_{X-Y} < 0$$           | ``` r                                |
+|                                              |                                                               | wilcox.test(x,                       |
+|                                              |                                                               |             y,                       |
+|                                              |                                                               |             paired=TRUE,             |
+|                                              |                                                               |             alternative="less",      |
+|                                              |                                                               |             conf.level=0.95,         |
+|                                              |                                                               |             exact=FALSE)             |
+|                                              |                                                               | ```                                  |
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+|                                              | $$H_{0}:M_{X-Y} = 0 \text{ vs } H_{A}:M_{X-Y} > 0$$           | ``` r                                |
+|                                              |                                                               | wilcox.test(x,                       |
+|                                              |                                                               |             y,                       |
+|                                              |                                                               |             paired=TRUE,             |
+|                                              |                                                               |             alternative="greater",   |
+|                                              |                                                               |             conf.level=0.95,         |
+|                                              |                                                               |             exact=FALSE)             |
+|                                              |                                                               | ```                                  |
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+| Mann-Whitney-Wilcoxon                        | $$H_{0}:M_{X}-M_{Y} = 0 \text{ vs } H_{A}:M_{X}-M_{Y} \ne 0$$ | ``` r                                |
+|                                              |                                                               | wilcox.test(x,                       |
+| Muestras Independientes de tamaños $n$ y $m$ |                                                               |             y,                       |
+|                                              |                                                               |             paired=FALSE,            |
+|                                              |                                                               |             alternative="two.sided", |
+|                                              |                                                               |             conf.level=0.95,         |
+|                                              |                                                               |             exact=FALSE)             |
+|                                              |                                                               | ```                                  |
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+|                                              | $$H_{0}:M_{X}-M_{Y} = 0 \text{ vs } H_{A}:M_{X}-M_{Y} < 0$$   | ``` r                                |
+|                                              |                                                               | wilcox.test(x,                       |
+|                                              |                                                               |             y,                       |
+|                                              |                                                               |             paired=FALSE,            |
+|                                              |                                                               |             alternative="less",      |
+|                                              |                                                               |             conf.level=0.95,         |
+|                                              |                                                               |             exact=FALSE)             |
+|                                              |                                                               | ```                                  |
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+|                                              | $$H_{0}:M_{X}-M_{Y} = 0 \text{ vs } H_{A}:M_{X}-M_{Y} > 0$$   | ``` r                                |
+|                                              |                                                               | wilcox.test(x,                       |
+|                                              |                                                               |             y,                       |
+|                                              |                                                               |             paired=FALSE,            |
+|                                              |                                                               |             alternative="greater",   |
+|                                              |                                                               |             conf.level=0.95,         |
+|                                              |                                                               |             exact=FALSE)             |
+|                                              |                                                               | ```                                  |
++----------------------------------------------+---------------------------------------------------------------+--------------------------------------+
+
+### 4.1 Ejemplo con muestras pareadas
+
+Las siguientes muestras representan el peso de 10 personas antes (x) y después (y) de una dieta.
+
+``` r
+x = (90.1, 97.7, 66.1, 65.3, 70.6, 98.4, 65.2, 88.2, 90.4, 90.8)
+y = (89.2, 96.1, 68.5, 67.4, 69.6, 98.9, 67.2, 90.1, 89.9, 91.1)
+```
+
+Primero se comprueba si tienen distribución Normal, aplicando el test de normalidad de Shapiro-Wilk (por ser una muestra pequeña).
+
+```{webr-r}
+x=c(90.1, 97.7, 66.1, 65.3, 70.6, 98.4, 65.2, 88.2, 90.4, 90.8)
+shapiro.test(x)
+y=c(89.2, 96.1, 68.5, 67.4, 69.6, 98.9, 67.2, 90.1, 89.9, 91.1)
+shapiro.test(y)
+```
+
+En ambos casos se comprueba que el p-valor es menor que 0.05, por lo que las muestras no tienen distribución Normal, por lo que no se pueden aplicar contrastes paramétricos como *z.test* o *t.test*, sino contrastes no paramétricos, como *wilcox.test*.
+
+Vamos a realizar el contraste:
+
+$$H_{0}:M_{X-Y} = 0 \text{ vs } H_{A}:M_{X-Y} < 0$$
+
+```{webr-r}
+wilcox.test(x, y, paired=TRUE, alternative="two.sided", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es menor que 0.05, no se puede rechazar $H_{0}$, por lo que se puede afirmar que las medianas son iguales, es decir no ha habido un cambio de peso significativo de las personas después de hacer la dieta.
+
+Podemos dibujar los histogramas de *x* e *y*, y sobre ellos la función de distribución Normal y una línea en la posición de la mediana en cada caso. Y también los diagramas de caja.
+
+```{webr-r}
+par(mfrow=c(2,2))
+hist(x, freq=FALSE, main="", ylab="")
+curve(dnorm(x,mean(x),sd(x)), 65, 100, add=TRUE, col="red")
+abline(v=median(x), lwd=3)
+boxplot(x, horizontal = TRUE, ylim=c(65,100))
+hist(y, freq=FALSE, main="", ylab="")
+curve(dnorm(x,mean(y),sd(y)), 65, 100, add=TRUE, col="red")
+abline(v=median(y), lwd=3)
+boxplot(y, horizontal = TRUE, ylim=c(65,100))
+```
+
+El valor de la mediana de cada muestra es el siguiente:
+
+```{webr-r}
+median(x)
+median(y)
+```
+
+Son valores muy parecidos a nivel de muestras, y según el resultado del contraste, con un 95% de confianza puede afirmarse que también san similares a nivel de población.
+
+### 4.2 Ejemplo con muestras independientes: contraste de hipótesis sobre la diferencia de medianas de las calificaciones de estudiantes del turno de mañana y del turno de tarde
+
+***ENUNCIADO***
+
+**Mediante una encuesta, se saben las calificaciones de acceso a la universidad de 42 estudiantes del turno de mañana y de 32 estudiantes del turno de tarde en un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 52 matriculados en el turno de mañana y 56 en el turno de tarde. Si se supone que las calificaciones tienen una distribución Normal, responder a las siguientes preguntas:**
+
+a.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de los alumnos de mañana es diferente a la media de notas de acceso de los alumnos de tarde?**
+
+b.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de los alumnos de mañana es mayor que la media de notas de acceso de los alumnos de tarde?**
+
+c.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de los alumnos de mañana es menor que la media de notas de acceso de los alumnos de tarde?**
+
+***SOLUCIÓN***
+
+Podemos leer los datos por turno del archivo [*encuesta.csv*](https://hilera.web.uah.es/estadistica/r/datos/encuesta.csv) ya utilizado en una práctica anterior.
+
+```{webr-r}
+encuesta=read.csv2("https://raw.githubusercontent.com/nataliamontoyagom/interactiveStatisticsWebsite/main/encuesta.csv")
+encuesta.con.turno=rbind(encuesta.mañana, encuesta.tarde)
+(nota.mañana=encuesta.con.turno[encuesta.con.turno$TURNO=="Mañana",]$NOTA)
+(nota.tarde=encuesta.con.turno[encuesta.con.turno$TURNO=="Tarde",]$NOTA)
+```
+
+Primero se comprueba si tienen distribución Normal, aplicando el test de normalidad de Shapiro-Wilk.
+
+```{webr-r}
+shapiro.test(nota.mañana)
+shapiro.test(nota.tarde)
+```
+
+En ambos casos se comprueba que el p-valor es menor que 0.05, por lo que las muestras no tienen distribución Normal, por lo que no se pueden aplicar contrastes paramétricos sino contrastes no paramétricos, en este caso el de Mann-Whitney-Wilcoxon al ser muestras independientes.
+
+a.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de los alumnos de mañana es diferente a la media de notas de acceso de los alumnos de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:M_{Mañana} = M_{Tarde} \text{ vs } H_{A}:M_{Mañana} \ne M_{Tarde}$$
+
+```{webr-r}
+wilcox.test(nota.mañana, nota.tarde, paired=FALSE, alternative="two.sided", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es menor que 0.05, se rechaza la Hipótesis $H_{0}$ y se acepta $H_{A}$, por lo que SÍ se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es diferente a la media de notas de acceso de los alumnos de tarde.
+
+b.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de los alumnos de mañana es mayor que la media de notas de acceso de los alumnos de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:M_{Mañana} = M_{Tarde} \text{ vs } H_{A}:M_{Mañana} > M_{Tarde}$$
+
+```{webr-r}
+wilcox.test(nota.mañana, nota.tarde, paired=FALSE, alternative="greater", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es menor que 0.05, se rechaza la Hipótesis $H_{0}$ y se acepta $H_{A}$, por lo que SÍ se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es mayor que la media de notas de acceso de los alumnos de tarde.
+
+c.  **¿Se puede afirmar con una confianza del 95% que la mediana de las notas de acceso de los alumnos de mañana es menor que la media de notas de acceso de los alumnos de tarde?**
+
+Se formula el contraste:
+
+$$H_{0}:M_{Mañana} = M_{Tarde} \text{ vs } H_{A}:M_{Mañana} < M_{Tarde}$$
+
+```{webr-r}
+wilcox.test(nota.mañana, nota.tarde, paired=FALSE, alternative="less", conf.level=0.95, exact=FALSE)
+```
+
+Como el p-valor es mayor que 0.05, no se puede rechazar la Hipótesis $H_{0}$ y, por tanto, se rechaza $H_{A}$, por lo que NO se puede afirmar con una confianza del 95% que la media de notas de acceso de los alumnos de mañana es menor que la media de notas de acceso de los alumnos de tarde.
+
+Para finalizar se podrían representar diagramas para hacer una comprobación visual.
+
+```{webr-r}
+L=c(5,6,7,8,9,10,11)
+hist(nota.mañana, breaks=L, ylim=c(0,30), main="Mañana", xlab="", ylab = "")
+abline(v=median(nota.mañana), lwd=3)
+boxplot(nota.mañana,horizontal = TRUE, ylim=c(5,11))
+hist(nota.tarde, breaks=L, ylim=c(0,30), main="Tarde", xlab = "", ylab = "")
+abline(v=median(nota.tarde), lwd=3)
+boxplot(nota.tarde,horizontal = TRUE, ylim=c(5,11))
+```
+
+## 5. Ejercicio propuesto
+
+1.  Mediante una encuesta, se sabe el tiempo en minutos del viaje a la Escuela Politécnica de 74 estudiantes de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 108 matriculados. Responder a las siguiente pregunta:
+    a.  ¿Se puede afirmar con una confianza del 95% que la mediana del tiempo de viaje de toda la población es inferior a 70 minutos?
+
+        ```{webr-r}
+
+        ```
