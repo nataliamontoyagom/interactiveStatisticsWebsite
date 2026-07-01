@@ -31,9 +31,6 @@ website:
           - text: Práctica 9
             href: practica9.qmd
         
-      - text: Sobre mí
-        href: about.qmd
-        
     tools:
       - icon: github
         href: https://github.com/nataliamontoyagom/interactiveStatisticsWebsite
