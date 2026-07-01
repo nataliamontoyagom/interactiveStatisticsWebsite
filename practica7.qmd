@@ -467,7 +467,19 @@ Como el 0 está incluido en el intervalo \[-0.2886515, 0.1368658\], se puede afi
 
 1.  Mediante una encuesta, se sabe el tiempo en minutos del viaje a la Escuela Politécnica de 42 estudiantes del turno de mañana y de 32 estudiantes del turno de tarde de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 52 matriculados en el turno de mañana y 56 en el turno de tarde. Si se supone que las calificaciones tienen una distribución Normal, responder a la siguiente pregunta:
     a.  Calcular el intervalo de confianza para la diferencia de medias poblacionales del tiempo del viaje a la Escuela de los turnos de mañana y tarde con nivel de confianza del 95%. ¿Existe una diferencia significativa entre las medias de las dos poblaciones?
+
+        ```{webr-r}
+
+        ```
 2.  Mediante la encuesta se sabe el tiempo en minutos del viaje de ida a la Escuela Politécnica de 74 estudiantes de una población de 108 matriculados. Se ha averiguado que el viaje de regreso dura un 10% menos que el de ida. Si se supone que el tiempo del viaje, tanto de ida como de vuelta, tiene una distribución Normal, responder a la siguiente pregunta:
     a.  Calcular el intervalo de confianza para la diferencia de medias poblacionales del tiempo de viaje de ida y del tiempo de viaje de vuelta de los estudiantes, con nivel de confianza del 95%. ¿Existe una diferencia significativa entre las medias de las dos poblaciones?
+
+        ```{webr-r}
+
+        ```
 3.  Mediante la encuesta se sabe que en una muestra de 42 estudiantes del turno de mañana, 13 tienen una línea telefónica contratada con las compañías Jazzte/Orange/Simyo, y que en una muestra de 32 estudiantes del turno de tarde, 13 tienen también una línea telefónica contratada con las compañías Jazzte/Orange/Simyo. La población es de 52 matriculados por la mañana y 56 por la tarde. Responder a las siguientes preguntas:
     a.  Calcular el intervalo de confianza para la diferencia de las proporciones poblacionales de estudiantes que tienen una línea telefónica contratada con las compañías Jazzte/Orange/Simyo en los turnos de mañana y tarde, con un nivel de confianza del 95%. ¿Existe una diferencia significativa entre las proporciones de las dos poblaciones?
+
+        ```{webr-r}
+
+        ```

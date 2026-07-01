@@ -520,9 +520,23 @@ ceiling(108*Ls95)
 
 1.  Mediante una encuesta, se sabe el tiempo en minutos del viaje a la Escuela Politécnica de 74 estudiantes de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá, de una población de 108 matriculados. Si se supone que tiene una distribución Normal, responder a las siguientes preguntas:
     a.  Calcular los intervalos de confianza para la media poblacional con niveles de confianza del 90%, 95% y 99%, aplicando las fórmulas.
+
     b.  Dibujar una gráfica con los tres intervalos de confianza para compararlos visualmente.
+
+        ```{webr-r}
+
+        ```
 2.  En caso del ejercicio anterior, considerar sólo como muestra los tiempos de viaje de los 19 estudiantes del grupo A2 y responder a las siguientes preguntas:
     a.  Calcular el intervalo de confianza para la media poblacional con nivel de confianza del 95% aplicando las fórmulas.
+
+        ```{webr-r}
+
+        ```
 3.  Mediante una encuesta, se sabe que 26 estudiantes de una muestra de 74 de un curso de la asignatura Estadística del Grado en Ingeniería en Sistemas de Información de la Universidad de Alcalá tienen una línea telefónica contratada con las compañías Jazzte/Orange/Simyo. La población es de 108 estudiantes matriculados. Responder a las siguientes preguntas:
     a.  Calcular los intervalos de confianza para la proporción poblacional de estudiantes que tienen una línea telefónica contratada con las compañías Jazzte/Orange/Simyo con un nivel de confianza del 90%, 95% y 99%. NOTA: Utilizar las fórmulas.
+
     b.  Estimar el mínimo y máximo número de estudiantes de la población que tienen una línea telefónica contratada con las compañías Jazzte/Orange/Simyo móvil con una confianza del 95%.
+
+        ```{webr-r}
+
+        ```
